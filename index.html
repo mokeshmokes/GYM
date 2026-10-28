@@ -5169,11 +5169,8 @@
 
               await fetch(activeWebhook, {
                 method: "POST",
-                mode: "no-cors", // Essential for Google Apps Script redirects
-                headers: {
-                  "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: urlParams.toString()
+                mode: "no-cors",
+                body: urlParams
               });
               cloudSyncSuccess = true;
             } catch (err) {
