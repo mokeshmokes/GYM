@@ -4503,10 +4503,10 @@
       // Spreadsheet ID: 1Nj1lwFkmBaIgQUjvQ6Pg8cXTH-BVxt7CM7axShckPSc
       // You can either paste your Apps Script Web App URL below or use the "Save Webhook" button in the Admin Vault modal!
       const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1Nj1lwFkmBaIgQUjvQ6Pg8cXTH-BVxt7CM7axShckPSc/edit?usp=drivesdk";
-      const GOOGLE_SHEET_URL = ""; 
+      const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbzIRGNoa3i0jG2cyRonkaRgXlIsMatiIhtf0cWLsYr3SH9s9Y7Je8I18DPyH-eDR5KH/exec"; 
 
       const getActiveWebhookUrl = () => {
-        return localStorage.getItem('vst_sheet_webhook') || GOOGLE_SHEET_URL || "";
+        return localStorage.getItem('vst_sheet_webhook') || GOOGLE_SHEET_URL;
       }; 
 
       // ----------------------------------------------------------------------
@@ -5157,20 +5157,23 @@
           let cloudSyncSuccess = false;
           if (activeWebhook && activeWebhook.startsWith('http')) {
             try {
-              // Post to Google Apps Script Web App
-              const formData = new FormData();
-              formData.append("timestamp", leadData.timestamp);
-              formData.append("name", leadData.name);
-              formData.append("phone", leadData.phone);
-              formData.append("email", leadData.email);
-              formData.append("plan", leadData.plan);
-              formData.append("message", leadData.message);
-              formData.append("source", leadData.source);
+              // Post to Google Apps Script Web App using URLSearchParams
+              const urlParams = new URLSearchParams();
+              urlParams.append("timestamp", leadData.timestamp);
+              urlParams.append("name", leadData.name);
+              urlParams.append("phone", leadData.phone);
+              urlParams.append("email", leadData.email);
+              urlParams.append("plan", leadData.plan);
+              urlParams.append("message", leadData.message);
+              urlParams.append("source", leadData.source);
 
               await fetch(activeWebhook, {
                 method: "POST",
                 mode: "no-cors", // Essential for Google Apps Script redirects
-                body: formData
+                headers: {
+                  "Content-Type": "application/x-www-form-urlencoded"
+                },
+                body: urlParams.toString()
               });
               cloudSyncSuccess = true;
             } catch (err) {
