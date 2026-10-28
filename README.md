@@ -13,6 +13,7 @@ A complete, professional, fully responsive single-page website for **"VST FITNES
 * **Brand Name**: VST FITNESS WORLD
 * **Address**: No 1, Varadharajapuram Main Rd, Pallikaranai, Chennai, Tamil Nadu 600100
 * **Phone / WhatsApp**: [07550155331](tel:07550155331) / [+91 75501 55331](tel:+917550155331)
+* **Instagram**: [@vst_fitnesss](https://www.instagram.com/vst_fitnesss?utm_source=qr&srtk=amE1YXM2OHFpNWV5)
 * **Google Maps Location**: [https://maps.app.goo.gl/Q5ZSLnqBKGmiz6nC9](https://maps.app.goo.gl/Q5ZSLnqBKGmiz6nC9)
 
 ---
