@@ -1,10 +1,23 @@
 # VST FITNESS WORLD — Luxury Strength & Championship Fitness Sanctuary
 
+<p align="center">
+  <img src="VST_Fitness_World_Logo_Transparent.png" alt="VST Fitness World Logo" width="180">
+</p>
+
 A complete, professional, fully responsive single-page website for **"VST FITNESS WORLD"** designed with a luxury black-and-gold aesthetic, seamless animations, and direct Google Sheets lead capture integration.
 
 ---
 
-## 🌟 Live Demo & Preview
+## 📍 Official Company Information
+
+* **Brand Name**: VST FITNESS WORLD
+* **Address**: No 1, Varadharajapuram Main Rd, Pallikaranai, Chennai, Tamil Nadu 600100
+* **Phone / WhatsApp**: [07550155331](tel:07550155331) / [+91 75501 55331](tel:+917550155331)
+* **Google Maps Location**: [https://maps.app.goo.gl/Q5ZSLnqBKGmiz6nC9](https://maps.app.goo.gl/Q5ZSLnqBKGmiz6nC9)
+
+---
+
+## 🌟 Visual Theme & Tech Stack
 
 * **Theme**: Premium Black & Gold (`#0a0a0a`, `#111111`, `#D4AF37`, `#F5D76E`)
 * **Typography**: Google Fonts (*Oswald* & *Bebas Neue* for headings, *Poppins* & *Inter* for body copy)
@@ -15,7 +28,7 @@ A complete, professional, fully responsive single-page website for **"VST FITNES
 
 ## 📋 Sections Included
 
-1. **Sticky Navigation**: Transparent-to-dark on scroll, gold monogram logo, active link tracking, desktop CTA, and smooth mobile slide-in drawer.
+1. **Sticky Navigation**: Transparent-to-dark on scroll, official 3D embossed gold logo, active link tracking, desktop CTA, and smooth mobile slide-in drawer.
 2. **Hero Section**: Full-screen cinematic gym background with subtle parallax, gold crown badge, dynamic typing text animation, and dual action buttons.
 3. **Live Stats Counter**: Animated count-up numbers triggered via `IntersectionObserver` (1,500+ Members, 25+ Master Trainers, 150+ Modern Machines, 12+ Years).
 4. **About Us**: Split layout with luxury training floor photography, floating experience badge, and 3 key pillars.
@@ -26,9 +39,9 @@ A complete, professional, fully responsive single-page website for **"VST FITNES
 9. **Membership Pricing**: 3 plans (Starter Monthly, Quarterly Pro Athlete highlighted as **Most Popular**, Yearly VIP Elite).
 10. **Transformations & Gallery**: Filterable photo gallery with hover zoom and full-screen Lightbox Modal (Keyboard navigation, next/prev, close).
 11. **Testimonials**: Auto-sliding carousel with star ratings and pause on hover.
-12. **Contact & Lead Capture**: Split layout with address, timings, direct phone/email, embedded Google Map, and validated form.
-13. **Footer**: Brand statement, quick links, opening hours table, newsletter form, and copyright notice.
-14. **Floating Actions**: WhatsApp chat button with tooltip and Back-to-Top smooth scroll button.
+12. **Contact & Lead Capture**: Official address in Pallikaranai, Chennai, direct phone 07550155331, Google Map embed with direct directions link, and validated form.
+13. **Footer**: Official emblem, address, phone, quick links, opening hours table, newsletter form, and copyright notice.
+14. **Floating Actions**: WhatsApp chat button (connected to `07550155331`) and Back-to-Top smooth scroll button.
 
 ---
 
