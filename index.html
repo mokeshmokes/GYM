@@ -4308,6 +4308,38 @@
         <button class="leads-modal-close" id="leads-modal-close" aria-label="Close Leads Modal">&times;</button>
       </div>
 
+      <!-- Connected Google Spreadsheet Banner & Webhook URL Config -->
+      <div style="background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 8px; padding: 14px 18px; margin: 0 1.5rem 1rem 1.5rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 10px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <i class="fa-solid fa-table-cells" style="color: #0F9D58; font-size: 1.3rem;"></i>
+            <div>
+              <div style="font-size: 0.9rem; font-weight: 700; color: #fff;">Connected Google Spreadsheet:</div>
+              <div style="font-size: 0.78rem; color: var(--gold-light);">VST FITNESS WORLD (ID: <code>1Nj1lwFkmBaIgQUjvQ6Pg8cXTH-BVxt7CM7axShckPSc</code>)</div>
+            </div>
+          </div>
+          <a href="https://docs.google.com/spreadsheets/d/1Nj1lwFkmBaIgQUjvQ6Pg8cXTH-BVxt7CM7axShckPSc/edit?usp=drivesdk" 
+             target="_blank" 
+             rel="noopener noreferrer" 
+             class="btn btn-sm btn-gold" 
+             style="padding: 7px 14px; font-size: 0.82rem; background: linear-gradient(135deg, #0F9D58, #0B8043); border: none; color: #fff; box-shadow: 0 3px 12px rgba(15, 157, 88, 0.3);">
+            <i class="fa-solid fa-arrow-up-right-from-square"></i> Open Google Sheet
+          </a>
+        </div>
+        <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+          <input type="url" 
+                 id="sheet-webhook-input" 
+                 placeholder="Paste your Google Apps Script Web App URL here (https://script.google.com/macros/s/.../exec)" 
+                 style="flex: 1; min-width: 250px; background: rgba(0,0,0,0.6); border: 1px solid rgba(212, 175, 55, 0.35); border-radius: 6px; padding: 8px 12px; color: #fff; font-size: 0.82rem;">
+          <button type="button" id="save-webhook-btn" class="btn btn-gold btn-sm" style="padding: 8px 16px; font-size: 0.82rem; white-space: nowrap;">
+            <i class="fa-solid fa-floppy-disk"></i> Save Webhook
+          </button>
+        </div>
+        <div id="webhook-saved-msg" style="display: none; color: #25D366; font-size: 0.8rem; margin-top: 6px; font-weight: 600;">
+          <i class="fa-solid fa-circle-check"></i> Webhook connected! Leads will automatically post to your Google Spreadsheet.
+        </div>
+      </div>
+
       <div class="leads-modal-actions">
         <button class="btn btn-gold btn-sm" id="export-csv-btn"><i class="fa-solid fa-download"></i> Export to Excel / CSV</button>
         <button class="btn btn-outline btn-sm" id="clear-leads-btn"><i class="fa-solid fa-trash-can"></i> Clear Demo Leads</button>
@@ -4336,7 +4368,7 @@
 
       <div class="leads-modal-footer">
         <i class="fa-solid fa-circle-info" style="color: var(--gold-light);"></i> 
-        <strong>Google Sheets Sync:</strong> Edit <code>GOOGLE_SHEET_URL</code> in <code>index.html</code> with your Apps Script Web App URL. Every inquiry is automatically stored locally and posted to your Google Sheet simultaneously.
+        <strong>Live Google Spreadsheet:</strong> Submissions are linked to <a href="https://docs.google.com/spreadsheets/d/1Nj1lwFkmBaIgQUjvQ6Pg8cXTH-BVxt7CM7axShckPSc/edit?usp=drivesdk" target="_blank" rel="noopener noreferrer" style="color: var(--gold-light); text-decoration: underline;">VST FITNESS WORLD Sheet</a>. Every inquiry is simultaneously backed up to local vault and dispatched to Google Cloud.
       </div>
     </div>
   </div>
@@ -4471,8 +4503,15 @@
       // ==========================================================================
       // GOOGLE SHEETS & CLOUD WEBHOOK CONFIGURATION
       // ==========================================================================
-      // Replace with your Google Apps Script Web App URL from GOOGLE_SHEET_SETUP.md:
+      // Target Spreadsheet: https://docs.google.com/spreadsheets/d/1Nj1lwFkmBaIgQUjvQ6Pg8cXTH-BVxt7CM7axShckPSc/edit?usp=drivesdk
+      // Spreadsheet ID: 1Nj1lwFkmBaIgQUjvQ6Pg8cXTH-BVxt7CM7axShckPSc
+      // You can either paste your Apps Script Web App URL below or use the "Save Webhook" button in the Admin Vault modal!
+      const GOOGLE_SPREADSHEET_LINK = "https://docs.google.com/spreadsheets/d/1Nj1lwFkmBaIgQUjvQ6Pg8cXTH-BVxt7CM7axShckPSc/edit?usp=drivesdk";
       const GOOGLE_SHEET_URL = ""; 
+
+      const getActiveWebhookUrl = () => {
+        return localStorage.getItem('vst_sheet_webhook') || GOOGLE_SHEET_URL || "";
+      }; 
 
       // ----------------------------------------------------------------------
       // 1. PAGE LOADER
@@ -4968,9 +5007,36 @@
       const leadsModalClose = document.getElementById('leads-modal-close');
       const exportCsvBtn = document.getElementById('export-csv-btn');
       const clearLeadsBtn = document.getElementById('clear-leads-btn');
+      const webhookInput = document.getElementById('sheet-webhook-input');
+      const saveWebhookBtn = document.getElementById('save-webhook-btn');
+      const webhookSavedMsg = document.getElementById('webhook-saved-msg');
+
+      const refreshWebhookInput = () => {
+        if (webhookInput) {
+          webhookInput.value = getActiveWebhookUrl();
+        }
+      };
+      refreshWebhookInput();
+
+      if (saveWebhookBtn && webhookInput) {
+        saveWebhookBtn.addEventListener('click', () => {
+          const val = webhookInput.value.trim();
+          if (val) {
+            localStorage.setItem('vst_sheet_webhook', val);
+            if (webhookSavedMsg) {
+              webhookSavedMsg.style.display = 'block';
+              setTimeout(() => { webhookSavedMsg.style.display = 'none'; }, 4500);
+            }
+          } else {
+            localStorage.removeItem('vst_sheet_webhook');
+            alert("Webhook URL cleared. Leads will continue to be safely stored in the Local Vault.");
+          }
+        });
+      }
 
       if (viewLeadsBtn && leadsModal) {
         viewLeadsBtn.addEventListener('click', () => {
+          refreshWebhookInput();
           renderLeadsTable();
           leadsModal.classList.add('active');
           document.body.style.overflow = 'hidden';
@@ -5091,8 +5157,9 @@
           saveLeadToVault(leadData);
 
           // 2. Transmit to Google Spreadsheet via Webhook (if URL configured)
+          const activeWebhook = getActiveWebhookUrl();
           let cloudSyncSuccess = false;
-          if (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL.startsWith('http')) {
+          if (activeWebhook && activeWebhook.startsWith('http')) {
             try {
               // Post to Google Apps Script Web App
               const formData = new FormData();
@@ -5104,7 +5171,7 @@
               formData.append("message", leadData.message);
               formData.append("source", leadData.source);
 
-              await fetch(GOOGLE_SHEET_URL, {
+              await fetch(activeWebhook, {
                 method: "POST",
                 mode: "no-cors", // Essential for Google Apps Script redirects
                 body: formData
@@ -5121,7 +5188,7 @@
             submitBtn.disabled = false;
 
             if (leadSyncStatusText) {
-              if (cloudSyncSuccess || (GOOGLE_SHEET_URL && GOOGLE_SHEET_URL.startsWith('http'))) {
+              if (cloudSyncSuccess || (activeWebhook && activeWebhook.startsWith('http'))) {
                 leadSyncStatusText.innerHTML = '<i class="fa-solid fa-cloud-arrow-up" style="color: #25D366;"></i> Stored to Google Spreadsheet & Local Vault';
               } else {
                 leadSyncStatusText.innerHTML = '<i class="fa-solid fa-database" style="color: var(--gold-light);"></i> Stored in Local Leads Database (Ready for Google Sheet Webhook)';

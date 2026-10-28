@@ -49,9 +49,10 @@ A complete, professional, fully responsive single-page website for **"VST FITNES
 ## 📊 Google Sheets Lead Storage
 
 Every contact form inquiry is saved automatically:
+* **Target Google Sheet**: [VST FITNESS WORLD Leads Spreadsheet](https://docs.google.com/spreadsheets/d/1Nj1lwFkmBaIgQUjvQ6Pg8cXTH-BVxt7CM7axShckPSc/edit?usp=drivesdk) (ID: `1Nj1lwFkmBaIgQUjvQ6Pg8cXTH-BVxt7CM7axShckPSc`)
 * **Google Spreadsheet Integration**: Sends form submissions directly to a Google Apps Script Web App webhook.
 * **Zero Lead Loss Vault**: All leads are automatically stored in browser storage (`localStorage`) as a failsafe.
-* **Admin Demo Modal**: Click *"View Stored Leads Database (Admin / Demo)"* under the form to view all leads in real time.
+* **Admin Demo Modal**: Click *"View Stored Leads Database (Admin / Demo)"* under the form to view all leads in real time and manage Webhook URLs.
 * **CSV / Excel Export**: Download captured leads directly to an `.xlsx` / `.csv` file.
 
 Detailed setup instructions and Google Apps Script code are provided in [`GOOGLE_SHEET_SETUP.md`](GOOGLE_SHEET_SETUP.md).
