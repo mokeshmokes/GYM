@@ -1,12 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import { Quote, Star, MessageSquareQuote, CheckCircle2, Pause, Play, Sparkles } from 'lucide-react';
+import { Quote, Star, MessageSquareQuote, CheckCircle2, Sparkles } from 'lucide-react';
 import { TESTIMONIALS_LIST } from '@/data/gymData';
 
 export default function Testimonials() {
-  const [isPaused, setIsPaused] = useState(false);
   const marqueeList = [...TESTIMONIALS_LIST, ...TESTIMONIALS_LIST];
 
   return (
@@ -50,22 +49,13 @@ export default function Testimonials() {
       </div>
 
       {/* Full-width Infinite Smooth Glide Showcase */}
-      <div
-        className="relative w-full overflow-hidden"
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
+      <div className="relative w-full overflow-hidden">
         {/* Left & Right Edge Vignette Fades */}
         <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-12 sm:w-28 lg:w-40 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent z-20" />
         <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-12 sm:w-28 lg:w-40 bg-gradient-to-l from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent z-20" />
 
         {/* Continuous Gliding Track Moving from One End to Another */}
-        <div
-          className="animate-marquee-smooth flex items-stretch gap-5 sm:gap-6 py-4 px-4"
-          style={{
-            animationPlayState: isPaused ? 'paused' : 'running',
-          }}
-        >
+        <div className="animate-marquee-smooth flex items-stretch gap-5 sm:gap-6 py-4 px-4">
           {marqueeList.map((item, index) => (
             <div
               key={`${item.id}-${index}`}
@@ -121,27 +111,6 @@ export default function Testimonials() {
             </div>
           ))}
         </div>
-      </div>
-
-      {/* Interactive Controls Pill */}
-      <div className="flex items-center justify-center gap-4 mt-6 sm:mt-8">
-        <button
-          onClick={() => setIsPaused(!isPaused)}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-gold-400 hover:border-gold-500/40 text-xs font-semibold tracking-wide transition-all shadow-md"
-          aria-label={isPaused ? 'Resume scrolling reviews' : 'Pause scrolling reviews'}
-        >
-          {isPaused ? (
-            <>
-              <Play className="w-3.5 h-3.5 text-gold-400" />
-              <span>Resume Auto Glide</span>
-            </>
-          ) : (
-            <>
-              <Pause className="w-3.5 h-3.5 text-gold-400" />
-              <span>Hover or Tap to Pause</span>
-            </>
-          )}
-        </button>
       </div>
     </section>
   );
