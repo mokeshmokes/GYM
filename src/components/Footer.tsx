@@ -38,7 +38,7 @@ export default function Footer({ onOpenLeadsModal }: FooterProps) {
     <footer className="relative bg-[#070707] border-t border-neutral-900 pt-16 pb-12 overflow-hidden">
       <div className="ambient-glow bottom-0 left-[20%] opacity-15" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-12 pb-16 border-b border-neutral-800">
           {/* Brand Info (col-span-4) */}
           <div className="lg:col-span-4 space-y-5">

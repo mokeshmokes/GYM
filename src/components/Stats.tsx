@@ -57,7 +57,7 @@ export default function Stats() {
 
   return (
     <section id="stats" ref={sectionRef} className="relative py-12 bg-[#0c0c0c] border-y border-neutral-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {STATS.map((stat, idx) => (
             <div

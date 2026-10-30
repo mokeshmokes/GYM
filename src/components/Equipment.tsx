@@ -10,7 +10,7 @@ export default function Equipment() {
     <section id="equipment" className="relative py-20 lg:py-28 bg-[#0c0c0c] border-t border-neutral-900">
       <div className="ambient-glow bottom-[5%] right-[-100px] opacity-25" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/30 mb-4">

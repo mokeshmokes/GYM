@@ -17,7 +17,7 @@ export default function About() {
     <section id="about" className="relative py-20 lg:py-28 overflow-hidden bg-[#0a0a0a]">
       <div className="ambient-glow top-[30%] left-[-150px] opacity-30" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Image with Experience Badge */}
           <div className="lg:col-span-5 relative">

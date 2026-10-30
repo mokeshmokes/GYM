@@ -56,7 +56,7 @@ export default function Hero() {
       <div className="ambient-glow bottom-[10%] right-[-120px] opacity-35" />
 
       {/* Hero 2-Column Responsive Container */}
-      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10">
+      <div className="relative z-10 w-full max-w-[1560px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-8 xl:gap-14 items-center">
           
           {/* Left Column: Hero Typography & Actions */}
