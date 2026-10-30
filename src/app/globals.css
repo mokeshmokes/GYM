@@ -128,6 +128,19 @@ body {
 }
 
 /* Keyframe Animations */
+@keyframes float-air {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-12px) rotate(0.6deg);
+  }
+}
+
+.animate-float-air {
+  animation: float-air 4.8s ease-in-out infinite;
+}
+
 @keyframes float-gentle {
   0%, 100% {
     transform: translateY(0px);
