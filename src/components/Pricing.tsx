@@ -1,8 +1,7 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
-import { Gem, Crown, Check, X, ArrowRight, Sparkles, ExternalLink } from 'lucide-react';
+import { Gem, Crown, Check, X, ArrowRight } from 'lucide-react';
 import { PricingPlan } from '@/types';
 import { PRICING_PLANS } from '@/data/gymData';
 
@@ -44,20 +43,6 @@ export default function Pricing({ onSelectPlan, packages = PRICING_PLANS }: Pric
           <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
             Invest in your longevity, physical presence, and championship mindset with our flexible luxury plans.
           </p>
-
-          {/* Quick Studio Admin Action */}
-          <div className="mt-4 flex items-center justify-center gap-3">
-            <Link
-              href="/studio"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-neutral-900/90 border border-gold-500/30 text-[11px] text-gold-300 hover:text-gold-200 hover:border-gold-500/60 transition-colors"
-            >
-              <Sparkles className="w-3 h-3 text-gold-400" />
-              <span>Add or Edit Packages in Sanity Studio</span>
-              <ExternalLink className="w-2.5 h-2.5 opacity-70" />
-            </Link>
-          </div>
 
           <div className="w-20 h-1 bg-gradient-to-r from-transparent via-gold-400 to-transparent mx-auto mt-6" />
         </div>

@@ -65,3 +65,4 @@ export async function getPackages(): Promise<PricingPlan[]> {
     return PRICING_PLANS;
   }
 }
+

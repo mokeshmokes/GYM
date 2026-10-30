@@ -3,11 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Menu, X, Crown, Phone, ShieldCheck, Sparkles, ExternalLink } from 'lucide-react';
+import { Menu, X, Crown, Phone } from 'lucide-react';
 import { GYM_INFO } from '@/data/gymData';
 
 interface NavbarProps {
-  onOpenLeadsModal: () => void;
+  onOpenLeadsModal?: () => void;
 }
 
 export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
@@ -71,12 +71,12 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
             ? 'bg-[#0a0a0a]/95 backdrop-blur-md border-b border-gold-500/20 py-2.5 sm:py-3 shadow-2xl shadow-black/80'
-            : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-4 sm:py-5'
+            : 'bg-gradient-to-b from-black/85 via-black/45 to-transparent py-3.5 sm:py-5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 flex items-center justify-between gap-3 lg:gap-6">
           {/* Brand Logo */}
-          <Link href="#home" className="flex items-center gap-2 sm:gap-3 group flex-shrink-0">
+          <Link href="#home" className="flex items-center gap-2.5 sm:gap-3 group flex-shrink-0">
             <div className="relative w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
               <Image
                 src="/VST_Fitness_World_Logo_Transparent.png"
@@ -97,8 +97,8 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
             </div>
           </Link>
 
-          {/* Desktop Nav Links (Visible on xl screens and above to avoid crowded wrapping) */}
-          <nav className="hidden xl:flex items-center gap-3.5 2xl:gap-6 flex-shrink">
+          {/* Desktop Nav Links (Visible on xl screens and above) */}
+          <nav className="hidden xl:flex items-center gap-3.5 2xl:gap-6 flex-shrink-0">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.replace('#', '');
               return (
@@ -121,57 +121,33 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
           </nav>
 
           {/* Right Action Bar */}
-          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            {/* Phone link (shown on 2xl screens to avoid crowding) */}
+          <div className="flex items-center gap-2.5 sm:gap-3 flex-shrink-0">
+            {/* Phone link (shown on large screens) */}
             <a
               href={`tel:${GYM_INFO.phoneRaw}`}
-              className="hidden 2xl:flex items-center gap-2 text-xs font-semibold tracking-wider text-neutral-300 hover:text-gold-400 transition-colors px-3 py-1.5 rounded-full border border-neutral-800 hover:border-gold-500/40"
+              className="hidden lg:flex items-center gap-2 text-xs font-semibold tracking-wider text-neutral-300 hover:text-gold-400 transition-colors px-3.5 py-2 rounded-full border border-neutral-800 hover:border-gold-500/40"
               title="Call Reception"
             >
               <Phone className="w-3.5 h-3.5 text-gold-400" />
               <span>{GYM_INFO.phoneDisplay}</span>
             </a>
 
-            {/* Admin Leads Vault Modal Trigger */}
-            <button
-              onClick={onOpenLeadsModal}
-              className="text-neutral-400 hover:text-gold-400 transition-colors p-2 text-xs flex items-center gap-1 rounded border border-neutral-800/80 hover:border-gold-500/30"
-              title="Admin / Staff Lead Vault"
-              aria-label="Open Leads Vault"
-            >
-              <ShieldCheck className="w-4 h-4 text-gold-400" />
-              <span className="hidden md:inline text-[11px] font-medium text-neutral-300">Vault</span>
-            </button>
-
-            {/* Sanity Studio Direct Admin Link */}
-            <Link
-              href="/studio"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden lg:flex items-center gap-1 text-[11px] font-medium text-neutral-400 hover:text-gold-400 transition-colors px-2.5 py-1.5 rounded border border-neutral-800/80 hover:border-gold-500/30"
-              title="Sanity Packages CMS Studio"
-            >
-              <Sparkles className="w-3 h-3 text-gold-400" />
-              <span>Studio</span>
-              <ExternalLink className="w-2.5 h-2.5 opacity-60" />
-            </Link>
-
             {/* Book VIP Pass CTA button */}
             <Link
               href="#contact"
-              className="btn-gold px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-wider flex items-center gap-1.5 sm:gap-2 shadow-lg shadow-gold-500/20"
+              className="btn-gold px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-gold-500/25 transition-all hover:scale-[1.02]"
             >
-              <Crown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-neutral-950 flex-shrink-0" />
+              <Crown className="w-4 h-4 text-neutral-950 flex-shrink-0" />
               <span className="whitespace-nowrap">Book VIP Pass</span>
             </Link>
 
-            {/* Mobile / Tablet Menu Button (Visible on screens smaller than xl) */}
+            {/* Mobile / Tablet Menu Button (Visible on screens below xl) */}
             <button
               onClick={() => setMobileMenuOpen(true)}
               className="flex xl:hidden text-neutral-200 hover:text-gold-400 p-2 rounded-lg bg-neutral-900/80 border border-neutral-800 hover:border-gold-500/40 focus:outline-none transition-colors"
               aria-label="Open navigation menu"
             >
-              <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
+              <Menu className="w-6 h-6" />
             </button>
           </div>
         </div>
@@ -246,31 +222,19 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
         </div>
 
         {/* Drawer Footer Actions */}
-        <div className="pt-5 border-t border-neutral-800 flex flex-col gap-2.5">
+        <div className="pt-5 border-t border-neutral-800 flex flex-col gap-3">
           <Link
             href="#contact"
             onClick={() => setMobileMenuOpen(false)}
-            className="btn-gold w-full py-3 rounded-full text-center text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+            className="btn-gold w-full py-3 rounded-full text-center text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-gold-500/20"
           >
             <Crown className="w-4 h-4 text-neutral-950" />
             <span>Book VIP Pass</span>
           </Link>
 
-          <Link
-            href="/studio"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setMobileMenuOpen(false)}
-            className="w-full py-2.5 px-3 rounded-xl border border-gold-500/30 bg-gold-500/10 text-gold-300 hover:bg-gold-500/20 text-center text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
-          >
-            <Sparkles className="w-3.5 h-3.5 text-gold-400" />
-            <span>Sanity Packages Studio</span>
-            <ExternalLink className="w-3 h-3" />
-          </Link>
-
           <a
             href={`tel:${GYM_INFO.phoneRaw}`}
-            className="text-center text-xs text-neutral-300 hover:text-gold-400 py-2 border border-neutral-800 rounded-full transition-colors flex items-center justify-center gap-2"
+            className="text-center text-xs text-neutral-300 hover:text-gold-400 py-2.5 border border-neutral-800 rounded-full transition-colors flex items-center justify-center gap-2"
           >
             <Phone className="w-3.5 h-3.5 text-gold-400" />
             <span>Call: {GYM_INFO.phoneDisplay}</span>
