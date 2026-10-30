@@ -132,13 +132,13 @@ export default function Footer({ onOpenLeadsModal }: FooterProps) {
               {[
                 { label: 'Home', href: '#home' },
                 { label: 'About Us', href: '#about' },
+                { label: 'Gallery & Results', href: '#gallery' },
                 { label: 'Gym Equipment', href: '#equipment' },
                 { label: 'Why Choose Us', href: '#features' },
                 { label: 'Training Programs', href: '#programs' },
                 { label: 'Master Coaches', href: '#trainers' },
-                { label: 'Membership Plans', href: '#pricing' },
                 { label: 'Member Reviews', href: '#reviews' },
-                { label: 'Gallery & Results', href: '#gallery' },
+                { label: 'Membership Plans', href: '#pricing' },
                 { label: 'Contact Concierge', href: '#contact' },
               ].map((item) => (
                 <li key={item.label}>

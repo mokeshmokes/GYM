@@ -37,7 +37,7 @@ export default function Gallery() {
   ] as const;
 
   return (
-    <section id="gallery" className="relative py-20 lg:py-28 bg-[#0a0a0a]">
+    <section id="gallery" className="relative py-20 lg:py-28 bg-[#0c0c0c] border-t border-neutral-900 scroll-mt-16">
       <div className="ambient-glow top-[20%] left-[5%] opacity-20" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

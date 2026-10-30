@@ -32,7 +32,7 @@ export default function Testimonials() {
   const current = TESTIMONIALS_LIST[currentSlide];
 
   return (
-    <section id="reviews" className="relative py-16 sm:py-20 lg:py-28 bg-[#0c0c0c] border-t border-neutral-900 scroll-mt-20">
+    <section id="reviews" className="relative py-16 sm:py-20 lg:py-28 bg-[#0a0a0a] border-t border-neutral-900 scroll-mt-20">
       {/* Anchor for backward compatibility with #testimonials */}
       <div id="testimonials" className="sr-only" />
 

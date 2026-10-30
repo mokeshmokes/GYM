@@ -37,13 +37,13 @@ export default function Home() {
         <Hero />
         <Stats />
         <About />
+        <Gallery />
         <Equipment />
         <Features />
         <Programs onSelectProgram={handleSelectProgramOrPlan} />
         <Trainers />
-        <Pricing packages={packages} onSelectPlan={handleSelectProgramOrPlan} />
-        <Gallery />
         <Testimonials />
+        <Pricing packages={packages} onSelectPlan={handleSelectProgramOrPlan} />
         <Contact
           packages={packages}
           selectedPlan={selectedPlan}

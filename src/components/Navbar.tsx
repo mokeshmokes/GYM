@@ -27,13 +27,13 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
       const sections = [
         'home',
         'about',
+        'gallery',
         'equipment',
         'features',
         'programs',
         'trainers',
-        'pricing',
         'reviews',
-        'gallery',
+        'pricing',
         'contact',
       ];
       for (const sectionId of sections) {
@@ -55,13 +55,13 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
+    { name: 'Gallery', href: '#gallery' },
     { name: 'Equipment', href: '#equipment' },
     { name: 'Features', href: '#features' },
     { name: 'Programs', href: '#programs' },
     { name: 'Trainers', href: '#trainers' },
-    { name: 'Pricing', href: '#pricing' },
     { name: 'Reviews', href: '#reviews' },
-    { name: 'Gallery', href: '#gallery' },
+    { name: 'Pricing', href: '#pricing' },
     { name: 'Contact', href: '#contact' },
   ];
 
