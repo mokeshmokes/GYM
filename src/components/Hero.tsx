@@ -79,12 +79,12 @@ export default function Hero() {
 
             {/* Dynamic Typing Subtitle */}
             <div className="min-h-[56px] sm:min-h-[48px] flex items-center mb-5">
-              <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-2xl text-neutral-300 font-light leading-snug">
+              <p className="font-oswald text-lg sm:text-xl md:text-2xl lg:text-2xl text-neutral-200 font-normal tracking-wide leading-snug">
                 Where Chennai’s elite train with{' '}
-                <span className="font-semibold text-gold-400 border-b-2 border-gold-400/80 pb-0.5">
+                <span className="font-bold text-gold-400 border-b-2 border-gold-400/80 pb-0.5 tracking-wider">
                   {currentText}
                 </span>
-                <span className="inline-block w-1 h-5 bg-gold-400 ml-1 animate-pulse align-middle" />
+                <span className="inline-block w-1.5 h-5 bg-gold-400 ml-1.5 animate-pulse align-middle" />
               </p>
             </div>
 
