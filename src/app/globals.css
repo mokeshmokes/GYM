@@ -14,6 +14,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 88px;
   color-scheme: dark;
 }
 
@@ -22,6 +23,8 @@ body {
   color: #e5e5e5;
   overflow-x: hidden;
   font-family: var(--font-inter), sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Custom Scrollbar */
@@ -53,20 +56,20 @@ body {
 
 .gold-border-glow {
   border: 1px solid rgba(212, 175, 55, 0.25);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .gold-border-glow:hover {
   border-color: rgba(212, 175, 55, 0.7);
-  box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.25);
+  box-shadow: 0 10px 30px -10px rgba(212, 175, 55, 0.3);
 }
 
 /* Glassmorphism */
 .glass-nav {
-  background: rgba(10, 10, 10, 0.82);
+  background: rgba(10, 10, 10, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.18);
 }
 
 .glass-card {
@@ -74,6 +77,12 @@ body {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(212, 175, 55, 0.18);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: 0 12px 35px -10px rgba(212, 175, 55, 0.2);
 }
 
 /* Ambient glow orb */
@@ -87,13 +96,13 @@ body {
   z-index: 0;
 }
 
-/* Buttons */
+/* Luxury Buttons */
 .btn-gold {
   background: linear-gradient(135deg, #F5D76E 0%, #D4AF37 50%, #AA820A 100%);
   color: #0a0a0a;
   font-weight: 700;
   letter-spacing: 0.5px;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 20px rgba(212, 175, 55, 0.28);
 }
 
@@ -107,7 +116,7 @@ body {
   border: 1px solid rgba(212, 175, 55, 0.6);
   color: #F5D76E;
   background: rgba(212, 175, 55, 0.04);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .btn-outline-gold:hover {
@@ -118,3 +127,45 @@ body {
   box-shadow: 0 6px 20px rgba(212, 175, 55, 0.2);
 }
 
+/* Keyframe Animations */
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes gold-sheen {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-float-gentle {
+  animation: float-gentle 4.5s ease-in-out infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 7s ease-in-out infinite;
+}
+
+/* Section transitions smooth ease */
+section {
+  transition: background-color 0.3s ease;
+}

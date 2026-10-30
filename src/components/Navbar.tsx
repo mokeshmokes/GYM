@@ -132,13 +132,13 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
               <span>{GYM_INFO.phoneDisplay}</span>
             </a>
 
-            {/* Book VIP Pass CTA button */}
+            {/* Book an Enquiry CTA button */}
             <Link
               href="#contact"
               className="btn-gold px-4 sm:px-6 py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-gold-500/25 transition-all hover:scale-[1.02]"
             >
               <Crown className="w-4 h-4 text-neutral-950 flex-shrink-0" />
-              <span className="whitespace-nowrap">Book VIP Pass</span>
+              <span className="whitespace-nowrap">Book an Enquiry</span>
             </Link>
 
             {/* Mobile / Tablet Menu Button (Visible on screens below xl) */}
@@ -229,7 +229,7 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
             className="btn-gold w-full py-3 rounded-full text-center text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-gold-500/20"
           >
             <Crown className="w-4 h-4 text-neutral-950" />
-            <span>Book VIP Pass</span>
+            <span>Book an Enquiry</span>
           </Link>
 
           <a
