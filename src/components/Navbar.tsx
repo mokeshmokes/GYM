@@ -98,27 +98,27 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
             </div>
           </Link>
 
-          {/* Middle Column: Desktop Nav Links (Centered in available space, NEVER overlaps Logo) */}
-          <nav className="hidden xl:flex items-center justify-center flex-1 mx-3 2xl:mx-6 gap-1.5 2xl:gap-4 overflow-hidden">
+          {/* Middle Column: Desktop Nav Links (Centered, fully visible, zero clipping on HOME or CONTACT) */}
+          <nav className="hidden xl:flex items-center justify-center flex-1 mx-2 2xl:mx-6 gap-0.5 xl:gap-1.5 2xl:gap-3.5">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.replace('#', '');
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`group relative text-[11px] xl:text-xs 2xl:text-[13px] font-semibold tracking-wider uppercase transition-all duration-300 py-1.5 px-2 2xl:px-2.5 rounded-full whitespace-nowrap ${
+                  className={`group relative text-[10.5px] xl:text-[11.5px] 2xl:text-[13px] font-semibold tracking-wider uppercase transition-all duration-200 py-1.5 px-1.5 xl:px-2 2xl:px-3 rounded-full whitespace-nowrap flex-shrink-0 ${
                     isActive
                       ? 'text-gold-300 font-bold bg-gold-500/10'
                       : 'text-neutral-300 hover:text-gold-400 hover:bg-neutral-900/60'
                   }`}
                 >
-                  <span className="relative z-10 transition-transform duration-300 inline-block group-hover:-translate-y-0.5">
+                  <span className="relative z-10 transition-transform duration-200 inline-block group-hover:-translate-y-0.5">
                     {link.name}
                   </span>
 
                   {/* Animated Transforming Gold Underline Indicator */}
                   <span
-                    className={`absolute bottom-0 left-2 right-2 h-[2px] bg-gradient-to-r from-transparent via-gold-400 to-transparent transition-all duration-300 origin-center ${
+                    className={`absolute bottom-0 left-2 right-2 h-[2px] bg-gradient-to-r from-transparent via-gold-400 to-transparent transition-all duration-200 origin-center ${
                       isActive
                         ? 'opacity-100 scale-x-100'
                         : 'opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100'
@@ -131,10 +131,10 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
 
           {/* Right Column: Actions (Guaranteed non-shrinking, clean spacing) */}
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0 z-10">
-            {/* Phone link (shown on large screens) */}
+            {/* Phone link (shown on extra-wide 2xl screens to give maximum room for nav) */}
             <a
               href={`tel:${GYM_INFO.phoneRaw}`}
-              className="hidden lg:flex items-center gap-1.5 2xl:gap-2 text-[11px] 2xl:text-xs font-semibold tracking-wider text-neutral-300 hover:text-gold-400 transition-colors px-3 py-2 rounded-full border border-neutral-800 hover:border-gold-500/40 whitespace-nowrap"
+              className="hidden 2xl:flex items-center gap-1.5 text-xs font-semibold tracking-wider text-neutral-300 hover:text-gold-400 transition-colors px-3 py-2 rounded-full border border-neutral-800 hover:border-gold-500/40 whitespace-nowrap"
               title="Call Reception"
             >
               <Phone className="w-3.5 h-3.5 text-gold-400 flex-shrink-0" />

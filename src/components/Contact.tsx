@@ -17,20 +17,20 @@ import {
   AlertCircle,
   Sparkles,
   ExternalLink,
-  ShieldCheck,
+  Dumbbell,
+  Crown,
 } from 'lucide-react';
 import { GYM_INFO, PRICING_PLANS } from '@/data/gymData';
 import { LeadRecord, PricingPlan } from '@/types';
 
 interface ContactProps {
   selectedPlan: string;
-  onOpenLeadsModal: () => void;
+  onOpenLeadsModal?: () => void;
   packages?: PricingPlan[];
 }
 
 export default function Contact({
   selectedPlan,
-  onOpenLeadsModal,
   packages = PRICING_PLANS,
 }: ContactProps) {
   const [formData, setFormData] = useState({
@@ -155,11 +155,7 @@ export default function Contact({
 
       saveLeadLocally(newLead);
       setSubmitSuccess(true);
-      setSyncStatus(
-        resData.cloudSynced
-          ? 'Synced in real-time with Google Sheet'
-          : 'Saved in Local Vault • Ready to sync'
-      );
+      setSyncStatus('VIP Pass registered • Our team will contact you shortly via Call or WhatsApp');
 
       // Reset form
       setFormData({
@@ -185,7 +181,7 @@ export default function Contact({
       };
       saveLeadLocally(fallbackLead);
       setSubmitSuccess(true);
-      setSyncStatus('Saved safely to local Lead Vault');
+      setSyncStatus('Enquiry received • Our team will contact you shortly via Call or WhatsApp');
     } finally {
       setIsSubmitting(false);
     }
@@ -378,18 +374,34 @@ export default function Contact({
           {/* Right Column: Contact & Visit Booking Form */}
           <div className="lg:col-span-7">
             <div className="glass-card p-6 sm:p-10 rounded-3xl border border-gold-500/30 shadow-2xl relative">
-              {/* Top Banner */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/40 text-gold-300 text-xs font-bold tracking-wider mb-6">
-                <Sparkles className="w-3.5 h-3.5 text-gold-400" />
-                <span>Complimentary VIP Consultation & Gym Pass</span>
+              {/* Gym Badge */}
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/40 text-gold-300 text-xs font-bold tracking-wider mb-5">
+                <Dumbbell className="w-3.5 h-3.5 text-gold-400" />
+                <span>VIP Sanctuary Consultation & Free Gym Pass</span>
               </div>
 
               <h3 className="font-bebas text-3xl sm:text-4xl text-white tracking-wide mb-2">
-                Schedule Your Visit
+                Book Your Gym Enquiry
               </h3>
-              <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed mb-8">
-                Fill in your details below to schedule your free gym tour and personal consultation. We look forward to welcoming you to the sanctuary.
+              <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed mb-6">
+                Step into Chennai’s premier luxury fitness sanctuary. Fill in your details below to claim your complimentary 1-Day Free VIP Pass, tour our 150+ imported equipment stations, and meet our certified master trainers.
               </p>
+
+              {/* Gym Benefits Checklist */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 p-3 rounded-2xl bg-neutral-900/60 border border-neutral-800/80 mb-6 text-[11px] text-neutral-300">
+                <div className="flex items-center gap-1.5 text-gold-300 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-gold-400 flex-shrink-0" />
+                  <span>1-Day Free VIP Pass</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-gold-300 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-gold-400 flex-shrink-0" />
+                  <span>Full Arsenal Floor Tour</span>
+                </div>
+                <div className="flex items-center gap-1.5 text-gold-300 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-gold-400 flex-shrink-0" />
+                  <span>Master Coach Advice</span>
+                </div>
+              </div>
 
               <form onSubmit={handleSubmit} noValidate className="space-y-5">
                 {/* Name */}
@@ -503,7 +515,7 @@ export default function Contact({
                   >
                     <option value="Free 1-Day VIP Trial">★ Free 1-Day VIP Trial</option>
 
-                    <optgroup label="Membership Packages (Sanity CMS)">
+                    <optgroup label="Gym Membership Packages">
                       {packages && packages.length > 0 ? (
                         packages.map((pkg) => {
                           const val = pkg.enrollValue || pkg.tier;
@@ -559,16 +571,17 @@ export default function Contact({
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="btn-gold w-full py-4 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="btn-gold w-full py-4 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed shadow-xl hover:shadow-gold-500/20"
                 >
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin text-neutral-950" />
-                      <span>Transmitting Lead...</span>
+                      <span>Securing Your Pass...</span>
                     </>
                   ) : (
                     <>
-                      <span>Book Free VIP Consultation</span>
+                      <Crown className="w-4 h-4 text-neutral-950" />
+                      <span>Claim Free Pass & Submit Enquiry</span>
                       <Send className="w-4 h-4 transition-transform group-hover:translate-x-1 text-neutral-950" />
                     </>
                   )}
@@ -587,7 +600,7 @@ export default function Contact({
                           Inquiry Sent Successfully!
                         </h4>
                         <p className="text-xs text-neutral-300 mt-1">
-                          Thank you! We have received your inquiry. Our fitness consultant will call or message you on WhatsApp shortly to confirm your visit.
+                          Thank you! We have received your inquiry. Our gym concierge will call or message you on WhatsApp shortly to confirm your VIP sanctuary visit.
                         </p>
                         <div className="text-[11px] font-semibold text-emerald-400 mt-2 flex items-center gap-1.5">
                           <CheckCircle2 className="w-3.5 h-3.5" />
@@ -598,19 +611,6 @@ export default function Contact({
                   </div>
                 )}
               </form>
-
-              {/* Admin Database Portal Button */}
-              <div className="mt-6 pt-4 border-t border-neutral-800/80 flex items-center justify-between text-xs text-neutral-500">
-                <span>Leads automatically backed up locally.</span>
-                <button
-                  type="button"
-                  onClick={onOpenLeadsModal}
-                  className="hover:text-gold-400 transition-colors flex items-center gap-1 font-semibold"
-                >
-                  <ShieldCheck className="w-3.5 h-3.5" />
-                  <span>View Stored Leads (Admin)</span>
-                </button>
-              </div>
             </div>
           </div>
         </div>
