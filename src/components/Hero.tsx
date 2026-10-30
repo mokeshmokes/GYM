@@ -141,7 +141,7 @@ export default function Hero() {
                 </div>
                 <div>
                   <div className="text-[11px] sm:text-xs font-bold text-white tracking-wide">All-Day Access</div>
-                  <div className="text-[10px] text-neutral-400">Exclusive VIP Member Pass</div>
+                  <div className="text-[10px] text-neutral-400">Flexible Member Hours</div>
                 </div>
               </div>
 

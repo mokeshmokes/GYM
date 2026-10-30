@@ -104,9 +104,7 @@ export default function Contact({
   const selectedDiscipline = disciplines.find((d) => d.val === formData.plan);
 
   const currentPlanDisplay =
-    formData.plan === 'Free 1-Day VIP Trial'
-      ? '★ Free 1-Day VIP Trial (Complimentary Pass)'
-      : selectedMemberPkg
+    selectedMemberPkg
       ? `${selectedMemberPkg.label} (${selectedMemberPkg.price})`
       : selectedDiscipline
       ? selectedDiscipline.label
@@ -215,7 +213,7 @@ export default function Contact({
 
       saveLeadLocally(newLead);
       setSubmitSuccess(true);
-      setSyncStatus('VIP Pass registered • Our team will contact you shortly via Call or WhatsApp');
+      setSyncStatus('Enquiry registered • Our team will contact you shortly via Call or WhatsApp');
 
       // Reset form
       setFormData({
@@ -266,7 +264,7 @@ export default function Contact({
           </h2>
 
           <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
-            Book your visit, claim your 1-day free workout pass, or speak directly with our certified master coaches.
+            Book your visit, tour our training floor, or speak directly with our certified master coaches.
           </p>
           <div className="w-20 h-1 bg-gradient-to-r from-transparent via-gold-400 to-transparent mx-auto mt-6" />
         </div>
@@ -437,21 +435,21 @@ export default function Contact({
               {/* Gym Badge */}
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/40 text-gold-300 text-xs font-bold tracking-wider mb-5">
                 <Dumbbell className="w-3.5 h-3.5 text-gold-400" />
-                <span>VIP Sanctuary Consultation & Free Gym Pass</span>
+                <span>Sanctuary Visit & Membership Consultation</span>
               </div>
 
               <h3 className="font-bebas text-3xl sm:text-4xl text-white tracking-wide mb-2">
                 Book Your Gym Enquiry
               </h3>
               <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed mb-6">
-                Step into Chennai’s premier luxury fitness sanctuary. Fill in your details below to claim your complimentary 1-Day Free VIP Pass, tour our 150+ imported equipment stations, and meet our certified master trainers.
+                Step into Chennai’s premier luxury fitness sanctuary. Fill in your details below to tour our 150+ imported equipment stations, consult our certified master trainers, and explore our membership options.
               </p>
 
               {/* Gym Benefits Checklist */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 p-3 rounded-2xl bg-neutral-900/60 border border-neutral-800/80 mb-6 text-[11px] text-neutral-300">
                 <div className="flex items-center gap-1.5 text-gold-300 font-medium">
                   <CheckCircle2 className="w-3.5 h-3.5 text-gold-400 flex-shrink-0" />
-                  <span>1-Day Free VIP Pass</span>
+                  <span>Personal Consultation</span>
                 </div>
                 <div className="flex items-center gap-1.5 text-gold-300 font-medium">
                   <CheckCircle2 className="w-3.5 h-3.5 text-gold-400 flex-shrink-0" />
@@ -581,11 +579,7 @@ export default function Contact({
                     }`}
                   >
                     <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                      {formData.plan === 'Free 1-Day VIP Trial' ? (
-                        <div className="w-6 h-6 rounded-md bg-gold-500/20 border border-gold-500/40 flex items-center justify-center text-gold-400 flex-shrink-0">
-                          <Sparkles className="w-3.5 h-3.5" />
-                        </div>
-                      ) : selectedMemberPkg ? (
+                      {selectedMemberPkg ? (
                         <div className="w-6 h-6 rounded-md bg-gold-500/20 border border-gold-500/40 flex items-center justify-center text-gold-400 flex-shrink-0">
                           <Crown className="w-3.5 h-3.5" />
                         </div>
@@ -614,43 +608,8 @@ export default function Contact({
                   {isDropdownOpen && (
                     <div className="absolute top-[calc(100%+8px)] left-0 right-0 z-50 bg-[#0c0c0c]/98 border border-gold-500/40 rounded-2xl shadow-2xl shadow-black p-2 backdrop-blur-xl animate-fade-in max-h-80 overflow-y-auto no-scrollbar divide-y divide-neutral-800/70">
                       
-                      {/* Section 1: Complimentary VIP Pass */}
+                      {/* Section 1: Membership Packages */}
                       <div className="pb-2">
-                        <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-gold-400/90 flex items-center gap-1.5">
-                          <Sparkles className="w-3 h-3 text-gold-400" />
-                          <span>Complimentary Workout Pass</span>
-                        </div>
-                        <button
-                          type="button"
-                          onClick={() => {
-                            setFormData((prev) => ({ ...prev, plan: 'Free 1-Day VIP Trial' }));
-                            setIsDropdownOpen(false);
-                          }}
-                          className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between group ${
-                            formData.plan === 'Free 1-Day VIP Trial'
-                              ? 'bg-gold-500/20 border border-gold-500/40 text-gold-300'
-                              : 'hover:bg-neutral-900 border border-transparent text-neutral-200 hover:text-white'
-                          }`}
-                        >
-                          <div className="min-w-0 pr-2">
-                            <div className="text-xs sm:text-sm font-semibold flex items-center gap-2">
-                              <span>★ Free 1-Day VIP Trial</span>
-                              <span className="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/30 uppercase">
-                                Free Pass
-                              </span>
-                            </div>
-                            <div className="text-[11px] text-neutral-400 mt-0.5">
-                              Complimentary 1-day access to equipment & consultation
-                            </div>
-                          </div>
-                          {formData.plan === 'Free 1-Day VIP Trial' && (
-                            <Check className="w-4 h-4 text-gold-400 flex-shrink-0" />
-                          )}
-                        </button>
-                      </div>
-
-                      {/* Section 2: Membership Packages */}
-                      <div className="py-2">
                         <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-gold-400/90 flex items-center gap-1.5">
                           <Crown className="w-3 h-3 text-gold-400" />
                           <span>Gym Membership Packages</span>
@@ -766,12 +725,12 @@ export default function Contact({
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin text-neutral-950" />
-                      <span>Securing Your Pass...</span>
+                      <span>Submitting Enquiry...</span>
                     </>
                   ) : (
                     <>
                       <Crown className="w-4 h-4 text-neutral-950" />
-                      <span>Claim Free Pass & Submit Enquiry</span>
+                      <span>Submit Membership Enquiry</span>
                       <Send className="w-4 h-4 transition-transform group-hover:translate-x-1 text-neutral-950" />
                     </>
                   )}
@@ -790,7 +749,7 @@ export default function Contact({
                           Inquiry Sent Successfully!
                         </h4>
                         <p className="text-xs text-neutral-300 mt-1">
-                          Thank you! We have received your inquiry. Our gym concierge will call or message you on WhatsApp shortly to confirm your VIP sanctuary visit.
+                          Thank you! We have received your inquiry. Our gym team will call or message you on WhatsApp shortly to confirm your visit and membership consultation.
                         </p>
                         <div className="text-[11px] font-semibold text-emerald-400 mt-2 flex items-center gap-1.5">
                           <CheckCircle2 className="w-3.5 h-3.5" />

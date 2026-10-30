@@ -48,7 +48,7 @@ export async function POST(request: Request) {
       formData.append('name', name.trim());
       formData.append('phone', cleanPhone);
       formData.append('email', email.trim());
-      formData.append('plan', plan || 'Free 1-Day VIP Trial');
+      formData.append('plan', plan || 'Quarterly Pro');
       formData.append('message', message ? message.trim() : 'Website Direct Inquiry');
       formData.append('source', 'VST Fitness Next.js Website');
 
@@ -82,7 +82,7 @@ export async function POST(request: Request) {
         name: name.trim(),
         phone: cleanPhone,
         email: email.trim(),
-        plan: plan || 'Free 1-Day VIP Trial',
+        plan: plan || 'Quarterly Pro',
         message: message ? message.trim() : '',
         status: cloudSynced ? 'Synced' : 'Saved to Vault',
       },
