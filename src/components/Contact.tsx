@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   MapPin,
   Phone,
@@ -15,13 +15,10 @@ import {
   Loader2,
   CheckCircle2,
   AlertCircle,
-  Sparkles,
   ExternalLink,
   Dumbbell,
   Crown,
-  ChevronDown,
   Check,
-  Zap,
 } from 'lucide-react';
 import { GYM_INFO, PRICING_PLANS } from '@/data/gymData';
 import { LeadRecord, PricingPlan } from '@/types';
@@ -31,6 +28,17 @@ interface ContactProps {
   onOpenLeadsModal?: () => void;
   packages?: PricingPlan[];
 }
+
+const DISCIPLINES = [
+  { val: 'Weight Training', label: 'Weight Training', desc: 'Hypertrophy & Strength' },
+  { val: 'Cardio', label: 'Cardio Conditioning', desc: 'Stamina & Fat Burn' },
+  { val: 'CrossFit', label: 'CrossFit & Functional Rig', desc: 'Sleds & Circuits' },
+  { val: 'Yoga', label: 'Yoga & Mobility', desc: 'Flexibility & Core' },
+  { val: 'Zumba', label: 'Zumba & Dance', desc: 'High-Energy Cardio' },
+  { val: 'Weight Loss Program', label: 'Weight Loss & Shred', desc: 'Targeted Recomp' },
+  { val: 'Muscle Gain', label: 'Muscle Gain & Bulk', desc: 'Progressive Overload' },
+  { val: 'Personal Training Only', label: '1-on-1 Personal Training', desc: 'Master Coach Sessions' },
+];
 
 export default function Contact({
   selectedPlan,
@@ -48,33 +56,7 @@ export default function Contact({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [syncStatus, setSyncStatus] = useState<string>('');
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
-      }
-    }
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
-        setIsDropdownOpen(false);
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (selectedPlan) {
-      setFormData((prev) => ({ ...prev, plan: selectedPlan }));
-    }
-  }, [selectedPlan]);
+  const [activeCategory, setActiveCategory] = useState<'memberships' | 'disciplines'>('memberships');
 
   const membershipPlans = packages && packages.length > 0
     ? packages.map((pkg) => ({
@@ -89,19 +71,19 @@ export default function Contact({
         { val: 'Yearly VIP', label: 'Yearly VIP Elite', price: '₹24,999/yr', isPopular: false },
       ];
 
-  const disciplines = [
-    { val: 'Weight Training', label: 'Weight Training Program', desc: 'Hypertrophy, strength & Olympic lifting' },
-    { val: 'Cardio', label: 'Cardio Conditioning', desc: 'Stamina, HIIT & endurance' },
-    { val: 'CrossFit', label: 'CrossFit & Functional Rig', desc: 'Sleds, turf & power endurance' },
-    { val: 'Yoga', label: 'Yoga & Mobility', desc: 'Flexibility, core stability & breathwork' },
-    { val: 'Zumba', label: 'Zumba & Dance Fitness', desc: 'High-energy fat-burning dance' },
-    { val: 'Weight Loss Program', label: 'Weight Loss & Shred', desc: 'Structured deficit & body recomp' },
-    { val: 'Muscle Gain', label: 'Muscle Gain & Bulk', desc: 'Progressive overload mass building' },
-    { val: 'Personal Training Only', label: '1-on-1 Personal Training Only', desc: 'Master coach dedicated sessions' },
-  ];
+  useEffect(() => {
+    if (selectedPlan) {
+      setFormData((prev) => ({ ...prev, plan: selectedPlan }));
+      if (DISCIPLINES.some((d) => d.val === selectedPlan)) {
+        setActiveCategory('disciplines');
+      } else {
+        setActiveCategory('memberships');
+      }
+    }
+  }, [selectedPlan]);
 
   const selectedMemberPkg = membershipPlans.find((p) => p.val === formData.plan);
-  const selectedDiscipline = disciplines.find((d) => d.val === formData.plan);
+  const selectedDiscipline = DISCIPLINES.find((d) => d.val === formData.plan);
 
   const currentPlanDisplay =
     selectedMemberPkg
@@ -556,143 +538,148 @@ export default function Contact({
                   </div>
                 </div>
 
-                {/* Custom Luxury Gym Plan Dropdown */}
-                <div className="relative" ref={dropdownRef}>
-                  <label
-                    id="plan-label"
-                    className="block text-xs font-bold uppercase tracking-wider text-neutral-300 mb-2"
-                  >
-                    Interested Program / Plan
-                  </label>
-
-                  {/* Dropdown Trigger Button */}
-                  <button
-                    type="button"
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                    aria-haspopup="listbox"
-                    aria-expanded={isDropdownOpen}
-                    aria-labelledby="plan-label"
-                    className={`w-full px-4 py-3.5 rounded-xl bg-neutral-900 border text-sm text-left flex items-center justify-between transition-all duration-200 ${
-                      isDropdownOpen
-                        ? 'border-gold-400 ring-2 ring-gold-400/20 bg-neutral-900 shadow-xl shadow-gold-500/10'
-                        : 'border-neutral-800 hover:border-gold-500/50'
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5 min-w-0 pr-2">
-                      {selectedMemberPkg ? (
-                        <div className="w-6 h-6 rounded-md bg-gold-500/20 border border-gold-500/40 flex items-center justify-center text-gold-400 flex-shrink-0">
-                          <Crown className="w-3.5 h-3.5" />
-                        </div>
-                      ) : (
-                        <div className="w-6 h-6 rounded-md bg-neutral-800 border border-neutral-700 flex items-center justify-center text-gold-400 flex-shrink-0">
-                          <Dumbbell className="w-3.5 h-3.5" />
-                        </div>
-                      )}
-
-                      <span className="text-white font-medium text-xs sm:text-sm truncate">
+                {/* Visual Category & Plan Selection (In-flow, 100% solid & visible, zero overlap) */}
+                <div className="space-y-3">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+                    <label className="block text-xs font-bold uppercase tracking-wider text-neutral-300">
+                      Interested Program / Plan <span className="text-gold-400">*</span>
+                    </label>
+                    <div className="text-[11px] font-semibold text-gold-400 truncate flex items-center gap-1.5">
+                      <span className="text-neutral-400 font-normal">Selected:</span>
+                      <span className="text-white bg-neutral-900 border border-gold-500/40 px-2.5 py-0.5 rounded-full font-bold">
                         {currentPlanDisplay}
                       </span>
                     </div>
+                  </div>
 
-                    <ChevronDown
-                      className={`w-4 h-4 text-gold-400 flex-shrink-0 transition-transform duration-300 ${
-                        isDropdownOpen ? 'rotate-180' : ''
+                  {/* Category Switcher Tabs */}
+                  <div className="grid grid-cols-2 p-1 rounded-2xl bg-neutral-900/90 border border-neutral-800">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveCategory('memberships');
+                        if (!membershipPlans.some((p) => p.val === formData.plan)) {
+                          setFormData((prev) => ({
+                            ...prev,
+                            plan: membershipPlans[0]?.val || 'Quarterly Pro',
+                          }));
+                        }
+                      }}
+                      className={`py-2 px-3 rounded-xl text-xs font-bold tracking-wide transition-all flex items-center justify-center gap-1.5 ${
+                        activeCategory === 'memberships'
+                          ? 'bg-gradient-to-r from-gold-500 to-gold-400 text-neutral-950 shadow-md font-extrabold'
+                          : 'text-neutral-400 hover:text-white'
                       }`}
-                    />
-                  </button>
+                    >
+                      <Crown className="w-3.5 h-3.5" />
+                      <span>Membership Packages</span>
+                    </button>
+
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setActiveCategory('disciplines');
+                        if (!DISCIPLINES.some((d) => d.val === formData.plan)) {
+                          setFormData((prev) => ({
+                            ...prev,
+                            plan: DISCIPLINES[0]?.val || 'Weight Training',
+                          }));
+                        }
+                      }}
+                      className={`py-2 px-3 rounded-xl text-xs font-bold tracking-wide transition-all flex items-center justify-center gap-1.5 ${
+                        activeCategory === 'disciplines'
+                          ? 'bg-gradient-to-r from-gold-500 to-gold-400 text-neutral-950 shadow-md font-extrabold'
+                          : 'text-neutral-400 hover:text-white'
+                      }`}
+                    >
+                      <Dumbbell className="w-3.5 h-3.5" />
+                      <span>Training Disciplines</span>
+                    </button>
+                  </div>
 
                   {/* Hidden Input for Form Submission */}
                   <input type="hidden" name="plan" value={formData.plan} />
 
-                  {/* Custom Floating Luxury Options Menu */}
-                  {isDropdownOpen && (
-                    <div className="absolute top-[calc(100%+8px)] left-0 right-0 z-50 bg-[#0c0c0c]/98 border border-gold-500/40 rounded-2xl shadow-2xl shadow-black p-2 backdrop-blur-xl animate-fade-in max-h-80 overflow-y-auto no-scrollbar divide-y divide-neutral-800/70">
-                      
-                      {/* Section 1: Membership Packages */}
-                      <div className="pb-2">
-                        <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-gold-400/90 flex items-center gap-1.5">
-                          <Crown className="w-3 h-3 text-gold-400" />
-                          <span>Gym Membership Packages</span>
-                        </div>
-                        <div className="space-y-1">
-                          {membershipPlans.map((pkg) => {
-                            const isSelected = formData.plan === pkg.val;
-                            return (
-                              <button
-                                key={pkg.val}
-                                type="button"
-                                onClick={() => {
-                                  setFormData((prev) => ({ ...prev, plan: pkg.val }));
-                                  setIsDropdownOpen(false);
-                                }}
-                                className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between group ${
-                                  isSelected
-                                    ? 'bg-gold-500/20 border border-gold-500/40 text-gold-300'
-                                    : 'hover:bg-neutral-900 border border-transparent text-neutral-200 hover:text-white'
+                  {/* Panel 1: Membership Tiers (3 Luxury Solid Cards) */}
+                  {activeCategory === 'memberships' && (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+                      {membershipPlans.map((pkg) => {
+                        const isSelected = formData.plan === pkg.val;
+                        return (
+                          <button
+                            key={pkg.val}
+                            type="button"
+                            onClick={() =>
+                              setFormData((prev) => ({ ...prev, plan: pkg.val }))
+                            }
+                            className={`text-left p-3.5 rounded-2xl border transition-all relative flex flex-col justify-between ${
+                              isSelected
+                                ? 'bg-gold-500/15 border-gold-400 ring-2 ring-gold-400/40 shadow-xl shadow-gold-500/10'
+                                : 'bg-neutral-900 border-neutral-800 hover:border-gold-500/40 text-neutral-300'
+                            }`}
+                          >
+                            {pkg.isPopular && (
+                              <span className="absolute -top-2.5 right-3 text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gold-400 text-neutral-950 shadow">
+                                Most Popular
+                              </span>
+                            )}
+                            <div className="flex items-center justify-between mb-1.5">
+                              <span className="text-xs font-bold text-white tracking-wide">
+                                {pkg.label}
+                              </span>
+                              {isSelected ? (
+                                <div className="w-4 h-4 rounded-full bg-gold-400 text-neutral-950 flex items-center justify-center">
+                                  <Check className="w-3 h-3 stroke-[3]" />
+                                </div>
+                              ) : (
+                                <div className="w-4 h-4 rounded-full border border-neutral-700" />
+                              )}
+                            </div>
+                            <div className="text-sm font-extrabold text-gold-400">
+                              {pkg.price}
+                            </div>
+                          </button>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* Panel 2: Training Disciplines (8 Modern Solid Chips) */}
+                  {activeCategory === 'disciplines' && (
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1">
+                      {DISCIPLINES.map((d) => {
+                        const isSelected = formData.plan === d.val;
+                        return (
+                          <button
+                            key={d.val}
+                            type="button"
+                            onClick={() =>
+                              setFormData((prev) => ({ ...prev, plan: d.val }))
+                            }
+                            className={`p-2.5 rounded-xl border text-left transition-all ${
+                              isSelected
+                                ? 'bg-gold-500/20 border-gold-400 ring-1 ring-gold-400/40 shadow-lg'
+                                : 'bg-neutral-900 border-neutral-800 hover:border-gold-500/40 text-neutral-300 hover:text-white'
+                            }`}
+                          >
+                            <div className="flex items-center justify-between gap-1 mb-0.5">
+                              <span
+                                className={`text-[11px] font-bold truncate ${
+                                  isSelected ? 'text-gold-300' : 'text-white'
                                 }`}
                               >
-                                <div className="min-w-0 pr-2">
-                                  <div className="text-xs sm:text-sm font-semibold flex items-center gap-2">
-                                    <span>{pkg.label}</span>
-                                    {pkg.isPopular && (
-                                      <span className="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded-full bg-gold-500/25 text-gold-300 border border-gold-500/40 uppercase">
-                                        ★ Most Popular
-                                      </span>
-                                    )}
-                                  </div>
-                                  <div className="text-[11px] text-gold-400/90 font-medium mt-0.5">
-                                    {pkg.price} • Full floor access
-                                  </div>
-                                </div>
-                                {isSelected && (
-                                  <Check className="w-4 h-4 text-gold-400 flex-shrink-0" />
-                                )}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-
-                      {/* Section 3: Training Disciplines */}
-                      <div className="pt-2">
-                        <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-gold-400/90 flex items-center gap-1.5">
-                          <Dumbbell className="w-3 h-3 text-gold-400" />
-                          <span>Training Disciplines</span>
-                        </div>
-                        <div className="space-y-1">
-                          {disciplines.map((d) => {
-                            const isSelected = formData.plan === d.val;
-                            return (
-                              <button
-                                key={d.val}
-                                type="button"
-                                onClick={() => {
-                                  setFormData((prev) => ({ ...prev, plan: d.val }));
-                                  setIsDropdownOpen(false);
-                                }}
-                                className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between group ${
-                                  isSelected
-                                    ? 'bg-gold-500/20 border border-gold-500/40 text-gold-300'
-                                    : 'hover:bg-neutral-900 border border-transparent text-neutral-200 hover:text-white'
-                                }`}
-                              >
-                                <div className="min-w-0 pr-2">
-                                  <div className="text-xs sm:text-sm font-semibold">
-                                    {d.label}
-                                  </div>
-                                  <div className="text-[11px] text-neutral-400 mt-0.5">
-                                    {d.desc}
-                                  </div>
-                                </div>
-                                {isSelected && (
-                                  <Check className="w-4 h-4 text-gold-400 flex-shrink-0" />
-                                )}
-                              </button>
-                            );
-                          })}
-                        </div>
-                      </div>
-
+                                {d.label}
+                              </span>
+                              {isSelected && (
+                                <Check className="w-3 h-3 text-gold-400 flex-shrink-0" />
+                              )}
+                            </div>
+                            <div className="text-[10px] text-neutral-400 truncate">
+                              {d.desc}
+                            </div>
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
