@@ -140,8 +140,8 @@ export default function Hero() {
                   <Crown className="w-3.5 h-3.5 text-gold-400" />
                 </div>
                 <div>
-                  <div className="text-[11px] sm:text-xs font-bold text-white tracking-wide">24/7 Access</div>
-                  <div className="text-[10px] text-neutral-400">Biometric Member Pass</div>
+                  <div className="text-[11px] sm:text-xs font-bold text-white tracking-wide">All-Day Access</div>
+                  <div className="text-[10px] text-neutral-400">Exclusive VIP Member Pass</div>
                 </div>
               </div>
 

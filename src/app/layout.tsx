@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://vstfitnessworld.com'),
   title: 'VST FITNESS WORLD — Luxury Strength & Championship Fitness Sanctuary',
   description:
-    'Premier luxury fitness sanctuary in Pallikaranai, Chennai. Featuring Eleiko & LifeFitness machinery, IFBB master coaches, infrared sauna, cold plunge, and private biometric suites.',
+    'Premier luxury fitness sanctuary in Pallikaranai, Chennai. Featuring Eleiko & LifeFitness machinery, IFBB master coaches, infrared sauna, cold plunge, and private recovery suites.',
   keywords: [
     'VST Fitness World',
     'Gym in Pallikaranai',

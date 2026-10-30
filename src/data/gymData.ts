@@ -28,14 +28,14 @@ export const GYM_INFO = {
     weekdays: '5:00 AM – 11:30 PM',
     saturday: '5:00 AM – 11:00 PM',
     sunday: '6:00 AM – 9:00 PM',
-    vip: '24/7 Biometric Entry',
+    vip: 'All-Day Priority Member Access',
     spa: '6:00 AM – 10:00 PM',
   },
 };
 
 export const HERO_TYPING_PHRASES = [
   'Olympic-grade calibrated machinery',
-  'custom biometric nutrition blueprints',
+  'custom science-based nutrition blueprints',
   'world-class certified personal coaches',
   'private VIP recovery & sauna suites',
 ];
@@ -54,8 +54,8 @@ export const ABOUT_PILLARS = [
     icon: 'Dumbbell',
   },
   {
-    title: 'Individualized Biometric Protocols',
-    desc: 'Periodic medical-grade InBody body composition scans, hormonal sync strategies, and tailored macronutrient periodization designed by master coaches.',
+    title: 'Individualized Performance Protocols',
+    desc: 'Personalized physique assessments, goal-driven training regimens, and tailored macronutrient periodization designed by master coaches.',
     icon: 'Activity',
   },
   {
@@ -223,7 +223,7 @@ export const FEATURES_LIST: FeatureItem[] = [
     id: 'locker-shower',
     iconName: 'Shield',
     title: 'Locker & Shower Suites',
-    desc: 'Luxury private changing rooms with biometric digital lockers, rainfall hot-water showers, hairdryers, and plush towel service.',
+    desc: 'Luxury private changing rooms with secure digital lockers, rainfall hot-water showers, hairdryers, and plush towel service.',
   },
   {
     id: 'group-classes',
@@ -235,7 +235,7 @@ export const FEATURES_LIST: FeatureItem[] = [
     id: 'flexible-timings',
     iconName: 'Clock',
     title: 'Flexible Timings',
-    desc: 'Open from 5:00 AM to 11:30 PM with round-the-clock biometric entry for VIP members to fit demanding executive schedules.',
+    desc: 'Open from 5:00 AM to 11:30 PM with dedicated priority check-in for VIP members to fit demanding executive schedules.',
   },
   {
     id: 'parking',
@@ -384,7 +384,7 @@ export const PRICING_PLANS: PricingPlan[] = [
     features: [
       { text: 'Full 24/7 Access to Gym Floor', included: true },
       { text: 'Locker & Shower Suite Access', included: true },
-      { text: 'Initial Fitness Biometric Assessment', included: true },
+      { text: 'Initial Fitness & Body Composition Assessment', included: true },
       { text: 'Standard Group Fitness Classes', included: true },
       { text: 'Dedicated 1-on-1 Personal Trainer', included: false },
       { text: 'Private Finnish Sauna & Ice Plunge', included: false },
