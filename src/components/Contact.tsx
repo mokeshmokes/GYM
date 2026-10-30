@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   MapPin,
   Phone,
@@ -19,6 +19,9 @@ import {
   ExternalLink,
   Dumbbell,
   Crown,
+  ChevronDown,
+  Check,
+  Zap,
 } from 'lucide-react';
 import { GYM_INFO, PRICING_PLANS } from '@/data/gymData';
 import { LeadRecord, PricingPlan } from '@/types';
@@ -45,12 +48,69 @@ export default function Contact({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [syncStatus, setSyncStatus] = useState<string>('');
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   useEffect(() => {
     if (selectedPlan) {
       setFormData((prev) => ({ ...prev, plan: selectedPlan }));
     }
   }, [selectedPlan]);
+
+  const membershipPlans = packages && packages.length > 0
+    ? packages.map((pkg) => ({
+        val: pkg.enrollValue || pkg.tier,
+        label: pkg.tier,
+        price: `${pkg.currency || '₹'}${pkg.amount}${pkg.period}`,
+        isPopular: pkg.isPopular,
+      }))
+    : [
+        { val: 'Monthly Starter', label: 'Monthly Starter', price: '₹2,999/mo', isPopular: false },
+        { val: 'Quarterly Pro', label: 'Quarterly Pro Athlete', price: '₹7,499/qtr', isPopular: true },
+        { val: 'Yearly VIP', label: 'Yearly VIP Elite', price: '₹24,999/yr', isPopular: false },
+      ];
+
+  const disciplines = [
+    { val: 'Weight Training', label: 'Weight Training Program', desc: 'Hypertrophy, strength & Olympic lifting' },
+    { val: 'Cardio', label: 'Cardio Conditioning', desc: 'Stamina, HIIT & endurance' },
+    { val: 'CrossFit', label: 'CrossFit & Functional Rig', desc: 'Sleds, turf & power endurance' },
+    { val: 'Yoga', label: 'Yoga & Mobility', desc: 'Flexibility, core stability & breathwork' },
+    { val: 'Zumba', label: 'Zumba & Dance Fitness', desc: 'High-energy fat-burning dance' },
+    { val: 'Weight Loss Program', label: 'Weight Loss & Shred', desc: 'Structured deficit & body recomp' },
+    { val: 'Muscle Gain', label: 'Muscle Gain & Bulk', desc: 'Progressive overload mass building' },
+    { val: 'Personal Training Only', label: '1-on-1 Personal Training Only', desc: 'Master coach dedicated sessions' },
+  ];
+
+  const selectedMemberPkg = membershipPlans.find((p) => p.val === formData.plan);
+  const selectedDiscipline = disciplines.find((d) => d.val === formData.plan);
+
+  const currentPlanDisplay =
+    formData.plan === 'Free 1-Day VIP Trial'
+      ? '★ Free 1-Day VIP Trial (Complimentary Pass)'
+      : selectedMemberPkg
+      ? `${selectedMemberPkg.label} (${selectedMemberPkg.price})`
+      : selectedDiscipline
+      ? selectedDiscipline.label
+      : formData.plan;
 
   const validateField = (field: string, value: string) => {
     const newErrors = { ...errors };
@@ -498,54 +558,184 @@ export default function Contact({
                   </div>
                 </div>
 
-                {/* Plan Dropdown */}
-                <div>
+                {/* Custom Luxury Gym Plan Dropdown */}
+                <div className="relative" ref={dropdownRef}>
                   <label
-                    htmlFor="plan"
+                    id="plan-label"
                     className="block text-xs font-bold uppercase tracking-wider text-neutral-300 mb-2"
                   >
                     Interested Program / Plan
                   </label>
-                  <select
-                    id="plan"
-                    name="plan"
-                    value={formData.plan}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3.5 rounded-xl bg-neutral-900 border border-neutral-800 text-sm text-white focus:outline-none focus:border-gold-400 transition-colors"
+
+                  {/* Dropdown Trigger Button */}
+                  <button
+                    type="button"
+                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    aria-haspopup="listbox"
+                    aria-expanded={isDropdownOpen}
+                    aria-labelledby="plan-label"
+                    className={`w-full px-4 py-3.5 rounded-xl bg-neutral-900 border text-sm text-left flex items-center justify-between transition-all duration-200 ${
+                      isDropdownOpen
+                        ? 'border-gold-400 ring-2 ring-gold-400/20 bg-neutral-900 shadow-xl shadow-gold-500/10'
+                        : 'border-neutral-800 hover:border-gold-500/50'
+                    }`}
                   >
-                    <option value="Free 1-Day VIP Trial">★ Free 1-Day VIP Trial</option>
-
-                    <optgroup label="Gym Membership Packages">
-                      {packages && packages.length > 0 ? (
-                        packages.map((pkg) => {
-                          const val = pkg.enrollValue || pkg.tier;
-                          return (
-                            <option key={pkg.id} value={val}>
-                              {pkg.tier} ({pkg.currency || '₹'}{pkg.amount}{pkg.period})
-                              {pkg.isPopular ? ' ★ Most Popular' : ''}
-                            </option>
-                          );
-                        })
+                    <div className="flex items-center gap-2.5 min-w-0 pr-2">
+                      {formData.plan === 'Free 1-Day VIP Trial' ? (
+                        <div className="w-6 h-6 rounded-md bg-gold-500/20 border border-gold-500/40 flex items-center justify-center text-gold-400 flex-shrink-0">
+                          <Sparkles className="w-3.5 h-3.5" />
+                        </div>
+                      ) : selectedMemberPkg ? (
+                        <div className="w-6 h-6 rounded-md bg-gold-500/20 border border-gold-500/40 flex items-center justify-center text-gold-400 flex-shrink-0">
+                          <Crown className="w-3.5 h-3.5" />
+                        </div>
                       ) : (
-                        <>
-                          <option value="Monthly Starter">Monthly Starter (₹2,999/mo)</option>
-                          <option value="Quarterly Pro">Quarterly Pro Athlete (₹7,499/qtr) - Most Popular</option>
-                          <option value="Yearly VIP">Yearly VIP Elite (₹24,999/yr)</option>
-                        </>
+                        <div className="w-6 h-6 rounded-md bg-neutral-800 border border-neutral-700 flex items-center justify-center text-gold-400 flex-shrink-0">
+                          <Dumbbell className="w-3.5 h-3.5" />
+                        </div>
                       )}
-                    </optgroup>
 
-                    <optgroup label="Training Disciplines">
-                      <option value="Weight Training">Weight Training Program</option>
-                      <option value="Cardio">Cardio Conditioning</option>
-                      <option value="CrossFit">CrossFit & HIIT</option>
-                      <option value="Yoga">Yoga & Mobility</option>
-                      <option value="Zumba">Zumba & Dance</option>
-                      <option value="Weight Loss Program">Weight Loss & Shred</option>
-                      <option value="Muscle Gain">Muscle Gain & Bulk</option>
-                      <option value="Personal Training Only">1-on-1 Personal Training Only</option>
-                    </optgroup>
-                  </select>
+                      <span className="text-white font-medium text-xs sm:text-sm truncate">
+                        {currentPlanDisplay}
+                      </span>
+                    </div>
+
+                    <ChevronDown
+                      className={`w-4 h-4 text-gold-400 flex-shrink-0 transition-transform duration-300 ${
+                        isDropdownOpen ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+
+                  {/* Hidden Input for Form Submission */}
+                  <input type="hidden" name="plan" value={formData.plan} />
+
+                  {/* Custom Floating Luxury Options Menu */}
+                  {isDropdownOpen && (
+                    <div className="absolute top-[calc(100%+8px)] left-0 right-0 z-50 bg-[#0c0c0c]/98 border border-gold-500/40 rounded-2xl shadow-2xl shadow-black p-2 backdrop-blur-xl animate-fade-in max-h-80 overflow-y-auto no-scrollbar divide-y divide-neutral-800/70">
+                      
+                      {/* Section 1: Complimentary VIP Pass */}
+                      <div className="pb-2">
+                        <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-gold-400/90 flex items-center gap-1.5">
+                          <Sparkles className="w-3 h-3 text-gold-400" />
+                          <span>Complimentary Workout Pass</span>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setFormData((prev) => ({ ...prev, plan: 'Free 1-Day VIP Trial' }));
+                            setIsDropdownOpen(false);
+                          }}
+                          className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between group ${
+                            formData.plan === 'Free 1-Day VIP Trial'
+                              ? 'bg-gold-500/20 border border-gold-500/40 text-gold-300'
+                              : 'hover:bg-neutral-900 border border-transparent text-neutral-200 hover:text-white'
+                          }`}
+                        >
+                          <div className="min-w-0 pr-2">
+                            <div className="text-xs sm:text-sm font-semibold flex items-center gap-2">
+                              <span>★ Free 1-Day VIP Trial</span>
+                              <span className="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded-full bg-gold-500/20 text-gold-400 border border-gold-500/30 uppercase">
+                                Free Pass
+                              </span>
+                            </div>
+                            <div className="text-[11px] text-neutral-400 mt-0.5">
+                              Complimentary 1-day access to equipment & consultation
+                            </div>
+                          </div>
+                          {formData.plan === 'Free 1-Day VIP Trial' && (
+                            <Check className="w-4 h-4 text-gold-400 flex-shrink-0" />
+                          )}
+                        </button>
+                      </div>
+
+                      {/* Section 2: Membership Packages */}
+                      <div className="py-2">
+                        <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-gold-400/90 flex items-center gap-1.5">
+                          <Crown className="w-3 h-3 text-gold-400" />
+                          <span>Gym Membership Packages</span>
+                        </div>
+                        <div className="space-y-1">
+                          {membershipPlans.map((pkg) => {
+                            const isSelected = formData.plan === pkg.val;
+                            return (
+                              <button
+                                key={pkg.val}
+                                type="button"
+                                onClick={() => {
+                                  setFormData((prev) => ({ ...prev, plan: pkg.val }));
+                                  setIsDropdownOpen(false);
+                                }}
+                                className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between group ${
+                                  isSelected
+                                    ? 'bg-gold-500/20 border border-gold-500/40 text-gold-300'
+                                    : 'hover:bg-neutral-900 border border-transparent text-neutral-200 hover:text-white'
+                                }`}
+                              >
+                                <div className="min-w-0 pr-2">
+                                  <div className="text-xs sm:text-sm font-semibold flex items-center gap-2">
+                                    <span>{pkg.label}</span>
+                                    {pkg.isPopular && (
+                                      <span className="text-[10px] font-bold tracking-wider px-2 py-0.5 rounded-full bg-gold-500/25 text-gold-300 border border-gold-500/40 uppercase">
+                                        ★ Most Popular
+                                      </span>
+                                    )}
+                                  </div>
+                                  <div className="text-[11px] text-gold-400/90 font-medium mt-0.5">
+                                    {pkg.price} • Full floor access
+                                  </div>
+                                </div>
+                                {isSelected && (
+                                  <Check className="w-4 h-4 text-gold-400 flex-shrink-0" />
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                      {/* Section 3: Training Disciplines */}
+                      <div className="pt-2">
+                        <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest text-gold-400/90 flex items-center gap-1.5">
+                          <Dumbbell className="w-3 h-3 text-gold-400" />
+                          <span>Training Disciplines</span>
+                        </div>
+                        <div className="space-y-1">
+                          {disciplines.map((d) => {
+                            const isSelected = formData.plan === d.val;
+                            return (
+                              <button
+                                key={d.val}
+                                type="button"
+                                onClick={() => {
+                                  setFormData((prev) => ({ ...prev, plan: d.val }));
+                                  setIsDropdownOpen(false);
+                                }}
+                                className={`w-full text-left px-3.5 py-2.5 rounded-xl transition-all flex items-center justify-between group ${
+                                  isSelected
+                                    ? 'bg-gold-500/20 border border-gold-500/40 text-gold-300'
+                                    : 'hover:bg-neutral-900 border border-transparent text-neutral-200 hover:text-white'
+                                }`}
+                              >
+                                <div className="min-w-0 pr-2">
+                                  <div className="text-xs sm:text-sm font-semibold">
+                                    {d.label}
+                                  </div>
+                                  <div className="text-[11px] text-neutral-400 mt-0.5">
+                                    {d.desc}
+                                  </div>
+                                </div>
+                                {isSelected && (
+                                  <Check className="w-4 h-4 text-gold-400 flex-shrink-0" />
+                                )}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+
+                    </div>
+                  )}
                 </div>
 
                 {/* Message */}

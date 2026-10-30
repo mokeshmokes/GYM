@@ -503,5 +503,32 @@ export const TESTIMONIALS_LIST: TestimonialItem[] = [
     image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80',
     stars: 5,
   },
+  {
+    id: 'test-4',
+    quote:
+      'Finding a gym in Pallikaranai with genuine Olympic bumper plates, calibrated barbells, and coaches who understand periodization was impossible until VST opened. The atmosphere pushes you to break past mental plateaus every workout.',
+    name: 'Divya Ramakrishnan',
+    role: 'Tech Architect & Powerlifter',
+    image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
+    stars: 5,
+  },
+  {
+    id: 'test-5',
+    quote:
+      'The conditioning turf track, sleds, and imported stations give competitive athletes like me the exact edge needed during off-season training. The coaches genuinely invest in your progress week after week.',
+    name: 'Karthik Sundaram',
+    role: 'State Level Athlete & Member',
+    image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
+    stars: 5,
+  },
+  {
+    id: 'test-6',
+    quote:
+      'Unmatched cleanliness, respectful culture, and master trainers who customize workouts around my demanding hospital schedule. Walking into this black & gold sanctuary is the absolute best part of my mornings.',
+    name: 'Dr. Meera Krishnan',
+    role: 'Physician & Fitness Enthusiast',
+    image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=200&q=80',
+    stars: 5,
+  },
 ];
 
