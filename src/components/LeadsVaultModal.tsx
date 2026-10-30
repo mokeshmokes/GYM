@@ -272,3 +272,4 @@ export default function LeadsVaultModal({ isOpen, onClose }: LeadsVaultModalProp
     </div>
   );
 }
+

@@ -504,3 +504,4 @@ export const TESTIMONIALS_LIST: TestimonialItem[] = [
     stars: 5,
   },
 ];
+

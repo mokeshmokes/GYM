@@ -16,22 +16,24 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import FloatingActions from '@/components/FloatingActions';
 import LeadsVaultModal from '@/components/LeadsVaultModal';
+import { usePackages } from '@/hooks/usePackages';
 
 export default function Home() {
   const [selectedPlan, setSelectedPlan] = useState<string>('Quarterly Pro');
   const [leadsModalOpen, setLeadsModalOpen] = useState<boolean>(false);
+  const { packages } = usePackages();
 
   const handleSelectProgramOrPlan = (planOrProgramName: string) => {
     setSelectedPlan(planOrProgramName);
   };
 
   return (
-    <div className="relative min-h-screen bg-[#0a0a0a] text-neutral-100 flex flex-col justify-between">
+    <div className="relative min-h-screen bg-[#0a0a0a] text-neutral-100 flex flex-col justify-between overflow-x-hidden">
       {/* Sticky Glass Navbar */}
       <Navbar onOpenLeadsModal={() => setLeadsModalOpen(true)} />
 
       {/* Main Content Sections */}
-      <main className="flex-1">
+      <main className="flex-1 w-full">
         <Hero />
         <Stats />
         <About />
@@ -39,10 +41,11 @@ export default function Home() {
         <Features />
         <Programs onSelectProgram={handleSelectProgramOrPlan} />
         <Trainers />
-        <Pricing onSelectPlan={handleSelectProgramOrPlan} />
+        <Pricing packages={packages} onSelectPlan={handleSelectProgramOrPlan} />
         <Gallery />
         <Testimonials />
         <Contact
+          packages={packages}
           selectedPlan={selectedPlan}
           onOpenLeadsModal={() => setLeadsModalOpen(true)}
         />

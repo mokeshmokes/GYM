@@ -137,6 +137,7 @@ export default function Footer({ onOpenLeadsModal }: FooterProps) {
                 { label: 'Training Programs', href: '#programs' },
                 { label: 'Master Coaches', href: '#trainers' },
                 { label: 'Membership Plans', href: '#pricing' },
+                { label: 'Member Reviews', href: '#reviews' },
                 { label: 'Gallery & Results', href: '#gallery' },
                 { label: 'Contact Concierge', href: '#contact' },
               ].map((item) => (
@@ -247,3 +248,4 @@ export default function Footer({ onOpenLeadsModal }: FooterProps) {
     </footer>
   );
 }
+

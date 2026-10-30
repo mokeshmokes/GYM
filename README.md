@@ -26,14 +26,15 @@ A state-of-the-art **Next.js 14 (App Router) + TypeScript + Tailwind CSS** web a
 * **Styling**: Tailwind CSS with custom Black & Gold theme (`#0a0a0a`, `#111111`, `#D4AF37`, `#F5D76E`)
 * **Icons**: Lucide React
 * **Typography**: Bebas Neue, Oswald, Inter, Poppins
-* **Server Routes**: `/api/leads` Next.js server route (proxies leads to Google Apps Script Webhook without browser CORS restrictions)
+* **Server Routes**: `/api/leads` (Google Apps Script webhook proxy) and `/api/packages` (Sanity CMS & package catalog provider)
+* **CMS Studio**: Embedded Sanity Studio route at `/studio` for live package add, edit, and tier pricing management
 * **Lead Storage**: Dual-layer architecture (Live Google Spreadsheet webhook + local browser vault failsafe)
 
 ---
 
 ## 📋 Sections Included
 
-1. **Sticky Glassmorphism Navigation (`Navbar`)**: Transparent-to-dark on scroll, official 3D embossed gold logo, desktop CTA, and smooth mobile slide-in drawer.
+1. **Sticky Glassmorphism Navigation (`Navbar`)**: Transparent-to-dark on scroll, official 3D embossed gold logo, separate **Reviews** menu, desktop CTA, and smooth responsive drawer optimized for all resolutions (mobile, tablet, desktop, ultra-wide).
 2. **Hero Section (`Hero`)**: Full-screen cinematic gym background, gold crown badge, dynamic typing text animation, and dual action buttons.
 3. **Live Stats Counter (`Stats`)**: Animated count-up numbers triggered via `IntersectionObserver` (1,500+ Members, 25+ Master Trainers, 150+ Modern Machines, 12+ Years).
 4. **About Us (`About`)**: Split layout with luxury training floor photography, floating experience badge, and 3 key pillars.
@@ -41,13 +42,22 @@ A state-of-the-art **Next.js 14 (App Router) + TypeScript + Tailwind CSS** web a
 6. **Why Choose Us (`Features`)**: 9 core advantages with custom icon badges.
 7. **Specialized Programs (`Programs`)**: 7 disciplines (Weight Training, Cardio, CrossFit & HIIT, Yoga, Zumba, Weight Loss, Muscle Gain). Clicking "Enroll" auto-selects the plan in the contact form.
 8. **Master Trainers (`Trainers`)**: 4 elite coaches with specialties and Instagram links.
-9. **Membership Pricing (`Pricing`)**: 3 plans (Starter Monthly, Quarterly Pro Athlete highlighted as **Most Popular**, Yearly VIP Elite).
+9. **Membership Pricing (`Pricing`)**: Dynamic Sanity-managed tiered pricing packages (Starter Monthly, Quarterly Pro Athlete highlighted as **Most Popular**, Yearly VIP Elite) with direct `/studio` management link.
 10. **Transformations & Gallery (`Gallery` + `LightboxModal`)**: Category filter tabs ("All", "Facility", "Workouts", "Transformations") with full-screen Lightbox Modal (Keyboard navigation, next/prev, close).
-11. **Testimonials (`Testimonials`)**: Auto-sliding carousel with star ratings and pause on hover.
-12. **Contact & Lead Capture (`Contact`)**: Official address, direct phone/WhatsApp links, interactive Google Map embed, and real-time validated form connected to `/api/leads`.
+11. **Member Reviews (`Testimonials`)**: Dedicated `#reviews` section with 4.9-star verification, auto-sliding carousel, and member transformation reviews.
+12. **Contact & Lead Capture (`Contact`)**: Official address, direct phone/WhatsApp links, interactive Google Map embed, and real-time validated form with dynamic Sanity package dropdown connected to `/api/leads`.
 13. **Staff Lead Vault (`LeadsVaultModal`)**: View captured leads in real time, export to CSV/Excel, and manage Google Sheet Webhooks.
-14. **Footer (`Footer`)**: Emblem, address, phone, quick links, operating hours table, newsletter form, and copyright.
+14. **Footer (`Footer`)**: Emblem, address, phone, quick links (including Reviews), operating hours table, newsletter form, and copyright.
 15. **Floating Actions (`FloatingActions`)**: Direct WhatsApp chat button (connected to `07550155331`) and Back-to-Top smooth scroll button.
+
+---
+
+## 🛠️ Sanity Studio (Packages CMS)
+
+To add or edit membership packages:
+1. Open `http://localhost:3000/studio` in your browser (or click **Studio** in the website header/pricing section).
+2. Configure your Sanity project ID in `.env.local` (`NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET`).
+3. Easily create, edit prices, update features, reorder, or toggle active packages. All changes sync dynamically to the website's Pricing section and the Contact form's Package dropdown!
 
 ---
 
@@ -68,3 +78,4 @@ npm start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser to view the website.
+

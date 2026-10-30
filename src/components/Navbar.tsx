@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Menu, X, Crown, Phone, ShieldCheck } from 'lucide-react';
+import { Menu, X, Crown, Phone, ShieldCheck, Sparkles, ExternalLink } from 'lucide-react';
 import { GYM_INFO } from '@/data/gymData';
 
 interface NavbarProps {
@@ -17,19 +17,30 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 40) {
+      if (window.scrollY > 30) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
 
       // Track active section
-      const sections = ['home', 'about', 'equipment', 'features', 'programs', 'trainers', 'pricing', 'gallery', 'contact'];
+      const sections = [
+        'home',
+        'about',
+        'equipment',
+        'features',
+        'programs',
+        'trainers',
+        'pricing',
+        'reviews',
+        'gallery',
+        'contact',
+      ];
       for (const sectionId of sections) {
         const el = document.getElementById(sectionId);
         if (el) {
           const rect = el.getBoundingClientRect();
-          if (rect.top <= 140 && rect.bottom >= 140) {
+          if (rect.top <= 160 && rect.bottom >= 160) {
             setActiveSection(sectionId);
             break;
           }
@@ -49,6 +60,7 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
     { name: 'Programs', href: '#programs' },
     { name: 'Trainers', href: '#trainers' },
     { name: 'Pricing', href: '#pricing' },
+    { name: 'Reviews', href: '#reviews' },
     { name: 'Gallery', href: '#gallery' },
     { name: 'Contact', href: '#contact' },
   ];
@@ -58,42 +70,42 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[#0a0a0a]/90 backdrop-blur-md border-b border-gold-500/20 py-3 shadow-2xl shadow-black/80'
-            : 'bg-transparent py-5'
+            ? 'bg-[#0a0a0a]/95 backdrop-blur-md border-b border-gold-500/20 py-2.5 sm:py-3 shadow-2xl shadow-black/80'
+            : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-4 sm:py-5'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Logo */}
-          <Link href="#home" className="flex items-center gap-3 group">
-            <div className="relative w-11 h-11 sm:w-12 sm:h-12 flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
+          {/* Brand Logo */}
+          <Link href="#home" className="flex items-center gap-2 sm:gap-3 group flex-shrink-0">
+            <div className="relative w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
               <Image
                 src="/VST_Fitness_World_Logo_Transparent.png"
                 alt="VST Fitness World Logo"
                 fill
-                sizes="48px"
+                sizes="(max-width: 640px) 36px, 48px"
                 className="object-contain drop-shadow-[0_2px_8px_rgba(212,175,55,0.4)]"
                 priority
               />
             </div>
             <div className="flex flex-col">
-              <span className="font-bebas text-2xl sm:text-3xl tracking-wider text-white leading-none">
+              <span className="font-bebas text-xl sm:text-2xl md:text-3xl tracking-wider text-white leading-none whitespace-nowrap">
                 VST <span className="gold-gradient-text">FITNESS</span>
               </span>
-              <span className="text-[9px] sm:text-[10px] tracking-[0.22em] text-neutral-400 uppercase font-semibold">
+              <span className="text-[8px] sm:text-[9px] md:text-[10px] tracking-[0.2em] text-neutral-400 uppercase font-semibold whitespace-nowrap">
                 World • Pallikaranai
               </span>
             </div>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+          {/* Desktop Nav Links (Visible on xl screens and above to avoid crowded wrapping) */}
+          <nav className="hidden xl:flex items-center gap-3.5 2xl:gap-6 flex-shrink">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.replace('#', '');
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-xs xl:text-sm font-semibold tracking-wider uppercase transition-colors duration-200 relative py-1 ${
+                  className={`text-xs 2xl:text-[13px] font-semibold tracking-wider uppercase transition-colors duration-200 relative py-1 px-1 whitespace-nowrap ${
                     isActive
                       ? 'text-gold-400 font-bold'
                       : 'text-neutral-300 hover:text-gold-400'
@@ -108,55 +120,64 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
             })}
           </nav>
 
-          {/* Right Action Buttons */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Right Action Bar */}
+          <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            {/* Phone link (shown on 2xl screens to avoid crowding) */}
             <a
               href={`tel:${GYM_INFO.phoneRaw}`}
-              className="hidden xl:flex items-center gap-2 text-xs font-semibold tracking-wider text-neutral-300 hover:text-gold-400 transition-colors px-3 py-2 rounded-full border border-neutral-800 hover:border-gold-500/40"
+              className="hidden 2xl:flex items-center gap-2 text-xs font-semibold tracking-wider text-neutral-300 hover:text-gold-400 transition-colors px-3 py-1.5 rounded-full border border-neutral-800 hover:border-gold-500/40"
               title="Call Reception"
             >
               <Phone className="w-3.5 h-3.5 text-gold-400" />
               <span>{GYM_INFO.phoneDisplay}</span>
             </a>
 
+            {/* Admin Leads Vault Modal Trigger */}
             <button
               onClick={onOpenLeadsModal}
-              className="text-neutral-500 hover:text-gold-400 transition-colors p-2 text-xs flex items-center gap-1 rounded"
+              className="text-neutral-400 hover:text-gold-400 transition-colors p-2 text-xs flex items-center gap-1 rounded border border-neutral-800/80 hover:border-gold-500/30"
               title="Admin / Staff Lead Vault"
+              aria-label="Open Leads Vault"
             >
-              <ShieldCheck className="w-4 h-4" />
+              <ShieldCheck className="w-4 h-4 text-gold-400" />
+              <span className="hidden md:inline text-[11px] font-medium text-neutral-300">Vault</span>
             </button>
 
+            {/* Sanity Studio Direct Admin Link */}
+            <Link
+              href="/studio"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden lg:flex items-center gap-1 text-[11px] font-medium text-neutral-400 hover:text-gold-400 transition-colors px-2.5 py-1.5 rounded border border-neutral-800/80 hover:border-gold-500/30"
+              title="Sanity Packages CMS Studio"
+            >
+              <Sparkles className="w-3 h-3 text-gold-400" />
+              <span>Studio</span>
+              <ExternalLink className="w-2.5 h-2.5 opacity-60" />
+            </Link>
+
+            {/* Book VIP Pass CTA button */}
             <Link
               href="#contact"
-              className="btn-gold px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center gap-2"
+              className="btn-gold px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-wider flex items-center gap-1.5 sm:gap-2 shadow-lg shadow-gold-500/20"
             >
-              <Crown className="w-4 h-4 text-neutral-950" />
-              <span>Book VIP Pass</span>
+              <Crown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-neutral-950 flex-shrink-0" />
+              <span className="whitespace-nowrap">Book VIP Pass</span>
             </Link>
-          </div>
 
-          {/* Mobile Menu Hamburger Button */}
-          <div className="flex sm:hidden items-center gap-2">
-            <button
-              onClick={onOpenLeadsModal}
-              className="text-neutral-400 hover:text-gold-400 p-1.5"
-              title="Admin Vault"
-            >
-              <ShieldCheck className="w-5 h-5" />
-            </button>
+            {/* Mobile / Tablet Menu Button (Visible on screens smaller than xl) */}
             <button
               onClick={() => setMobileMenuOpen(true)}
-              className="text-neutral-200 hover:text-gold-400 p-2 focus:outline-none"
-              aria-label="Open mobile menu"
+              className="flex xl:hidden text-neutral-200 hover:text-gold-400 p-2 rounded-lg bg-neutral-900/80 border border-neutral-800 hover:border-gold-500/40 focus:outline-none transition-colors"
+              aria-label="Open navigation menu"
             >
-              <Menu className="w-7 h-7" />
+              <Menu className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Drawer Backdrop */}
+      {/* Mobile / Tablet Drawer Backdrop */}
       {mobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 transition-opacity"
@@ -164,16 +185,17 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
         />
       )}
 
-      {/* Mobile Drawer */}
+      {/* Mobile / Tablet Drawer */}
       <div
-        className={`fixed top-0 right-0 bottom-0 w-[290px] sm:w-[320px] bg-[#0e0e0e] border-l border-gold-500/30 z-50 flex flex-col justify-between p-6 shadow-2xl transition-transform duration-300 ease-in-out ${
+        className={`fixed top-0 right-0 bottom-0 w-[290px] sm:w-[350px] bg-[#0c0c0c] border-l border-gold-500/30 z-50 flex flex-col justify-between p-6 shadow-2xl transition-transform duration-300 ease-in-out ${
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div>
-          <div className="flex items-center justify-between pb-6 border-b border-neutral-800">
+        <div className="overflow-y-auto">
+          {/* Drawer Header */}
+          <div className="flex items-center justify-between pb-5 border-b border-neutral-800">
             <div className="flex items-center gap-3">
-              <div className="relative w-9 h-9">
+              <div className="relative w-9 h-9 flex-shrink-0">
                 <Image
                   src="/VST_Fitness_World_Logo_Transparent.png"
                   alt="VST Fitness Logo"
@@ -182,50 +204,76 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
                   className="object-contain"
                 />
               </div>
-              <span className="font-bebas text-2xl text-white tracking-wider">
-                VST <span className="gold-gradient-text">FITNESS</span>
-              </span>
+              <div className="flex flex-col">
+                <span className="font-bebas text-xl text-white tracking-wider leading-none">
+                  VST <span className="gold-gradient-text">FITNESS</span>
+                </span>
+                <span className="text-[8px] text-neutral-400 tracking-widest uppercase">
+                  World • Pallikaranai
+                </span>
+              </div>
             </div>
             <button
               onClick={() => setMobileMenuOpen(false)}
-              className="text-neutral-400 hover:text-white p-1"
-              aria-label="Close mobile menu"
+              className="text-neutral-400 hover:text-white p-1 rounded-md hover:bg-neutral-900"
+              aria-label="Close navigation menu"
             >
               <X className="w-6 h-6" />
             </button>
           </div>
 
-          {/* Mobile Nav Links */}
-          <nav className="flex flex-col gap-4 mt-6">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-base font-medium tracking-wide text-neutral-300 hover:text-gold-400 py-1 transition-colors flex items-center justify-between border-b border-neutral-900"
-              >
-                <span>{link.name}</span>
-                <span className="text-xs text-gold-500/50">›</span>
-              </Link>
-            ))}
+          {/* Navigation Links */}
+          <nav className="flex flex-col gap-2 mt-5">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.replace('#', '');
+              return (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`text-sm sm:text-base font-medium tracking-wide py-2.5 px-3 rounded-lg transition-colors flex items-center justify-between ${
+                    isActive
+                      ? 'bg-gold-500/15 text-gold-400 font-bold border-l-2 border-gold-400'
+                      : 'text-neutral-300 hover:text-gold-400 hover:bg-neutral-900/60'
+                  }`}
+                >
+                  <span>{link.name}</span>
+                  <span className="text-xs text-gold-500/60">›</span>
+                </Link>
+              );
+            })}
           </nav>
         </div>
 
-        {/* Mobile Drawer Footer */}
-        <div className="pt-6 border-t border-neutral-800 flex flex-col gap-3">
+        {/* Drawer Footer Actions */}
+        <div className="pt-5 border-t border-neutral-800 flex flex-col gap-2.5">
           <Link
             href="#contact"
             onClick={() => setMobileMenuOpen(false)}
-            className="btn-gold w-full py-3 rounded-full text-center text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2"
+            className="btn-gold w-full py-3 rounded-full text-center text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2"
           >
             <Crown className="w-4 h-4 text-neutral-950" />
             <span>Book VIP Pass</span>
           </Link>
+
+          <Link
+            href="/studio"
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-full py-2.5 px-3 rounded-xl border border-gold-500/30 bg-gold-500/10 text-gold-300 hover:bg-gold-500/20 text-center text-xs font-semibold flex items-center justify-center gap-2 transition-colors"
+          >
+            <Sparkles className="w-3.5 h-3.5 text-gold-400" />
+            <span>Sanity Packages Studio</span>
+            <ExternalLink className="w-3 h-3" />
+          </Link>
+
           <a
             href={`tel:${GYM_INFO.phoneRaw}`}
-            className="text-center text-xs text-neutral-400 hover:text-gold-400 py-2 border border-neutral-800 rounded-full"
+            className="text-center text-xs text-neutral-300 hover:text-gold-400 py-2 border border-neutral-800 rounded-full transition-colors flex items-center justify-center gap-2"
           >
-            Call Concierge: {GYM_INFO.phoneDisplay}
+            <Phone className="w-3.5 h-3.5 text-gold-400" />
+            <span>Call: {GYM_INFO.phoneDisplay}</span>
           </a>
         </div>
       </div>

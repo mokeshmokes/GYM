@@ -19,15 +19,20 @@ import {
   ExternalLink,
   ShieldCheck,
 } from 'lucide-react';
-import { GYM_INFO } from '@/data/gymData';
-import { LeadRecord } from '@/types';
+import { GYM_INFO, PRICING_PLANS } from '@/data/gymData';
+import { LeadRecord, PricingPlan } from '@/types';
 
 interface ContactProps {
   selectedPlan: string;
   onOpenLeadsModal: () => void;
+  packages?: PricingPlan[];
 }
 
-export default function Contact({ selectedPlan, onOpenLeadsModal }: ContactProps) {
+export default function Contact({
+  selectedPlan,
+  onOpenLeadsModal,
+  packages = PRICING_PLANS,
+}: ContactProps) {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -496,18 +501,38 @@ export default function Contact({ selectedPlan, onOpenLeadsModal }: ContactProps
                     onChange={handleChange}
                     className="w-full px-4 py-3.5 rounded-xl bg-neutral-900 border border-neutral-800 text-sm text-white focus:outline-none focus:border-gold-400 transition-colors"
                   >
-                    <option value="Free 1-Day VIP Trial">Free 1-Day VIP Trial</option>
-                    <option value="Monthly Starter">Monthly Starter (₹2,999/mo)</option>
-                    <option value="Quarterly Pro">Quarterly Pro Athlete (₹7,499/qtr) - Most Popular</option>
-                    <option value="Yearly VIP">Yearly VIP Elite (₹24,999/yr)</option>
-                    <option value="Weight Training">Weight Training Program</option>
-                    <option value="Cardio">Cardio Conditioning</option>
-                    <option value="CrossFit">CrossFit & HIIT</option>
-                    <option value="Yoga">Yoga & Mobility</option>
-                    <option value="Zumba">Zumba & Dance</option>
-                    <option value="Weight Loss Program">Weight Loss & Shred</option>
-                    <option value="Muscle Gain">Muscle Gain & Bulk</option>
-                    <option value="Personal Training Only">1-on-1 Personal Training Only</option>
+                    <option value="Free 1-Day VIP Trial">★ Free 1-Day VIP Trial</option>
+
+                    <optgroup label="Membership Packages (Sanity CMS)">
+                      {packages && packages.length > 0 ? (
+                        packages.map((pkg) => {
+                          const val = pkg.enrollValue || pkg.tier;
+                          return (
+                            <option key={pkg.id} value={val}>
+                              {pkg.tier} ({pkg.currency || '₹'}{pkg.amount}{pkg.period})
+                              {pkg.isPopular ? ' ★ Most Popular' : ''}
+                            </option>
+                          );
+                        })
+                      ) : (
+                        <>
+                          <option value="Monthly Starter">Monthly Starter (₹2,999/mo)</option>
+                          <option value="Quarterly Pro">Quarterly Pro Athlete (₹7,499/qtr) - Most Popular</option>
+                          <option value="Yearly VIP">Yearly VIP Elite (₹24,999/yr)</option>
+                        </>
+                      )}
+                    </optgroup>
+
+                    <optgroup label="Training Disciplines">
+                      <option value="Weight Training">Weight Training Program</option>
+                      <option value="Cardio">Cardio Conditioning</option>
+                      <option value="CrossFit">CrossFit & HIIT</option>
+                      <option value="Yoga">Yoga & Mobility</option>
+                      <option value="Zumba">Zumba & Dance</option>
+                      <option value="Weight Loss Program">Weight Loss & Shred</option>
+                      <option value="Muscle Gain">Muscle Gain & Bulk</option>
+                      <option value="Personal Training Only">1-on-1 Personal Training Only</option>
+                    </optgroup>
                   </select>
                 </div>
 
@@ -593,3 +618,4 @@ export default function Contact({ selectedPlan, onOpenLeadsModal }: ContactProps
     </section>
   );
 }
+

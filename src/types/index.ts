@@ -56,12 +56,15 @@ export interface PricingPlan {
   tier: string;
   enrollValue: string;
   isPopular?: boolean;
+  badge?: string;
   desc: string;
   currency: string;
   amount: string;
   period: string;
   features: { text: string; included: boolean }[];
   buttonText: string;
+  order?: number;
+  isActive?: boolean;
 }
 
 export interface GalleryItem {
@@ -80,3 +83,4 @@ export interface TestimonialItem {
   image: string;
   stars: number;
 }
+

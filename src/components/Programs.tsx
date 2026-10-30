@@ -111,3 +111,4 @@ export default function Programs({ onSelectProgram }: ProgramsProps) {
     </section>
   );
 }
+
