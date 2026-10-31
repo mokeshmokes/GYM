@@ -24,6 +24,17 @@ export default defineConfig({
                 S.document()
                   .schemaType('gymSettings')
                   .documentId('gymSettings')
+                  .title('Gym & Contact Information')
+              ),
+            S.divider(),
+            S.listItem()
+              .title('Announcement & Pop-up Alert')
+              .id('announcement')
+              .child(
+                S.document()
+                  .schemaType('announcement')
+                  .documentId('announcement')
+                  .title('Announcement & Pop-up Alert')
               ),
             S.divider(),
             S.documentTypeListItem('package').title('Membership Packages & Pricing'),

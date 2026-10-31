@@ -53,7 +53,7 @@ export const SETTINGS_QUERY = `*[_type == "gymSettings"][0]{
   youtube
 }`;
 
-export const ANNOUNCEMENT_QUERY = `*[_type == "announcement" && (isActive == true || !defined(isActive))][0]{
+export const ANNOUNCEMENT_QUERY = `*[_type == "announcement"][0]{
   _id,
   isActive,
   title,
