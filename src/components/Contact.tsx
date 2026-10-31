@@ -359,7 +359,7 @@ export default function Contact({
                       Sanctuary Timings
                     </h4>
                     <p className="text-sm text-neutral-200 leading-snug">
-Monday – Saturday: {currentSettings.hours.weekdays || currentSettings.hours.monSat || GYM_INFO.hours.monSat} <br />
+                      Monday – Saturday: {currentSettings.hours.monSat || currentSettings.hours.weekdays || GYM_INFO.hours.monSat} <br />
                       Sunday: {currentSettings.hours.sunday || GYM_INFO.hours.sunday}
                     </p>
                   </div>

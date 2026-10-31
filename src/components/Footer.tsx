@@ -64,12 +64,11 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-gold-400 flex-shrink-0" />
-<a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                  {currentSettings.phoneDisplay}
-                </a>
-                <span>/</span>
-                <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                  {currentSettings.phoneInternational}
+                <a
+                  href={`tel:${currentSettings.phoneRaw || GYM_INFO.phoneRaw}`}
+                  className="hover:text-gold-400 transition-colors"
+                >
+                  Call: {currentSettings.phoneInternational || currentSettings.phoneDisplay || GYM_INFO.phoneInternational}
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
@@ -156,20 +155,16 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
             </h4>
             <ul className="space-y-3 text-xs text-neutral-400 divide-y divide-neutral-900">
               <li className="flex justify-between pt-1">
-<span>Monday – Saturday:</span>
-                <span className="font-semibold text-neutral-200">{currentSettings.hours.weekdays || currentSettings.hours.monSat || GYM_INFO.hours.monSat}</span>
+                <span>Monday – Saturday:</span>
+                <span className="font-semibold text-neutral-200">
+                  {currentSettings.hours.monSat || currentSettings.hours.weekdays || GYM_INFO.hours.monSat}
+                </span>
               </li>
               <li className="flex justify-between pt-2">
                 <span>Sunday:</span>
-                <span className="font-semibold text-neutral-200">{currentSettings.hours.sunday}</span>
-              </li>
-<li className="flex justify-between pt-2">
-                <span>VIP Cardholders:</span>
-                <span className="font-semibold text-gold-400">{currentSettings.hours.vip || 'All-Day Priority Access'}</span>
-              </li>
-              <li className="flex justify-between pt-2">
-                <span>Spa & Ice Plunge:</span>
-                <span className="font-semibold text-neutral-200">{currentSettings.hours.spa || '6:00 AM – 10:00 PM'}</span>
+                <span className="font-semibold text-neutral-200">
+                  {currentSettings.hours.sunday || GYM_INFO.hours.sunday}
+                </span>
               </li>
             </ul>
           </div>
