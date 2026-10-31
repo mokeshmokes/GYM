@@ -7,6 +7,7 @@ import {
   GalleryItem,
   TestimonialItem,
   GymInfo,
+  AnnouncementData,
 } from '@/types';
 
 export const GYM_INFO: GymInfo = {
@@ -33,6 +34,19 @@ export const GYM_INFO: GymInfo = {
     monSat: '5:00 AM – 10:00 PM',
     sunday: '5:00 AM – 10:00 AM',
   },
+};
+
+export const DEFAULT_ANNOUNCEMENT: AnnouncementData = {
+  isActive: true,
+  title: 'Special Membership Privilege — Limited Slots Available',
+  badge: 'EXCLUSIVE OFFER',
+  message:
+    'Enroll today at VST Fitness World and receive a complimentary 1-on-1 Physique Assessment & Science-Based Nutrition Periodization blueprint with our Master Coaches.',
+  ctaText: 'Claim Your Privilege',
+  ctaLink: '#contact',
+  showBanner: true,
+  showPopup: true,
+  popupFrequency: 'session',
 };
 
 export const HERO_TYPING_PHRASES = [

@@ -37,6 +37,18 @@ export interface LeadRecord {
   status: 'Synced' | 'Saved to Vault' | 'Pending';
 }
 
+export interface AnnouncementData {
+  isActive: boolean;
+  title: string;
+  badge?: string;
+  message: string;
+  ctaText?: string;
+  ctaLink?: string;
+  showBanner?: boolean;
+  showPopup?: boolean;
+  popupFrequency?: 'always' | 'session';
+}
+
 export interface EquipmentItem {
   id: string;
   title: string;

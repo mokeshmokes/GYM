@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
+import AnnouncementSection from '@/components/AnnouncementSection';
+import AnnouncementModal from '@/components/AnnouncementModal';
 import Stats from '@/components/Stats';
 import About from '@/components/About';
 import Equipment from '@/components/Equipment';
@@ -18,12 +20,14 @@ import FloatingActions from '@/components/FloatingActions';
 import LeadsVaultModal from '@/components/LeadsVaultModal';
 import { usePackages } from '@/hooks/usePackages';
 import { useGymSettings } from '@/hooks/useGymSettings';
+import { useAnnouncement } from '@/hooks/useAnnouncement';
 
 export default function Home() {
   const [selectedPlan, setSelectedPlan] = useState<string>('Quarterly Pro');
   const [leadsModalOpen, setLeadsModalOpen] = useState<boolean>(false);
   const { packages } = usePackages();
   const { settings } = useGymSettings();
+  const { announcement } = useAnnouncement();
 
   const handleSelectProgramOrPlan = (planOrProgramName: string) => {
     setSelectedPlan(planOrProgramName);
@@ -37,6 +41,7 @@ export default function Home() {
       {/* Main Content Sections */}
       <main className="flex-1 w-full">
         <Hero />
+        <AnnouncementSection announcement={announcement} />
         <Stats />
         <About />
         <Gallery />
@@ -66,6 +71,9 @@ export default function Home() {
         isOpen={leadsModalOpen}
         onClose={() => setLeadsModalOpen(false)}
       />
+
+      {/* Auto Pop-up Announcement Modal on Site Open (Controlled by Sanity) */}
+      <AnnouncementModal announcement={announcement} />
     </div>
   );
 }

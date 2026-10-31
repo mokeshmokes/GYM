@@ -1,7 +1,7 @@
 import { createClient } from 'next-sanity';
 import { apiVersion, dataset, projectId, useCdn } from './env';
-import { PricingPlan, GymInfo } from '@/types';
-import { PRICING_PLANS, GYM_INFO } from '@/data/gymData';
+import { PricingPlan, GymInfo, AnnouncementData } from '@/types';
+import { PRICING_PLANS, GYM_INFO, DEFAULT_ANNOUNCEMENT } from '@/data/gymData';
 
 export const client = projectId
   ? createClient({
@@ -51,6 +51,19 @@ export const SETTINGS_QUERY = `*[_type == "gymSettings"][0]{
   instagram,
   facebook,
   youtube
+}`;
+
+export const ANNOUNCEMENT_QUERY = `*[_type == "announcement" && (isActive == true || !defined(isActive))][0]{
+  _id,
+  isActive,
+  title,
+  badge,
+  message,
+  ctaText,
+  ctaLink,
+  showBanner,
+  showPopup,
+  popupFrequency
 }`;
 
 export async function getPackages(): Promise<PricingPlan[]> {
@@ -144,5 +157,33 @@ export async function getGymSettings(): Promise<GymInfo> {
   } catch (error) {
     console.warn('Sanity getGymSettings fallback to local gymData:', error);
     return GYM_INFO;
+  }
+}
+
+export async function getAnnouncement(): Promise<AnnouncementData> {
+  if (!client || !projectId) {
+    return DEFAULT_ANNOUNCEMENT;
+  }
+
+  try {
+    const data = await client.fetch<any>(ANNOUNCEMENT_QUERY, {}, { next: { revalidate: 15 } });
+    if (!data) {
+      return DEFAULT_ANNOUNCEMENT;
+    }
+
+    return {
+      isActive: data.isActive !== undefined ? Boolean(data.isActive) : DEFAULT_ANNOUNCEMENT.isActive,
+      title: data.title || DEFAULT_ANNOUNCEMENT.title,
+      badge: data.badge || DEFAULT_ANNOUNCEMENT.badge,
+      message: data.message || DEFAULT_ANNOUNCEMENT.message,
+      ctaText: data.ctaText || DEFAULT_ANNOUNCEMENT.ctaText,
+      ctaLink: data.ctaLink || DEFAULT_ANNOUNCEMENT.ctaLink,
+      showBanner: data.showBanner !== undefined ? Boolean(data.showBanner) : DEFAULT_ANNOUNCEMENT.showBanner,
+      showPopup: data.showPopup !== undefined ? Boolean(data.showPopup) : DEFAULT_ANNOUNCEMENT.showPopup,
+      popupFrequency: data.popupFrequency || DEFAULT_ANNOUNCEMENT.popupFrequency,
+    };
+  } catch (error) {
+    console.warn('Sanity getAnnouncement fallback to default:', error);
+    return DEFAULT_ANNOUNCEMENT;
   }
 }
