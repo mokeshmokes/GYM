@@ -10,8 +10,6 @@ import {
   Instagram,
   Facebook,
   Youtube,
-  Linkedin,
-  Twitter,
   Send,
   Loader2,
   CheckCircle2,
@@ -387,24 +385,6 @@ export default function Contact({
                   aria-label="YouTube"
                 >
                   <Youtube className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-300 hover:text-gold-400 hover:border-gold-500/50 transition-all"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-300 hover:text-gold-400 hover:border-gold-500/50 transition-all"
-                  aria-label="Twitter"
-                >
-                  <Twitter className="w-4 h-4" />
                 </a>
               </div>
             </div>

@@ -10,7 +10,6 @@ import {
   Instagram,
   Facebook,
   Youtube,
-  Linkedin,
   ChevronRight,
   Clock,
 } from 'lucide-react';
@@ -106,15 +105,6 @@ export default function Footer({ onOpenLeadsModal }: FooterProps) {
                 aria-label="YouTube"
               >
                 <Youtube className="w-4 h-4" />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-gold-400 hover:border-gold-500/40 transition-all"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-4 h-4" />
               </a>
             </div>
           </div>
