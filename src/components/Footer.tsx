@@ -64,28 +64,22 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-gold-400 flex-shrink-0" />
-<<<<<<<<< Temporary merge branch 1
-                <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                  {currentSettings.phoneDisplay}
-                </a>
-                <span>/</span>
-                <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                  {currentSettings.phoneInternational}
-=========
-                <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                  Call: {GYM_INFO.phoneInternational}
+                <a
+                  href={`tel:${currentSettings.phoneRaw || GYM_INFO.phoneRaw}`}
+                  className="hover:text-gold-400 transition-colors"
+                >
+                  Call: {currentSettings.phoneInternational || currentSettings.phoneDisplay || GYM_INFO.phoneInternational}
                 </a>
               </div>
               <div className="flex items-center gap-2.5">
                 <MessageCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
                 <a
-                  href={GYM_INFO.whatsappUrl}
+                  href={currentSettings.whatsappUrl || GYM_INFO.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="hover:text-emerald-400 transition-colors"
                 >
-                  WhatsApp: {GYM_INFO.phoneInternational}
->>>>>>>>> Temporary merge branch 2
+                  WhatsApp: {currentSettings.whatsappDisplay || currentSettings.phoneInternational || GYM_INFO.phoneInternational}
                 </a>
               </div>
             </div>
@@ -161,30 +155,16 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
             </h4>
             <ul className="space-y-3 text-xs text-neutral-400 divide-y divide-neutral-900">
               <li className="flex justify-between pt-1">
-<<<<<<<<< Temporary merge branch 1
-                <span>Monday – Friday:</span>
-                <span className="font-semibold text-neutral-200">{currentSettings.hours.weekdays}</span>
-              </li>
-              <li className="flex justify-between pt-2">
-                <span>Saturday:</span>
-                <span className="font-semibold text-neutral-200">{currentSettings.hours.saturday}</span>
-=========
                 <span>Monday – Saturday:</span>
-                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.monSat}</span>
->>>>>>>>> Temporary merge branch 2
+                <span className="font-semibold text-neutral-200">
+                  {currentSettings.hours.monSat || currentSettings.hours.weekdays || GYM_INFO.hours.monSat}
+                </span>
               </li>
               <li className="flex justify-between pt-2">
                 <span>Sunday:</span>
-                <span className="font-semibold text-neutral-200">{currentSettings.hours.sunday}</span>
-              </li>
-<<<<<<<<< Temporary merge branch 1
-              <li className="flex justify-between pt-2">
-                <span>VIP Cardholders:</span>
-                <span className="font-semibold text-gold-400">{currentSettings.hours.vip}</span>
-              </li>
-              <li className="flex justify-between pt-2">
-                <span>Spa & Ice Plunge:</span>
-                <span className="font-semibold text-neutral-200">{currentSettings.hours.spa}</span>
+                <span className="font-semibold text-neutral-200">
+                  {currentSettings.hours.sunday || GYM_INFO.hours.sunday}
+                </span>
               </li>
             </ul>
           </div>
