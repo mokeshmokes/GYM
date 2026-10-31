@@ -299,14 +299,11 @@ export default function Contact({
                       Phone Number
                     </h4>
                     <p className="text-sm text-neutral-200">
-                      <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                        {GYM_INFO.phoneInternational}
-                      <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                        {currentSettings.phoneDisplay}
-                      </a>{' '}
-                      /{' '}
-                      <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                        {currentSettings.phoneInternational}
+                      <a
+                        href={`tel:${currentSettings.phoneRaw || GYM_INFO.phoneRaw}`}
+                        className="hover:text-gold-400 transition-colors"
+                      >
+                        {currentSettings.phoneInternational || currentSettings.phoneDisplay || GYM_INFO.phoneInternational}
                       </a>
                     </p>
                   </div>
@@ -323,12 +320,12 @@ export default function Contact({
                     </h4>
                     <p className="text-sm text-neutral-200">
                       <a
-                        href={GYM_INFO.whatsappUrl}
+                        href={currentSettings.whatsappUrl || GYM_INFO.whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hover:text-emerald-400 transition-colors"
                       >
-                        {GYM_INFO.whatsappDisplay}
+                        {currentSettings.whatsappDisplay || currentSettings.phoneInternational || GYM_INFO.phoneInternational}
                       </a>
                     </p>
                   </div>
@@ -361,10 +358,8 @@ export default function Contact({
                       Sanctuary Timings
                     </h4>
                     <p className="text-sm text-neutral-200 leading-snug">
-                      Monday – Saturday: {GYM_INFO.hours.monSat} <br />
-                      Sunday: {GYM_INFO.hours.sunday}
-                      Mon – Sat: {currentSettings.hours.weekdays} <br />
-                      Sunday: {currentSettings.hours.sunday}
+                      Monday – Saturday: {currentSettings.hours.monSat || currentSettings.hours.weekdays || GYM_INFO.hours.monSat} <br />
+                      Sunday: {currentSettings.hours.sunday || GYM_INFO.hours.sunday}
                     </p>
                   </div>
                 </div>

@@ -1,9 +1,10 @@
 export interface GymHours {
   weekdays: string;
   saturday: string;
+  monSat?: string;
   sunday: string;
-  vip: string;
-  spa: string;
+  vip?: string;
+  spa?: string;
 }
 
 export interface GymInfo {
@@ -14,6 +15,8 @@ export interface GymInfo {
   phoneInternational: string;
   phoneRaw: string;
   whatsappRaw: string;
+  whatsappDisplay?: string;
+  whatsappUrl?: string;
   whatsappMessage: string;
   email: string;
   instagram: string;
