@@ -467,6 +467,13 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     image: '/Gallery/IMG_3849.jpg',
     caption: 'Functional Turf & Heavy Leg Press Zone with Overhead Monkey Bars',
   },
+  {
+    id: 'gal-7',
+    category: 'facility',
+    categoryLabel: 'Cardio Zone',
+    image: '/Gallery/IMG_3854.jpg',
+    caption: 'Dedicated Cardio Studio with Ellipticals, Treadmills & Spin Bikes',
+  },
 ];
 
 export const TESTIMONIALS_LIST: TestimonialItem[] = [
