@@ -500,20 +500,13 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 'gal-5',
-    category: 'equipment',
-    categoryLabel: 'Equipment',
-    image: '/Gallery/IMG_3822.jpg',
-    caption: 'Heavy Dumbbell Rows & Free Weight Training Zone',
-  },
-  {
-    id: 'gal-6',
     category: 'training',
     categoryLabel: 'Training',
     image: '/Gallery/IMG_3828.jpg',
     caption: 'Championship Training Floor with Premium Biomechanical Stations',
   },
   {
-    id: 'gal-7',
+    id: 'gal-6',
     category: 'training',
     categoryLabel: 'Training',
     image: '/Gallery/IMG_3849.jpg',
