@@ -358,10 +358,10 @@ export const TRAINERS_LIST: TrainerItem[] = [
   {
     id: 'raj',
     name: 'Coach Raj',
-    role: 'Personal Trainer & Fitness Coach',
-    bio: 'Personal coach specializing in functional fitness, core stability, high-energy HIIT workouts, and sustainable body recomposition.',
+    role: 'Certified Personal Trainer & Fitness Coach',
+    bio: 'Certified personal coach specializing in functional fitness, core stability, high-energy HIIT workouts, and sustainable body recomposition.',
     image: '/trainers/raj.jpg',
-    alt: 'Coach Raj - Personal Trainer & Fitness Coach at VST Fitness World',
+    alt: 'Coach Raj - Certified Personal Trainer & Fitness Coach at VST Fitness World',
     instagram: 'https://www.instagram.com/vst_fitnesss?utm_source=qr&srtk=amE1YXM2OHFpNWV5',
     linkedin: 'https://linkedin.com',
     twitter: 'https://twitter.com',
