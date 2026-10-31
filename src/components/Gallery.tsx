@@ -86,7 +86,7 @@ export default function Gallery() {
             <div
               key={item.id}
               onClick={() => handleOpenLightbox(index)}
-              className="group relative h-72 sm:h-80 rounded-2xl overflow-hidden glass-card cursor-pointer border border-neutral-800 hover:border-gold-500/50 transition-all duration-300 transform hover:-translate-y-1 shadow-xl shadow-black/80"
+              className="group relative h-80 sm:h-96 rounded-2xl overflow-hidden glass-card cursor-pointer border border-neutral-800 hover:border-gold-500/50 transition-all duration-300 transform hover:-translate-y-1 shadow-xl shadow-black/80"
             >
               <Image
                 src={item.image}
