@@ -135,16 +135,16 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
             </h4>
             <ul className="space-y-2 text-xs">
               {[
-                { label: 'Home', href: '#home' },
-                { label: 'About Us', href: '#about' },
-                { label: 'Gym Gallery', href: '#gallery' },
-                { label: 'Gym Equipment', href: '#equipment' },
-                { label: 'Why Choose Us', href: '#features' },
-                { label: 'Training Programs', href: '#programs' },
-                { label: 'Master Coaches', href: '#trainers' },
-                { label: 'Member Reviews', href: '#reviews' },
-                { label: 'Membership Plans', href: '#pricing' },
-                { label: 'Book an Enquiry', href: '#contact' },
+                { label: 'Home', href: '/' },
+                { label: 'About Us', href: '/about' },
+                { label: 'Gym Gallery', href: '/gallery' },
+                { label: 'Gym Equipment', href: '/equipment' },
+                { label: 'Why Choose Us', href: '/features' },
+                { label: 'Training Programs', href: '/programs' },
+                { label: 'Master Coaches', href: '/trainers' },
+                { label: 'Member Reviews', href: '/reviews' },
+                { label: 'Membership Plans', href: '/pricing' },
+                { label: 'Book an Enquiry', href: '/contact' },
               ].map((item) => (
                 <li key={item.label}>
                   <Link

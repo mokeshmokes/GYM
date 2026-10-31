@@ -133,23 +133,13 @@ export default function Navbar({ settings }: NavbarProps) {
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href, link.sectionId)}
-                  className={`group relative text-[10.5px] xl:text-[11.5px] 2xl:text-[13px] font-semibold tracking-wider uppercase transition-all duration-200 py-1.5 px-1.5 xl:px-2 2xl:px-3 rounded-full whitespace-nowrap flex-shrink-0 ${
+                  className={`relative text-[10.5px] xl:text-[11.5px] 2xl:text-[13px] font-semibold tracking-wider uppercase transition-colors duration-200 py-1.5 px-1.5 xl:px-2 2xl:px-3 rounded-md whitespace-nowrap flex-shrink-0 ${
                     isActive
-                      ? 'text-gold-300 font-bold bg-gold-500/10'
-                      : 'text-neutral-300 hover:text-gold-400 hover:bg-neutral-900/60'
+                      ? 'text-gold-400 font-bold'
+                      : 'text-neutral-300 hover:text-gold-400'
                   }`}
                 >
-                  <span className="relative z-10 transition-transform duration-200 inline-block group-hover:-translate-y-0.5">
-                    {link.name}
-                  </span>
-
-                  <span
-                    className={`absolute bottom-0 left-2 right-2 h-[2px] bg-gradient-to-r from-transparent via-gold-400 to-transparent transition-all duration-200 origin-center ${
-                      isActive
-                        ? 'opacity-100 scale-x-100'
-                        : 'opacity-0 scale-x-0 group-hover:opacity-100 group-hover:scale-x-100'
-                    }`}
-                  />
+                  {link.name}
                 </Link>
               );
             })}
@@ -253,29 +243,24 @@ export default function Navbar({ settings }: NavbarProps) {
           </div>
 
           {/* Navigation Links */}
-          <nav className="flex flex-col gap-2 mt-5">
-            {navLinks.map((link, idx) => {
+          <nav className="flex flex-col gap-1 mt-5">
+            {navLinks.map((link) => {
               const isActive = activeSection === link.sectionId;
               return (
                 <Link
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href, link.sectionId)}
-                  style={{ transitionDelay: `${idx * 25}ms` }}
-                  className={`group text-sm sm:text-base font-medium tracking-wide py-2.5 px-3.5 rounded-xl transition-all duration-300 flex items-center justify-between ${
+                  className={`text-sm sm:text-base font-medium tracking-wide py-2.5 px-3 rounded-lg transition-colors duration-200 flex items-center justify-between ${
                     isActive
-                      ? 'bg-gold-500/15 text-gold-400 font-bold border-l-3 border-gold-400 shadow-sm shadow-gold-500/10'
-                      : 'text-neutral-300 hover:text-gold-300 hover:bg-neutral-900/80 hover:translate-x-1.5'
+                      ? 'text-gold-400 font-bold'
+                      : 'text-neutral-300 hover:text-gold-400'
                   }`}
                 >
-                  <span className="transition-transform duration-300 group-hover:translate-x-1">
-                    {link.name}
-                  </span>
+                  <span>{link.name}</span>
                   <ChevronRight
-                    className={`w-4 h-4 transition-transform duration-300 ${
-                      isActive
-                        ? 'text-gold-400 translate-x-0'
-                        : 'text-neutral-600 group-hover:text-gold-400 group-hover:translate-x-1'
+                    className={`w-4 h-4 transition-colors duration-200 ${
+                      isActive ? 'text-gold-400' : 'text-neutral-600'
                     }`}
                   />
                 </Link>

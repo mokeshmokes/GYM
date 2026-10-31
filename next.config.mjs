@@ -59,7 +59,6 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
-  transpilePackages: ['sanity', 'next-sanity'],
   images: {
     remotePatterns: [
       {
