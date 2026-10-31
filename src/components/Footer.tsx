@@ -64,12 +64,28 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-gold-400 flex-shrink-0" />
-                <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                  {GYM_INFO.phoneDisplay}
+<<<<<<<<< Temporary merge branch 1
+                <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
+                  {currentSettings.phoneDisplay}
                 </a>
                 <span>/</span>
+                <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
+                  {currentSettings.phoneInternational}
+=========
                 <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                  {GYM_INFO.phoneInternational}
+                  Call: {GYM_INFO.phoneInternational}
+                </a>
+              </div>
+              <div className="flex items-center gap-2.5">
+                <MessageCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                <a
+                  href={GYM_INFO.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-400 transition-colors"
+                >
+                  WhatsApp: {GYM_INFO.phoneInternational}
+>>>>>>>>> Temporary merge branch 2
                 </a>
               </div>
             </div>
@@ -145,24 +161,30 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
             </h4>
             <ul className="space-y-3 text-xs text-neutral-400 divide-y divide-neutral-900">
               <li className="flex justify-between pt-1">
+<<<<<<<<< Temporary merge branch 1
                 <span>Monday – Friday:</span>
-                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.weekdays}</span>
+                <span className="font-semibold text-neutral-200">{currentSettings.hours.weekdays}</span>
               </li>
               <li className="flex justify-between pt-2">
                 <span>Saturday:</span>
-                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.saturday}</span>
+                <span className="font-semibold text-neutral-200">{currentSettings.hours.saturday}</span>
+=========
+                <span>Monday – Saturday:</span>
+                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.monSat}</span>
+>>>>>>>>> Temporary merge branch 2
               </li>
               <li className="flex justify-between pt-2">
                 <span>Sunday:</span>
                 <span className="font-semibold text-neutral-200">{currentSettings.hours.sunday}</span>
               </li>
+<<<<<<<<< Temporary merge branch 1
               <li className="flex justify-between pt-2">
                 <span>VIP Cardholders:</span>
-                <span className="font-semibold text-gold-400">{GYM_INFO.hours.vip}</span>
+                <span className="font-semibold text-gold-400">{currentSettings.hours.vip}</span>
               </li>
               <li className="flex justify-between pt-2">
                 <span>Spa & Ice Plunge:</span>
-                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.spa}</span>
+                <span className="font-semibold text-neutral-200">{currentSettings.hours.spa}</span>
               </li>
             </ul>
           </div>

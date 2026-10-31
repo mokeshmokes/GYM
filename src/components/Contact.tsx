@@ -299,12 +299,17 @@ export default function Contact({
                       Phone Number
                     </h4>
                     <p className="text-sm text-neutral-200">
-                      <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                        {GYM_INFO.phoneDisplay}
+<<<<<<<<< Temporary merge branch 1
+                      <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
+                        {currentSettings.phoneDisplay}
                       </a>{' '}
                       /{' '}
+                      <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
+                        {currentSettings.phoneInternational}
+=========
                       <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
                         {GYM_INFO.phoneInternational}
+>>>>>>>>> Temporary merge branch 2
                       </a>
                     </p>
                   </div>
@@ -321,12 +326,12 @@ export default function Contact({
                     </h4>
                     <p className="text-sm text-neutral-200">
                       <a
-                        href={GYM_INFO.whatsappUrl}
+                        href={currentSettings.whatsappUrl || GYM_INFO.whatsappUrl}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="hover:text-emerald-400 transition-colors"
                       >
-                        {GYM_INFO.whatsappDisplay}
+                        {currentSettings.whatsappDisplay || currentSettings.phoneInternational || GYM_INFO.phoneInternational}
                       </a>
                     </p>
                   </div>
@@ -359,8 +364,13 @@ export default function Contact({
                       Sanctuary Timings
                     </h4>
                     <p className="text-sm text-neutral-200 leading-snug">
-                      Mon – Sat: {GYM_INFO.hours.weekdays} <br />
+<<<<<<<<< Temporary merge branch 1
+                      Mon – Sat: {currentSettings.hours.weekdays} <br />
+                      Sunday: {currentSettings.hours.sunday}
+=========
+                      Monday – Saturday: {GYM_INFO.hours.monSat} <br />
                       Sunday: {GYM_INFO.hours.sunday}
+>>>>>>>>> Temporary merge branch 2
                     </p>
                   </div>
                 </div>

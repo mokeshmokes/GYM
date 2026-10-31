@@ -109,6 +109,8 @@ export async function getGymSettings(): Promise<GymInfo> {
       phoneInternational: data.phoneInternational || GYM_INFO.phoneInternational,
       phoneRaw: data.phoneRaw || data.phoneDisplay || GYM_INFO.phoneRaw,
       whatsappRaw: data.whatsappRaw || GYM_INFO.whatsappRaw,
+      whatsappDisplay: data.phoneInternational || GYM_INFO.whatsappDisplay,
+      whatsappUrl: `https://wa.me/${(data.whatsappRaw || GYM_INFO.whatsappRaw || '917550155331').replace(/\D/g, '')}?text=${encodeURIComponent(data.whatsappMessage || GYM_INFO.whatsappMessage || 'Hello VST Fitness World, I am interested in a Gym Membership!')}`,
       whatsappMessage: data.whatsappMessage || GYM_INFO.whatsappMessage,
       email: data.email || GYM_INFO.email,
       instagram: data.instagram || GYM_INFO.instagram,
@@ -120,6 +122,7 @@ export async function getGymSettings(): Promise<GymInfo> {
       hours: {
         weekdays: data.timingWeekdays || GYM_INFO.hours.weekdays,
         saturday: data.timingSaturday || GYM_INFO.hours.saturday,
+        monSat: data.timingWeekdays || GYM_INFO.hours.monSat,
         sunday: data.timingSunday || GYM_INFO.hours.sunday,
         vip: data.timingVip || GYM_INFO.hours.vip,
         spa: data.timingSpa || GYM_INFO.hours.spa,
