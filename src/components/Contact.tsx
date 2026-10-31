@@ -299,17 +299,12 @@ export default function Contact({
                       Phone Number
                     </h4>
                     <p className="text-sm text-neutral-200">
-<<<<<<<<< Temporary merge branch 1
-                      <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
+<a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
                         {currentSettings.phoneDisplay}
                       </a>{' '}
                       /{' '}
                       <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
                         {currentSettings.phoneInternational}
-=========
-                      <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                        {GYM_INFO.phoneInternational}
->>>>>>>>> Temporary merge branch 2
                       </a>
                     </p>
                   </div>
@@ -364,13 +359,8 @@ export default function Contact({
                       Sanctuary Timings
                     </h4>
                     <p className="text-sm text-neutral-200 leading-snug">
-<<<<<<<<< Temporary merge branch 1
-                      Mon – Sat: {currentSettings.hours.weekdays} <br />
-                      Sunday: {currentSettings.hours.sunday}
-=========
-                      Monday – Saturday: {GYM_INFO.hours.monSat} <br />
-                      Sunday: {GYM_INFO.hours.sunday}
->>>>>>>>> Temporary merge branch 2
+Monday – Saturday: {currentSettings.hours.weekdays || currentSettings.hours.monSat || GYM_INFO.hours.monSat} <br />
+                      Sunday: {currentSettings.hours.sunday || GYM_INFO.hours.sunday}
                     </p>
                   </div>
                 </div>
