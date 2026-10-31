@@ -77,23 +77,24 @@ export default function Pricing({ onSelectPlan, packages = PRICING_PLANS }: Pric
                   </div>
                 )}
 
-                <div>
-                  {/* Tier Title */}
+                <div className="flex-1 flex flex-col">
+                  {/* Tier Title - Consistent height keeps Price on the exact same line */}
                   <h3
-                    className={`font-bebas text-2xl sm:text-3xl tracking-wide mb-2 ${
+                    className={`font-bebas text-2xl sm:text-3xl tracking-wide min-h-[3.25rem] sm:min-h-[4rem] flex items-start leading-tight mb-2 ${
                       isPopular ? 'gold-gradient-text' : 'text-white'
                     }`}
                   >
                     {plan.tier}
                   </h3>
 
-                  <p className="text-xs text-neutral-400 leading-relaxed mb-6 min-h-[36px]">
+                  {/* Description - Consistent height across cards */}
+                  <p className="text-xs text-neutral-400 leading-relaxed mb-6 min-h-[3.75rem] sm:min-h-[4.25rem] flex items-start">
                     {plan.desc}
                   </p>
 
-                  {/* Price Box */}
+                  {/* Price Box - Guaranteed on the exact same horizontal baseline */}
                   <div className="flex items-baseline gap-1 mb-6 sm:mb-8 pb-5 border-b border-neutral-800">
-                    <span className="text-2xl font-bold text-gold-400">{plan.currency || '₹'}</span>
+                    <span className="text-xl sm:text-2xl font-bold text-gold-400">{plan.currency || '₹'}</span>
                     <span className="font-bebas text-4xl sm:text-5xl lg:text-6xl text-white font-bold tracking-tight">
                       {plan.amount}
                     </span>
@@ -102,8 +103,8 @@ export default function Pricing({ onSelectPlan, packages = PRICING_PLANS }: Pric
                     </span>
                   </div>
 
-                  {/* Feature Checklist */}
-                  <ul className="space-y-3 mb-8">
+                  {/* Feature Checklist - flex-1 keeps buttons aligned at bottom */}
+                  <ul className="space-y-3 mb-8 flex-1">
                     {plan.features?.map((feat, i) => (
                       <li key={i} className="flex items-start gap-3 text-xs sm:text-sm">
                         {feat.included ? (
@@ -127,18 +128,18 @@ export default function Pricing({ onSelectPlan, packages = PRICING_PLANS }: Pric
                   </ul>
                 </div>
 
-                {/* Card CTA Button */}
+                {/* Card CTA Button - Slightly reduced content size to prevent awkward wrapping */}
                 <a
                   href="#contact"
                   onClick={(e) => handleSelectPlan(e, plan.enrollValue || plan.tier)}
-                  className={`w-full py-3.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 group ${
+                  className={`w-full py-3 px-3 sm:px-4 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all duration-300 group whitespace-nowrap overflow-hidden text-ellipsis ${
                     isPopular
                       ? 'btn-gold shadow-lg shadow-gold-500/30'
                       : 'btn-outline-gold hover:bg-gold-500/10'
                   }`}
                 >
-                  <span>{plan.buttonText || 'Select Plan'}</span>
-                  <ArrowRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1" />
+                  <span className="truncate">{plan.buttonText || 'Select Plan'}</span>
+                  <ArrowRight className="w-3.5 h-3.5 flex-shrink-0 transition-transform duration-200 group-hover:translate-x-1" />
                 </a>
               </div>
             );
