@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { GYM_INFO, PRICING_PLANS } from '@/data/gymData';
 import { LeadRecord, PricingPlan, GymInfo } from '@/types';
+import { clientEncrypt, clientDecrypt } from '@/utils/cryptoClient';
 
 interface ContactProps {
   selectedPlan: string;
@@ -185,21 +186,25 @@ export default function Contact({
     const customWebhook = typeof window !== 'undefined' ? localStorage.getItem('vst_sheet_webhook') : null;
 
     try {
+      // Encrypt lead payload so it is never exposed in plain text in DevTools Network tab
+      const encryptedPayload = await clientEncrypt({
+        ...formData,
+        phone: cleanPhone,
+        webhookUrl: customWebhook || undefined,
+      });
+
       const response = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         signal: controller.signal,
-        body: JSON.stringify({
-          ...formData,
-          phone: cleanPhone,
-          webhookUrl: customWebhook || currentSettings.defaultWebhookUrl || undefined,
-        }),
+        body: JSON.stringify(encryptedPayload),
       });
 
       clearTimeout(slowTimer);
       clearTimeout(timeoutId);
 
-      const resData = await response.json();
+      const rawJson = await response.json();
+      const resData = await clientDecrypt<any>(rawJson);
 
       const newLead: LeadRecord = {
         id: 'lead_' + Date.now(),

@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { GymInfo } from '@/types';
 import { GYM_INFO } from '@/data/gymData';
+import { clientDecrypt } from '@/utils/cryptoClient';
 
 export function useGymSettings() {
   const [settings, setSettings] = useState<GymInfo>(GYM_INFO);
@@ -13,7 +14,8 @@ export function useGymSettings() {
     try {
       const res = await fetch('/api/settings');
       if (res.ok) {
-        const json = await res.json();
+        const rawJson = await res.json();
+        const json = await clientDecrypt<any>(rawJson);
         if (json.data) {
           setSettings(json.data);
           setSource(json.source || 'sanity');
@@ -32,4 +34,3 @@ export function useGymSettings() {
 
   return { settings, loading, source, reload: fetchSettings };
 }
-

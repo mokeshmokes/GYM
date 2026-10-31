@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { AnnouncementData } from '@/types';
 import { DEFAULT_ANNOUNCEMENT } from '@/data/gymData';
+import { clientDecrypt } from '@/utils/cryptoClient';
 
 export function useAnnouncement() {
   const [announcement, setAnnouncement] = useState<AnnouncementData>(DEFAULT_ANNOUNCEMENT);
@@ -12,7 +13,8 @@ export function useAnnouncement() {
     try {
       const res = await fetch('/api/announcement');
       if (res.ok) {
-        const json = await res.json();
+        const rawJson = await res.json();
+        const json = await clientDecrypt<any>(rawJson);
         if (json.data) {
           setAnnouncement(json.data);
         }
@@ -30,4 +32,3 @@ export function useAnnouncement() {
 
   return { announcement, loading, reload: fetchAnnouncement };
 }
-
