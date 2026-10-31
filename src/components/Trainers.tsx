@@ -30,8 +30,8 @@ export default function Trainers() {
           <div className="w-20 h-1 bg-gradient-to-r from-transparent via-gold-400 to-transparent mx-auto mt-6" />
         </div>
 
-        {/* Trainers Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Trainers Grid (3 Real Master Coaches) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto">
           {TRAINERS_LIST.map((trainer) => (
             <article
               key={trainer.id}
@@ -39,14 +39,14 @@ export default function Trainers() {
             >
               <div>
                 {/* Trainer Image & Social Overlay */}
-                <div className="relative h-72 sm:h-80 w-full overflow-hidden bg-neutral-900">
+                <div className="relative h-80 sm:h-96 w-full overflow-hidden bg-neutral-900">
                   <Image
                     src={trainer.image}
                     alt={trainer.alt}
                     fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
+                    priority
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
 
