@@ -3,8 +3,6 @@ export interface GymHours {
   saturday: string;
   monSat?: string;
   sunday: string;
-  vip?: string;
-  spa?: string;
 }
 
 export interface GymInfo {
@@ -88,6 +86,7 @@ export interface PricingPlan {
   isPopular?: boolean;
   badge?: string;
   desc: string;
+  price?: string;
   currency: string;
   amount: string;
   period: string;

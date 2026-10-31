@@ -18,11 +18,11 @@ export const PACKAGES_QUERY = `*[_type == "package" && (isActive == true || !def
   "id": _id,
   "tier": title,
   "enrollValue": coalesce(enrollValue, title),
+  "price": coalesce(price, amount),
   "amount": amount,
   "currency": coalesce(currency, "₹"),
   "period": coalesce(period, "/ month"),
   "isPopular": coalesce(isPopular, false),
-  "badge": badge,
   "desc": coalesce(desc, ""),
   "buttonText": coalesce(buttonText, "Claim Membership"),
   "order": coalesce(order, 100),
@@ -46,8 +46,6 @@ export const SETTINGS_QUERY = `*[_type == "gymSettings"][0]{
   timingWeekdays,
   timingSaturday,
   timingSunday,
-  timingVip,
-  timingSpa,
   googleMapsLink,
   googleMapsEmbed,
   instagram,
@@ -66,24 +64,41 @@ export async function getPackages(): Promise<PricingPlan[]> {
       return PRICING_PLANS;
     }
 
-    return data.map((item) => ({
-      id: item.id || item._id,
-      tier: item.tier || item.title || 'Membership Package',
-      enrollValue: item.enrollValue || item.tier || item.title || 'Membership Package',
-      isPopular: Boolean(item.isPopular),
-      badge: item.badge || (item.isPopular ? 'Most Popular' : undefined),
-      desc: item.desc || '',
-      currency: item.currency || '₹',
-      amount: String(item.amount || '0'),
-      period: item.period || '/ month',
-      features: Array.isArray(item.features)
-        ? item.features.map((f: any) => ({
-            text: typeof f === 'string' ? f : f?.text || '',
-            included: typeof f === 'object' && f?.included !== undefined ? Boolean(f.included) : true,
-          }))
-        : [],
-      buttonText: item.buttonText || 'Select Plan',
-    }));
+    return data.map((item) => {
+      const rawPrice = String(item.price || item.amount || '2,999').trim();
+      let currency = '₹';
+      let amount = rawPrice;
+
+      if (rawPrice.startsWith('₹')) {
+        currency = '₹';
+        amount = rawPrice.slice(1).trim();
+      } else if (rawPrice.startsWith('Rs.') || rawPrice.startsWith('Rs ') || rawPrice.startsWith('rs.')) {
+        currency = '₹';
+        amount = rawPrice.replace(/^(Rs\.?|rs\.?)\s*/i, '').trim();
+      } else if (/^[^\d\s]/.test(rawPrice)) {
+        currency = rawPrice.slice(0, 1);
+        amount = rawPrice.slice(1).trim();
+      }
+
+      return {
+        id: item.id || item._id,
+        tier: item.tier || item.title || 'Membership Package',
+        enrollValue: item.enrollValue || item.tier || item.title || 'Membership Package',
+        isPopular: Boolean(item.isPopular),
+        badge: item.isPopular ? 'Most Popular' : undefined,
+        desc: item.desc || '',
+        currency,
+        amount,
+        period: item.period || '/ month',
+        features: Array.isArray(item.features)
+          ? item.features.map((f: any) => ({
+              text: typeof f === 'string' ? f : f?.text || '',
+              included: typeof f === 'object' && f?.included !== undefined ? Boolean(f.included) : true,
+            }))
+          : [],
+        buttonText: item.buttonText || 'Select Plan',
+      };
+    });
   } catch (error) {
     console.warn('Sanity getPackages fallback to local gymData:', error);
     return PRICING_PLANS;
@@ -124,8 +139,6 @@ export async function getGymSettings(): Promise<GymInfo> {
         saturday: data.timingSaturday || GYM_INFO.hours.saturday,
         monSat: data.timingWeekdays || GYM_INFO.hours.monSat,
         sunday: data.timingSunday || GYM_INFO.hours.sunday,
-        vip: data.timingVip || GYM_INFO.hours.vip,
-        spa: data.timingSpa || GYM_INFO.hours.spa,
       },
     };
   } catch (error) {

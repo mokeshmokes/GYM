@@ -110,22 +110,6 @@ export const gymSettingsSchema = defineType({
       initialValue: '5:00 AM – 10:00 AM',
     }),
     defineField({
-      name: 'timingVip',
-      title: 'VIP Member Access Timings',
-      type: 'string',
-      fieldset: 'timings',
-      description: 'e.g. All-Day Priority Member Access',
-      initialValue: 'All-Day Priority Member Access',
-    }),
-    defineField({
-      name: 'timingSpa',
-      title: 'Spa & Sauna Timings',
-      type: 'string',
-      fieldset: 'timings',
-      description: 'e.g. 6:00 AM – 10:00 PM',
-      initialValue: '6:00 AM – 10:00 PM',
-    }),
-    defineField({
       name: 'googleMapsLink',
       title: 'Google Maps Directions Link',
       type: 'url',

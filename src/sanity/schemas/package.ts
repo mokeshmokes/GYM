@@ -28,17 +28,12 @@ export const packageSchema = defineType({
       description: 'Value passed to Contact form and Google Sheet leads (e.g. Quarterly Pro, Monthly Starter, Yearly VIP)',
     }),
     defineField({
-      name: 'amount',
-      title: 'Price Amount',
+      name: 'price',
+      title: 'Price (with Currency)',
       type: 'string',
-      description: 'e.g. 2,999 or 7,499 or 24,999',
+      description: 'Enter price amount with currency (e.g. ₹2,999 or ₹7,499). Defaults to ₹ if no symbol is typed.',
+      initialValue: '₹2,999',
       validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'currency',
-      title: 'Currency Symbol',
-      type: 'string',
-      initialValue: '₹',
     }),
     defineField({
       name: 'period',
@@ -52,12 +47,6 @@ export const packageSchema = defineType({
       title: 'Mark as Most Popular / Featured',
       type: 'boolean',
       initialValue: false,
-    }),
-    defineField({
-      name: 'badge',
-      title: 'Custom Badge Ribbon (Optional)',
-      type: 'string',
-      description: 'e.g. Most Popular, Best Value, Executive Choice',
     }),
     defineField({
       name: 'desc',
@@ -125,15 +114,18 @@ export const packageSchema = defineType({
   preview: {
     select: {
       title: 'title',
+      price: 'price',
       amount: 'amount',
-      currency: 'currency',
       period: 'period',
       isPopular: 'isPopular',
     },
-    prepare({ title, amount, currency, period, isPopular }: any) {
+    prepare({ title, price, amount, period, isPopular }: any) {
+      const displayPrice = price
+        ? (price.startsWith('₹') ? price : `₹${price}`)
+        : (amount ? `₹${amount}` : '₹0');
       return {
         title: `${title || 'Untitled Package'}${isPopular ? ' ⭐ (Most Popular)' : ''}`,
-        subtitle: `${currency || '₹'}${amount || '0'} ${period || ''}`,
+        subtitle: `${displayPrice} ${period || ''}`,
       };
     },
   },
