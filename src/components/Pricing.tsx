@@ -22,6 +22,13 @@ export default function Pricing({ onSelectPlan, packages = PRICING_PLANS }: Pric
     }
   };
 
+  const getGridColsClass = () => {
+    if (activePackages.length === 1) return 'max-w-md';
+    if (activePackages.length === 2) return 'md:grid-cols-2 max-w-4xl';
+    if (activePackages.length === 4) return 'md:grid-cols-2 lg:grid-cols-4 max-w-7xl';
+    return 'md:grid-cols-2 lg:grid-cols-3 max-w-6xl';
+  };
+
   return (
     <section id="pricing" className="relative py-16 sm:py-20 lg:py-28 bg-[#0c0c0c] border-t border-neutral-900 scroll-mt-16">
       <div className="ambient-glow bottom-[10%] right-[5%] opacity-20" />
@@ -47,10 +54,11 @@ export default function Pricing({ onSelectPlan, packages = PRICING_PLANS }: Pric
           <div className="w-20 h-1 bg-gradient-to-r from-transparent via-gold-400 to-transparent mx-auto mt-6" />
         </div>
 
-        {/* Pricing Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 items-stretch max-w-6xl mx-auto">
+        {/* Pricing Cards Grid (Fully Dynamic from Sanity) */}
+        <div className={`grid grid-cols-1 ${getGridColsClass()} gap-6 lg:gap-8 items-stretch mx-auto`}>
           {activePackages.map((plan) => {
-            const isPopular = plan.isPopular;
+            const isPopular = Boolean(plan.isPopular);
+            const badgeLabel = plan.badge || (isPopular ? 'Most Popular' : null);
 
             return (
               <div
@@ -61,11 +69,11 @@ export default function Pricing({ onSelectPlan, packages = PRICING_PLANS }: Pric
                     : 'glass-card border border-neutral-800 hover:border-gold-500/40'
                 }`}
               >
-                {/* Popular Ribbon */}
-                {isPopular && (
+                {/* Popular or Custom Badge Ribbon */}
+                {badgeLabel && (
                   <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-gold-gradient text-neutral-950 font-bold text-[11px] sm:text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-lg shadow-gold-500/40 whitespace-nowrap">
                     <Crown className="w-3.5 h-3.5" />
-                    <span>Most Popular</span>
+                    <span>{badgeLabel}</span>
                   </div>
                 )}
 

@@ -6,9 +6,10 @@ import {
   PricingPlan,
   GalleryItem,
   TestimonialItem,
+  GymInfo,
 } from '@/types';
 
-export const GYM_INFO = {
+export const GYM_INFO: GymInfo = {
   brandName: 'VST FITNESS WORLD',
   tagline: 'Luxury Strength & Championship Fitness Sanctuary',
   address: 'No 1, Varadharajapuram Main Rd, Pallikaranai, Chennai, Tamil Nadu 600100',

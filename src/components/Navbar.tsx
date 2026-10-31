@@ -5,12 +5,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Crown, Phone, ChevronRight } from 'lucide-react';
 import { GYM_INFO } from '@/data/gymData';
+import { GymInfo } from '@/types';
 
 interface NavbarProps {
   onOpenLeadsModal?: () => void;
+  settings?: GymInfo;
 }
 
-export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
+export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: NavbarProps) {
+  const currentSettings = settings || GYM_INFO;
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
@@ -133,12 +136,12 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0 z-10">
             {/* Phone link (shown on extra-wide 2xl screens to give maximum room for nav) */}
             <a
-              href={`tel:${GYM_INFO.phoneRaw}`}
+              href={`tel:${currentSettings.phoneRaw}`}
               className="hidden 2xl:flex items-center gap-1.5 text-xs font-semibold tracking-wider text-neutral-300 hover:text-gold-400 transition-colors px-3 py-2 rounded-full border border-neutral-800 hover:border-gold-500/40 whitespace-nowrap"
               title="Call Reception"
             >
               <Phone className="w-3.5 h-3.5 text-gold-400 flex-shrink-0" />
-              <span>{GYM_INFO.phoneDisplay}</span>
+              <span>{currentSettings.phoneDisplay}</span>
             </a>
 
             {/* Book an Enquiry CTA button */}
@@ -150,7 +153,7 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
               <span>Book an Enquiry</span>
             </Link>
 
-            {/* Mobile / Tablet Menu Transformation Button (Smooth Hamburger to X Morph) */}
+            {/* Mobile / Tablet Menu Transformation Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="flex xl:hidden relative w-9 h-9 sm:w-10 sm:h-10 items-center justify-center rounded-lg bg-neutral-900/80 border border-neutral-800 hover:border-gold-500/40 focus:outline-none transition-colors p-2 flex-shrink-0"
@@ -279,11 +282,11 @@ export default function Navbar({ onOpenLeadsModal }: NavbarProps) {
           </Link>
 
           <a
-            href={`tel:${GYM_INFO.phoneRaw}`}
+            href={`tel:${currentSettings.phoneRaw}`}
             className="text-center text-xs text-neutral-300 hover:text-gold-400 py-2.5 border border-neutral-800 rounded-full transition-colors flex items-center justify-center gap-2 hover:border-gold-500/40"
           >
             <Phone className="w-3.5 h-3.5 text-gold-400" />
-            <span>Call: {GYM_INFO.phoneDisplay}</span>
+            <span>Call: {currentSettings.phoneDisplay}</span>
           </a>
         </div>
       </div>

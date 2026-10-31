@@ -1,3 +1,30 @@
+export interface GymHours {
+  weekdays: string;
+  saturday: string;
+  sunday: string;
+  vip: string;
+  spa: string;
+}
+
+export interface GymInfo {
+  brandName: string;
+  tagline: string;
+  address: string;
+  phoneDisplay: string;
+  phoneInternational: string;
+  phoneRaw: string;
+  whatsappRaw: string;
+  whatsappMessage: string;
+  email: string;
+  instagram: string;
+  googleMapsLink: string;
+  googleMapsEmbed: string;
+  googleSpreadsheetId?: string;
+  googleSpreadsheetUrl?: string;
+  defaultWebhookUrl?: string;
+  hours: GymHours;
+}
+
 export interface LeadRecord {
   id: string;
   timestamp: string;

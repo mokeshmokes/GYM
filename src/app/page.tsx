@@ -17,11 +17,13 @@ import Footer from '@/components/Footer';
 import FloatingActions from '@/components/FloatingActions';
 import LeadsVaultModal from '@/components/LeadsVaultModal';
 import { usePackages } from '@/hooks/usePackages';
+import { useGymSettings } from '@/hooks/useGymSettings';
 
 export default function Home() {
   const [selectedPlan, setSelectedPlan] = useState<string>('Quarterly Pro');
   const [leadsModalOpen, setLeadsModalOpen] = useState<boolean>(false);
   const { packages } = usePackages();
+  const { settings } = useGymSettings();
 
   const handleSelectProgramOrPlan = (planOrProgramName: string) => {
     setSelectedPlan(planOrProgramName);
@@ -30,7 +32,7 @@ export default function Home() {
   return (
     <div className="relative min-h-screen bg-[#0a0a0a] text-neutral-100 flex flex-col justify-between overflow-x-hidden">
       {/* Sticky Glass Navbar */}
-      <Navbar onOpenLeadsModal={() => setLeadsModalOpen(true)} />
+      <Navbar settings={settings} onOpenLeadsModal={() => setLeadsModalOpen(true)} />
 
       {/* Main Content Sections */}
       <main className="flex-1 w-full">
@@ -45,6 +47,7 @@ export default function Home() {
         <Testimonials />
         <Pricing packages={packages} onSelectPlan={handleSelectProgramOrPlan} />
         <Contact
+          settings={settings}
           packages={packages}
           selectedPlan={selectedPlan}
           onOpenLeadsModal={() => setLeadsModalOpen(true)}
@@ -52,13 +55,14 @@ export default function Home() {
       </main>
 
       {/* Footer */}
-      <Footer onOpenLeadsModal={() => setLeadsModalOpen(true)} />
+      <Footer settings={settings} onOpenLeadsModal={() => setLeadsModalOpen(true)} />
 
       {/* Floating Action Buttons (WhatsApp & Back-to-Top) */}
-      <FloatingActions />
+      <FloatingActions settings={settings} />
 
       {/* Stored Leads Vault Modal (Admin & Demo Inspector) */}
       <LeadsVaultModal
+        settings={settings}
         isOpen={leadsModalOpen}
         onClose={() => setLeadsModalOpen(false)}
       />

@@ -18,14 +18,17 @@ import {
   Dumbbell,
   Crown,
   Check,
+  X,
+  Sparkles,
 } from 'lucide-react';
 import { GYM_INFO, PRICING_PLANS } from '@/data/gymData';
-import { LeadRecord, PricingPlan } from '@/types';
+import { LeadRecord, PricingPlan, GymInfo } from '@/types';
 
 interface ContactProps {
   selectedPlan: string;
   onOpenLeadsModal?: () => void;
   packages?: PricingPlan[];
+  settings?: GymInfo;
 }
 
 const DISCIPLINES = [
@@ -42,7 +45,10 @@ const DISCIPLINES = [
 export default function Contact({
   selectedPlan,
   packages = PRICING_PLANS,
+  settings = GYM_INFO,
 }: ContactProps) {
+  const currentSettings = settings || GYM_INFO;
+
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
@@ -57,18 +63,17 @@ export default function Contact({
   const [syncStatus, setSyncStatus] = useState<string>('');
   const [activeCategory, setActiveCategory] = useState<'memberships' | 'disciplines'>('memberships');
 
-  const membershipPlans = packages && packages.length > 0
-    ? packages.map((pkg) => ({
-        val: pkg.enrollValue || pkg.tier,
-        label: pkg.tier,
-        price: `${pkg.currency || '₹'}${pkg.amount}${pkg.period}`,
-        isPopular: pkg.isPopular,
-      }))
-    : [
-        { val: 'Monthly Starter', label: 'Monthly Starter', price: '₹2,999/mo', isPopular: false },
-        { val: 'Quarterly Pro', label: 'Quarterly Pro Athlete', price: '₹7,499/qtr', isPopular: true },
-        { val: 'Yearly VIP', label: 'Yearly VIP Elite', price: '₹24,999/yr', isPopular: false },
-      ];
+  const activePackages = packages && packages.length > 0 ? packages : PRICING_PLANS;
+
+  const membershipPlans = activePackages.map((pkg) => ({
+    val: pkg.enrollValue || pkg.tier,
+    label: pkg.tier,
+    price: `${pkg.currency || '₹'}${pkg.amount}${pkg.period}`,
+    isPopular: Boolean(pkg.isPopular),
+    badge: pkg.badge || (pkg.isPopular ? 'Most Popular' : ''),
+    features: pkg.features || [],
+    desc: pkg.desc || '',
+  }));
 
   useEffect(() => {
     if (selectedPlan) {
@@ -175,7 +180,7 @@ export default function Contact({
         body: JSON.stringify({
           ...formData,
           phone: cleanPhone,
-          webhookUrl: customWebhook || undefined,
+          webhookUrl: customWebhook || currentSettings.defaultWebhookUrl || undefined,
         }),
       });
 
@@ -201,7 +206,7 @@ export default function Contact({
         name: '',
         phone: '',
         email: '',
-        plan: 'Quarterly Pro',
+        plan: membershipPlans[0]?.val || 'Quarterly Pro',
         message: '',
       });
       setErrors({});
@@ -241,7 +246,7 @@ export default function Contact({
           </div>
 
           <h2 className="font-bebas text-4xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-none mb-4">
-            Visit <span className="gold-gradient-text">VST Fitness World</span>
+            Visit <span className="gold-gradient-text">{currentSettings.brandName || 'VST Fitness World'}</span>
           </h2>
 
           <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
@@ -252,7 +257,7 @@ export default function Contact({
 
         {/* Contact Split Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
-          {/* Left Column: Details & Google Map */}
+          {/* Left Column: Details & Google Map (Dynamic from Sanity) */}
           <div className="lg:col-span-5 space-y-6">
             <div className="glass-card p-6 sm:p-8 rounded-3xl border border-gold-500/30 shadow-2xl">
               <h3 className="font-bebas text-2xl text-white tracking-wide mb-6">
@@ -270,10 +275,10 @@ export default function Contact({
                       Gym Location
                     </h4>
                     <p className="text-sm text-neutral-200 leading-snug">
-                      {GYM_INFO.address}
+                      {currentSettings.address}
                     </p>
                     <a
-                      href={GYM_INFO.googleMapsLink}
+                      href={currentSettings.googleMapsLink}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-xs font-bold text-gold-400 hover:text-gold-300 inline-flex items-center gap-1 mt-2 transition-colors"
@@ -296,6 +301,12 @@ export default function Contact({
                     <p className="text-sm text-neutral-200">
                       <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
                         {GYM_INFO.phoneInternational}
+                      <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
+                        {currentSettings.phoneDisplay}
+                      </a>{' '}
+                      /{' '}
+                      <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
+                        {currentSettings.phoneInternational}
                       </a>
                     </p>
                   </div>
@@ -333,8 +344,8 @@ export default function Contact({
                       Email Us
                     </h4>
                     <p className="text-sm text-neutral-200">
-                      <a href={`mailto:${GYM_INFO.email}`} className="hover:text-gold-400 transition-colors">
-                        {GYM_INFO.email}
+                      <a href={`mailto:${currentSettings.email}`} className="hover:text-gold-400 transition-colors">
+                        {currentSettings.email}
                       </a>
                     </p>
                   </div>
@@ -352,6 +363,8 @@ export default function Contact({
                     <p className="text-sm text-neutral-200 leading-snug">
                       Monday – Saturday: {GYM_INFO.hours.monSat} <br />
                       Sunday: {GYM_INFO.hours.sunday}
+                      Mon – Sat: {currentSettings.hours.weekdays} <br />
+                      Sunday: {currentSettings.hours.sunday}
                     </p>
                   </div>
                 </div>
@@ -360,7 +373,7 @@ export default function Contact({
               {/* Socials */}
               <div className="mt-8 pt-6 border-t border-neutral-800 flex items-center gap-3">
                 <a
-                  href={GYM_INFO.instagram}
+                  href={currentSettings.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-300 hover:text-gold-400 hover:border-gold-500/50 transition-all"
@@ -392,14 +405,14 @@ export default function Contact({
             {/* Embedded Google Map */}
             <div className="relative h-64 rounded-3xl overflow-hidden border border-gold-500/30 shadow-2xl group">
               <iframe
-                title="VST Fitness World Pallikaranai Location"
-                src={GYM_INFO.googleMapsEmbed}
+                title="VST Fitness World Location"
+                src={currentSettings.googleMapsEmbed}
                 className="w-full h-full border-0 grayscale invert contrast-125 opacity-80 group-hover:opacity-100 transition-opacity"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
               />
               <a
-                href={GYM_INFO.googleMapsLink}
+                href={currentSettings.googleMapsLink}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="absolute bottom-4 right-4 px-4 py-2 rounded-full bg-black/80 text-gold-400 border border-gold-500/50 text-xs font-bold uppercase tracking-wider backdrop-blur-md flex items-center gap-1.5 hover:bg-gold-500 hover:text-black transition-all shadow-lg"
@@ -537,7 +550,7 @@ export default function Contact({
                   </div>
                 </div>
 
-                {/* Visual Category & Plan Selection (In-flow, 100% solid & visible, zero overlap) */}
+                {/* Visual Category & Plan Selection (Fully Dynamic from Sanity) */}
                 <div className="space-y-3">
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
                     <label className="block text-xs font-bold uppercase tracking-wider text-neutral-300">
@@ -599,47 +612,79 @@ export default function Contact({
                   {/* Hidden Input for Form Submission */}
                   <input type="hidden" name="plan" value={formData.plan} />
 
-                  {/* Panel 1: Membership Tiers (3 Luxury Solid Cards) */}
+                  {/* Panel 1: Dynamic Membership Packages from Sanity */}
                   {activeCategory === 'memberships' && (
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
-                      {membershipPlans.map((pkg) => {
-                        const isSelected = formData.plan === pkg.val;
-                        return (
-                          <button
-                            key={pkg.val}
-                            type="button"
-                            onClick={() =>
-                              setFormData((prev) => ({ ...prev, plan: pkg.val }))
-                            }
-                            className={`text-left p-3.5 rounded-2xl border transition-all relative flex flex-col justify-between ${
-                              isSelected
-                                ? 'bg-gold-500/15 border-gold-400 ring-2 ring-gold-400/40 shadow-xl shadow-gold-500/10'
-                                : 'bg-neutral-900 border-neutral-800 hover:border-gold-500/40 text-neutral-300'
-                            }`}
-                          >
-                            {pkg.isPopular && (
-                              <span className="absolute -top-2.5 right-3 text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gold-400 text-neutral-950 shadow">
-                                Most Popular
-                              </span>
-                            )}
-                            <div className="flex items-center justify-between mb-1.5">
-                              <span className="text-xs font-bold text-white tracking-wide">
-                                {pkg.label}
-                              </span>
-                              {isSelected ? (
-                                <div className="w-4 h-4 rounded-full bg-gold-400 text-neutral-950 flex items-center justify-center">
-                                  <Check className="w-3 h-3 stroke-[3]" />
-                                </div>
-                              ) : (
-                                <div className="w-4 h-4 rounded-full border border-neutral-700" />
+                    <div className="space-y-3 pt-1">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5">
+                        {membershipPlans.map((pkg) => {
+                          const isSelected = formData.plan === pkg.val;
+                          return (
+                            <button
+                              key={pkg.val}
+                              type="button"
+                              onClick={() =>
+                                setFormData((prev) => ({ ...prev, plan: pkg.val }))
+                              }
+                              className={`text-left p-3.5 rounded-2xl border transition-all relative flex flex-col justify-between ${
+                                isSelected
+                                  ? 'bg-gold-500/15 border-gold-400 ring-2 ring-gold-400/40 shadow-xl shadow-gold-500/10'
+                                  : 'bg-neutral-900 border-neutral-800 hover:border-gold-500/40 text-neutral-300'
+                              }`}
+                            >
+                              {pkg.badge && (
+                                <span className="absolute -top-2.5 right-3 text-[9px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded-full bg-gold-400 text-neutral-950 shadow">
+                                  {pkg.badge}
+                                </span>
                               )}
-                            </div>
-                            <div className="text-sm font-extrabold text-gold-400">
-                              {pkg.price}
-                            </div>
-                          </button>
-                        );
-                      })}
+                              <div className="flex items-center justify-between mb-1.5">
+                                <span className="text-xs font-bold text-white tracking-wide">
+                                  {pkg.label}
+                                </span>
+                                {isSelected ? (
+                                  <div className="w-4 h-4 rounded-full bg-gold-400 text-neutral-950 flex items-center justify-center">
+                                    <Check className="w-3 h-3 stroke-[3]" />
+                                  </div>
+                                ) : (
+                                  <div className="w-4 h-4 rounded-full border border-neutral-700" />
+                                )}
+                              </div>
+                              <div className="text-sm font-extrabold text-gold-400">
+                                {pkg.price}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+
+                      {/* Dynamic Features Checklist for Selected Membership Plan */}
+                      {selectedMemberPkg && selectedMemberPkg.features && selectedMemberPkg.features.length > 0 && (
+                        <div className="p-3.5 rounded-2xl bg-neutral-950/80 border border-gold-500/25">
+                          <div className="flex items-center justify-between text-xs font-bold text-gold-400 mb-2">
+                            <span className="flex items-center gap-1.5 uppercase tracking-wider text-[11px]">
+                              <Sparkles className="w-3.5 h-3.5 text-gold-400" />
+                              {selectedMemberPkg.label} — Plan Features
+                            </span>
+                            <span className="text-white font-extrabold">{selectedMemberPkg.price}</span>
+                          </div>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                            {selectedMemberPkg.features.map((feat, idx) => (
+                              <div
+                                key={idx}
+                                className={`flex items-start gap-2 ${
+                                  feat.included ? 'text-neutral-200' : 'text-neutral-500 line-through'
+                                }`}
+                              >
+                                {feat.included ? (
+                                  <Check className="w-3.5 h-3.5 text-gold-400 flex-shrink-0 mt-0.5" />
+                                ) : (
+                                  <X className="w-3.5 h-3.5 text-neutral-600 flex-shrink-0 mt-0.5" />
+                                )}
+                                <span className="leading-snug">{feat.text}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   )}
 
@@ -753,4 +798,3 @@ export default function Contact({
     </section>
   );
 }
-
