@@ -4,13 +4,12 @@ import React, { useState, useEffect } from 'react';
 import {
   MapPin,
   Phone,
+  MessageCircle,
   Mail,
   Clock,
   Instagram,
   Facebook,
   Youtube,
-  Linkedin,
-  Twitter,
   Send,
   Loader2,
   CheckCircle2,
@@ -290,22 +289,44 @@ export default function Contact({
                   </div>
                 </div>
 
-                {/* Phone & WhatsApp */}
+                {/* Phone */}
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center flex-shrink-0 text-gold-400 mt-1">
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
                     <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">
-                      Phone & WhatsApp
+                      Phone Number
                     </h4>
                     <p className="text-sm text-neutral-200">
-                      <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                        {currentSettings.phoneDisplay}
+                      <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
+                        {GYM_INFO.phoneDisplay}
                       </a>{' '}
                       /{' '}
-                      <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                        {currentSettings.phoneInternational}
+                      <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
+                        {GYM_INFO.phoneInternational}
+                      </a>
+                    </p>
+                  </div>
+                </div>
+
+                {/* WhatsApp */}
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 mt-1">
+                    <MessageCircle className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">
+                      WhatsApp
+                    </h4>
+                    <p className="text-sm text-neutral-200">
+                      <a
+                        href={GYM_INFO.whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-emerald-400 transition-colors"
+                      >
+                        {GYM_INFO.whatsappDisplay}
                       </a>
                     </p>
                   </div>
@@ -338,8 +359,8 @@ export default function Contact({
                       Sanctuary Timings
                     </h4>
                     <p className="text-sm text-neutral-200 leading-snug">
-                      Mon – Sat: {currentSettings.hours.weekdays} <br />
-                      Sunday: {currentSettings.hours.sunday}
+                      Mon – Sat: {GYM_INFO.hours.weekdays} <br />
+                      Sunday: {GYM_INFO.hours.sunday}
                     </p>
                   </div>
                 </div>
@@ -373,24 +394,6 @@ export default function Contact({
                   aria-label="YouTube"
                 >
                   <Youtube className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://linkedin.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-300 hover:text-gold-400 hover:border-gold-500/50 transition-all"
-                  aria-label="LinkedIn"
-                >
-                  <Linkedin className="w-4 h-4" />
-                </a>
-                <a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-10 h-10 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-300 hover:text-gold-400 hover:border-gold-500/50 transition-all"
-                  aria-label="Twitter"
-                >
-                  <Twitter className="w-4 h-4" />
                 </a>
               </div>
             </div>
@@ -429,7 +432,7 @@ export default function Contact({
                 Book Your Gym Enquiry
               </h3>
               <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed mb-6">
-                Step into Chennai’s premier luxury fitness sanctuary. Fill in your details below to tour our 150+ imported equipment stations, consult our certified master trainers, and explore our membership options.
+                Step into Chennai’s premier luxury fitness sanctuary. Fill in your details below to tour our 20+ modern equipment stations, consult our certified master trainers, and explore our membership options.
               </p>
 
               {/* Gym Benefits Checklist */}

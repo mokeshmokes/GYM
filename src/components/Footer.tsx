@@ -6,10 +6,10 @@ import Link from 'next/link';
 import {
   MapPin,
   Phone,
+  MessageCircle,
   Instagram,
   Facebook,
   Youtube,
-  Linkedin,
   ChevronRight,
   Clock,
 } from 'lucide-react';
@@ -64,12 +64,12 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-gold-400 flex-shrink-0" />
-                <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                  {currentSettings.phoneDisplay}
+                <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
+                  {GYM_INFO.phoneDisplay}
                 </a>
                 <span>/</span>
-                <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                  {currentSettings.phoneInternational}
+                <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
+                  {GYM_INFO.phoneInternational}
                 </a>
               </div>
             </div>
@@ -102,15 +102,6 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
                 aria-label="YouTube"
               >
                 <Youtube className="w-4 h-4" />
-              </a>
-              <a
-                href="https://linkedin.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-gold-400 hover:border-gold-500/40 transition-all"
-                aria-label="LinkedIn"
-              >
-                <Linkedin className="w-4 h-4" />
               </a>
             </div>
           </div>
@@ -155,11 +146,11 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
             <ul className="space-y-3 text-xs text-neutral-400 divide-y divide-neutral-900">
               <li className="flex justify-between pt-1">
                 <span>Monday – Friday:</span>
-                <span className="font-semibold text-neutral-200">{currentSettings.hours.weekdays}</span>
+                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.weekdays}</span>
               </li>
               <li className="flex justify-between pt-2">
                 <span>Saturday:</span>
-                <span className="font-semibold text-neutral-200">{currentSettings.hours.saturday}</span>
+                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.saturday}</span>
               </li>
               <li className="flex justify-between pt-2">
                 <span>Sunday:</span>
@@ -167,11 +158,11 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
               </li>
               <li className="flex justify-between pt-2">
                 <span>VIP Cardholders:</span>
-                <span className="font-semibold text-gold-400">{currentSettings.hours.vip}</span>
+                <span className="font-semibold text-gold-400">{GYM_INFO.hours.vip}</span>
               </li>
               <li className="flex justify-between pt-2">
                 <span>Spa & Ice Plunge:</span>
-                <span className="font-semibold text-neutral-200">{currentSettings.hours.spa}</span>
+                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.spa}</span>
               </li>
             </ul>
           </div>
