@@ -69,7 +69,7 @@ export interface PricingPlan {
 
 export interface GalleryItem {
   id: string;
-  category: 'facility' | 'training' | 'results';
+  category: 'facility' | 'training' | 'equipment';
   categoryLabel: string;
   image: string;
   caption: string;

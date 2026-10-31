@@ -23,11 +23,12 @@ export default function About() {
           <div className="lg:col-span-5 relative">
             <div className="relative h-[440px] sm:h-[520px] rounded-3xl overflow-hidden border border-gold-500/30 shadow-2xl shadow-black/80 group">
               <Image
-                src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=900&q=80"
-                alt="VST Fitness World Luxury Gym Floor"
+                src="/about/vst-sanctuary-floor.jpg"
+                alt="VST Fitness World Luxury Gym Floor in Pallikaranai"
                 fill
                 sizes="(max-width: 1024px) 100vw, 42vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
+                priority
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 

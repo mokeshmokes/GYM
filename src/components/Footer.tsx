@@ -120,7 +120,7 @@ export default function Footer({ onOpenLeadsModal }: FooterProps) {
               {[
                 { label: 'Home', href: '#home' },
                 { label: 'About Us', href: '#about' },
-                { label: 'Gallery & Results', href: '#gallery' },
+                { label: 'Gym Gallery', href: '#gallery' },
                 { label: 'Gym Equipment', href: '#equipment' },
                 { label: 'Why Choose Us', href: '#features' },
                 { label: 'Training Programs', href: '#programs' },

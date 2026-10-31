@@ -90,7 +90,7 @@ export default function Hero() {
 
             {/* Narrative Description */}
             <p className="text-sm sm:text-base text-neutral-400 max-w-xl font-normal leading-relaxed mb-8">
-              Step into a black & gold realm engineered for unmatched physical supremacy. From Eleiko calibrated free weights to infrared recovery suites, elevate your performance with zero compromises.
+              Step into a black & gold realm engineered for unmatched physical supremacy. From VIVA Fitness calibrated machinery to specialized training zones, elevate your performance with zero compromises.
             </p>
 
             {/* Dual CTA Buttons */}

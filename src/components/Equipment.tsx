@@ -30,7 +30,7 @@ export default function Equipment() {
           <div className="w-20 h-1 bg-gradient-to-r from-transparent via-gold-400 to-transparent mx-auto mt-6" />
         </div>
 
-        {/* Equipment Grid (12 Items) */}
+        {/* Equipment Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {EQUIPMENT_ITEMS.map((item) => (
             <article
@@ -39,7 +39,7 @@ export default function Equipment() {
             >
               <div>
                 {/* Image Box */}
-                <div className="relative h-48 w-full overflow-hidden bg-neutral-900">
+                <div className="relative h-56 w-full overflow-hidden bg-neutral-900">
                   <Image
                     src={item.image}
                     alt={item.alt}
