@@ -78,6 +78,14 @@ const nextConfig = {
       { source: '/reviews', destination: '/' },
       { source: '/pricing', destination: '/' },
       { source: '/contact', destination: '/' },
+      {
+        source: '/Equipments_images/Belt%20Squat%20Machine.jpg',
+        destination: '/Equipments_images/belt%20squat%20machine.jpg',
+      },
+      {
+        source: '/Equipments_images/Belt Squat Machine.jpg',
+        destination: '/Equipments_images/belt squat machine.jpg',
+      },
     ];
   },
   async headers() {

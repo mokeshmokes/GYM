@@ -114,7 +114,7 @@ export const EQUIPMENT_ITEMS: EquipmentItem[] = [
     desc: 'Plate-loaded squat station transferring load directly to the pelvis via belt hook, allowing maximum leg drive with zero spinal compression.',
     brand: 'VIVA Fitness',
     spec: 'Multi-Grip Handles',
-    image: '/Equipments_images/Belt Squat Machine.jpg',
+    image: '/Equipments_images/belt squat machine.jpg',
     alt: 'VIVA Fitness Plate-Loaded Belt Squat Platform with Multi-Grip Handles',
   },
   {
