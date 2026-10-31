@@ -9,9 +9,26 @@ export default defineConfig({
   title: 'VST Fitness World Management Studio',
   projectId: projectId || 'demo-project-id',
   dataset: dataset || 'production',
-  plugins: [structureTool()],
+  plugins: [
+    structureTool({
+      structure: (S) =>
+        S.list()
+          .title('Website Content Manager')
+          .items([
+            S.listItem()
+              .title('Gym & Contact Information')
+              .id('gymSettings')
+              .child(
+                S.document()
+                  .schemaType('gymSettings')
+                  .documentId('gymSettings')
+              ),
+            S.divider(),
+            S.documentTypeListItem('package').title('Membership Packages & Pricing'),
+          ]),
+    }),
+  ],
   schema: {
     types: schemaTypes,
   },
 });
-

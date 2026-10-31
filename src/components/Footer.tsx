@@ -14,12 +14,16 @@ import {
   Clock,
 } from 'lucide-react';
 import { GYM_INFO } from '@/data/gymData';
+import { GymInfo } from '@/types';
 
 interface FooterProps {
   onOpenLeadsModal?: () => void;
+  settings?: GymInfo;
 }
 
-export default function Footer({ onOpenLeadsModal }: FooterProps) {
+export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: FooterProps) {
+  const currentSettings = settings || GYM_INFO;
+
   return (
     <footer className="relative bg-[#070707] border-t border-neutral-900 pt-16 pb-12 overflow-hidden">
       <div className="ambient-glow bottom-0 left-[20%] opacity-15" />
@@ -50,22 +54,22 @@ export default function Footer({ onOpenLeadsModal }: FooterProps) {
             </Link>
 
             <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed max-w-md">
-              The benchmark of uncompromising strength, science-based physique architecture, and luxury wellness. Designed for champions who demand physical mastery.
+              {currentSettings.tagline || 'The benchmark of uncompromising strength, science-based physique architecture, and luxury wellness. Designed for champions who demand physical mastery.'}
             </p>
 
             <div className="space-y-2.5 text-xs text-neutral-300">
               <div className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-gold-400 flex-shrink-0 mt-0.5" />
-                <span>{GYM_INFO.address}</span>
+                <span>{currentSettings.address}</span>
               </div>
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-gold-400 flex-shrink-0" />
-                <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                  {GYM_INFO.phoneDisplay}
+                <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
+                  {currentSettings.phoneDisplay}
                 </a>
                 <span>/</span>
-                <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                  {GYM_INFO.phoneInternational}
+                <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
+                  {currentSettings.phoneInternational}
                 </a>
               </div>
             </div>
@@ -73,7 +77,7 @@ export default function Footer({ onOpenLeadsModal }: FooterProps) {
             {/* Social Media Links */}
             <div className="flex items-center gap-3 pt-2">
               <a
-                href={GYM_INFO.instagram}
+                href={currentSettings.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-9 h-9 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center text-neutral-400 hover:text-gold-400 hover:border-gold-500/40 transition-all"
@@ -142,7 +146,7 @@ export default function Footer({ onOpenLeadsModal }: FooterProps) {
             </ul>
           </div>
 
-          {/* Sanctuary Timings (col-span-4) */}
+          {/* Sanctuary Timings (col-span-4) - Dynamic from Sanity */}
           <div className="lg:col-span-4 space-y-4">
             <h4 className="font-bebas text-xl text-white tracking-wider flex items-center gap-2">
               <Clock className="w-4 h-4 text-gold-400" />
@@ -151,33 +155,33 @@ export default function Footer({ onOpenLeadsModal }: FooterProps) {
             <ul className="space-y-3 text-xs text-neutral-400 divide-y divide-neutral-900">
               <li className="flex justify-between pt-1">
                 <span>Monday – Friday:</span>
-                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.weekdays}</span>
+                <span className="font-semibold text-neutral-200">{currentSettings.hours.weekdays}</span>
               </li>
               <li className="flex justify-between pt-2">
                 <span>Saturday:</span>
-                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.saturday}</span>
+                <span className="font-semibold text-neutral-200">{currentSettings.hours.saturday}</span>
               </li>
               <li className="flex justify-between pt-2">
                 <span>Sunday:</span>
-                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.sunday}</span>
+                <span className="font-semibold text-neutral-200">{currentSettings.hours.sunday}</span>
               </li>
               <li className="flex justify-between pt-2">
                 <span>VIP Cardholders:</span>
-                <span className="font-semibold text-gold-400">{GYM_INFO.hours.vip}</span>
+                <span className="font-semibold text-gold-400">{currentSettings.hours.vip}</span>
               </li>
               <li className="flex justify-between pt-2">
                 <span>Spa & Ice Plunge:</span>
-                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.spa}</span>
+                <span className="font-semibold text-neutral-200">{currentSettings.hours.spa}</span>
               </li>
             </ul>
           </div>
 
         </div>
 
-        {/* Footer Bottom (Clean Customer Facing, No Staff Control) */}
+        {/* Footer Bottom (Clean Customer Facing) */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
           <div>
-            &copy; {new Date().getFullYear()} <strong className="text-neutral-300">VST FITNESS WORLD</strong>. All Rights Reserved. Built for champions.
+            &copy; {new Date().getFullYear()} <strong className="text-neutral-300">{currentSettings.brandName || 'VST FITNESS WORLD'}</strong>. All Rights Reserved. Built for champions.
           </div>
 
           <div className="flex items-center gap-6">

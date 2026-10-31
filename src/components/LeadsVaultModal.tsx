@@ -14,14 +14,16 @@ import {
   Clock,
 } from 'lucide-react';
 import { GYM_INFO } from '@/data/gymData';
-import { LeadRecord } from '@/types';
+import { LeadRecord, GymInfo } from '@/types';
 
 interface LeadsVaultModalProps {
   isOpen: boolean;
   onClose: () => void;
+  settings?: GymInfo;
 }
 
-export default function LeadsVaultModal({ isOpen, onClose }: LeadsVaultModalProps) {
+export default function LeadsVaultModal({ isOpen, onClose, settings = GYM_INFO }: LeadsVaultModalProps) {
+  const currentSettings = settings || GYM_INFO;
   const [leads, setLeads] = useState<LeadRecord[]>([]);
   const [webhookUrl, setWebhookUrl] = useState('');
   const [saveSuccess, setSaveSuccess] = useState(false);
@@ -31,7 +33,7 @@ export default function LeadsVaultModal({ isOpen, onClose }: LeadsVaultModalProp
       document.body.style.overflow = 'hidden';
       loadLeads();
       const savedWebhook = localStorage.getItem('vst_sheet_webhook');
-      setWebhookUrl(savedWebhook || GYM_INFO.defaultWebhookUrl);
+      setWebhookUrl(savedWebhook || currentSettings.defaultWebhookUrl || GYM_INFO.defaultWebhookUrl || '');
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -39,7 +41,7 @@ export default function LeadsVaultModal({ isOpen, onClose }: LeadsVaultModalProp
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [isOpen]);
+  }, [isOpen, currentSettings]);
 
   const loadLeads = () => {
     try {
@@ -62,73 +64,67 @@ export default function LeadsVaultModal({ isOpen, onClose }: LeadsVaultModalProp
     }
   };
 
-  const handleExportCSV = () => {
-    if (leads.length === 0) {
-      alert('No leads available to export.');
-      return;
-    }
-
-    const headers = ['Timestamp', 'Full Name', 'Phone', 'Email', 'Interested Plan', 'Message', 'Status'];
-    const rows = leads.map((l) => [
-      `"${l.timestamp || ''}"`,
-      `"${l.name || ''}"`,
-      `"${l.phone || ''}"`,
-      `"${l.email || ''}"`,
-      `"${l.plan || ''}"`,
-      `"${(l.message || '').replace(/"/g, '""')}"`,
-      `"${l.status || 'Saved'}"`,
-    ]);
-
-    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((r) => r.join(','))].join('\n');
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `VST_Fitness_World_Leads_${Date.now()}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   const handleClearLeads = () => {
-    if (confirm('Are you sure you want to clear locally stored demo leads?')) {
+    if (confirm('Are you sure you want to clear all leads stored in the local vault?')) {
       localStorage.removeItem('vst_leads');
       setLeads([]);
     }
   };
 
+  const handleExportCSV = () => {
+    if (leads.length === 0) return;
+
+    const headers = ['ID', 'Timestamp', 'Name', 'Phone', 'Email', 'Plan', 'Message', 'Status'];
+    const rows = leads.map((l) => [
+      `"${l.id}"`,
+      `"${l.timestamp}"`,
+      `"${l.name.replace(/"/g, '""')}"`,
+      `"${l.phone}"`,
+      `"${l.email.replace(/"/g, '""')}"`,
+      `"${l.plan.replace(/"/g, '""')}"`,
+      `"${(l.message || '').replace(/"/g, '""')}"`,
+      `"${l.status}"`,
+    ]);
+
+    const csvContent = 'data:text/csv;charset=utf-8,' + [headers.join(','), ...rows.map((e) => e.join(','))].join('\n');
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `vst_fitness_leads_${Date.now()}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   if (!isOpen) return null;
 
+  const spreadsheetId = currentSettings.googleSpreadsheetId || GYM_INFO.googleSpreadsheetId;
+  const spreadsheetUrl = currentSettings.googleSpreadsheetUrl || GYM_INFO.googleSpreadsheetUrl;
+
   return (
-    <div
-      className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6"
-      onClick={onClose}
-    >
-      <div
-        className="glass-card w-full max-w-4xl max-h-[90vh] rounded-3xl border border-gold-500/40 shadow-2xl flex flex-col overflow-hidden animate-scale-up"
-        onClick={(e) => e.stopPropagation()}
-      >
-        {/* Modal Header */}
-        <div className="p-6 border-b border-neutral-800 flex items-center justify-between">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/85 backdrop-blur-md animate-fade-in">
+      <div className="relative w-full max-w-4xl max-h-[90vh] bg-[#0d0d0d] border border-gold-500/40 rounded-3xl shadow-2xl flex flex-col overflow-hidden">
+        {/* Header */}
+        <div className="p-6 border-b border-neutral-800 flex items-center justify-between bg-neutral-950">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center text-gold-400">
               <Users className="w-5 h-5" />
             </div>
             <div>
               <h3 className="font-bebas text-2xl text-white tracking-wide">
-                Member Inquiries & Registrations
+                Staff Leads Vault & Admin Tools
               </h3>
               <p className="text-xs text-neutral-400">
-                Inquiries captured from the website, synced with your Google Spreadsheet.
+                Live zero-loss lead database and Google Sheets webhook sync
               </p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white hover:border-gold-400 flex items-center justify-center transition-all"
-            aria-label="Close Modal"
+            className="w-9 h-9 rounded-full bg-neutral-900 border border-neutral-800 hover:border-gold-500/50 flex items-center justify-center text-neutral-400 hover:text-white transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
@@ -140,20 +136,22 @@ export default function LeadsVaultModal({ isOpen, onClose }: LeadsVaultModalProp
               <div>
                 <div className="text-xs font-bold text-white">Connected Google Spreadsheet:</div>
                 <div className="text-[11px] text-gold-400">
-                  VST FITNESS WORLD (ID: <code className="bg-black/50 px-1 py-0.5 rounded text-neutral-300">{GYM_INFO.googleSpreadsheetId}</code>)
+                  {currentSettings.brandName || 'VST FITNESS WORLD'} (ID: <code className="bg-black/50 px-1 py-0.5 rounded text-neutral-300">{spreadsheetId}</code>)
                 </div>
               </div>
             </div>
 
-            <a
-              href={GYM_INFO.googleSpreadsheetUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-md shadow-emerald-900/40"
-            >
-              <ExternalLink className="w-3.5 h-3.5" />
-              <span>Open Google Sheet</span>
-            </a>
+            {spreadsheetUrl && (
+              <a
+                href={spreadsheetUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold transition-all shadow-md shadow-emerald-900/40"
+              >
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>Open Google Sheet</span>
+              </a>
+            )}
           </div>
 
           {/* Custom Webhook URL Input */}
@@ -272,4 +270,3 @@ export default function LeadsVaultModal({ isOpen, onClose }: LeadsVaultModalProp
     </div>
   );
 }
-

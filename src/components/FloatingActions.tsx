@@ -3,8 +3,14 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowUp, MessageCircle } from 'lucide-react';
 import { GYM_INFO } from '@/data/gymData';
+import { GymInfo } from '@/types';
 
-export default function FloatingActions() {
+interface FloatingActionsProps {
+  settings?: GymInfo;
+}
+
+export default function FloatingActions({ settings = GYM_INFO }: FloatingActionsProps) {
+  const currentSettings = settings || GYM_INFO;
   const [showBackToTop, setShowBackToTop] = useState(false);
 
   useEffect(() => {
@@ -24,8 +30,8 @@ export default function FloatingActions() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const whatsappUrl = `https://wa.me/${GYM_INFO.whatsappRaw}?text=${encodeURIComponent(
-    GYM_INFO.whatsappMessage
+  const whatsappUrl = `https://wa.me/${currentSettings.whatsappRaw}?text=${encodeURIComponent(
+    currentSettings.whatsappMessage
   )}`;
 
   return (
@@ -42,7 +48,7 @@ export default function FloatingActions() {
 
         {/* Hover Tooltip */}
         <span className="absolute right-16 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-xl bg-black/90 text-white text-xs font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none border border-emerald-500/30 shadow-lg">
-          Chat on WhatsApp ({GYM_INFO.phoneDisplay})
+          Chat on WhatsApp ({currentSettings.phoneDisplay})
         </span>
 
         {/* Pulse Ping Ring */}
@@ -62,4 +68,3 @@ export default function FloatingActions() {
     </div>
   );
 }
-

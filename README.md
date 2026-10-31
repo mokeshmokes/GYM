@@ -1,10 +1,10 @@
-# VST FITNESS WORLD — Next.js Luxury Strength & Championship Fitness Sanctuary
+# VST FITNESS WORLD — Luxury Strength & Championship Fitness Sanctuary
 
 <p align="center">
   <img src="public/VST_Fitness_World_Logo_Transparent.png" alt="VST Fitness World Logo" width="180">
 </p>
 
-A state-of-the-art **Next.js 14 (App Router) + TypeScript + Tailwind CSS** web application for **"VST FITNESS WORLD"** located in Pallikaranai, Chennai. Designed with an ultra-luxury black & gold aesthetic, seamless micro-interactions, responsive design across all viewports, and integrated Google Sheets lead capture.
+A state-of-the-art Next.js 14 web application built for **"VST FITNESS WORLD"** in Pallikaranai, Chennai. Designed with an ultra-premium black-and-gold visual language, fully dynamic content managed via Sanity CMS, responsive architecture across all breakpoints, and automated dual-layer Google Sheets lead storage.
 
 ---
 
@@ -15,7 +15,6 @@ A state-of-the-art **Next.js 14 (App Router) + TypeScript + Tailwind CSS** web a
 * **Phone / WhatsApp**: [07550155331](tel:07550155331) / [+91 75501 55331](tel:+917550155331)
 * **Instagram**: [@vst_fitnesss](https://www.instagram.com/vst_fitnesss?utm_source=qr&srtk=amE1YXM2OHFpNWV5)
 * **Google Maps Location**: [https://maps.app.goo.gl/Q5ZSLnqBKGmiz6nC9](https://maps.app.goo.gl/Q5ZSLnqBKGmiz6nC9)
-* **Connected Google Spreadsheet**: [VST FITNESS WORLD Leads](https://docs.google.com/spreadsheets/d/1Nj1lwFkmBaIgQUjvQ6Pg8cXTH-BVxt7CM7axShckPSc/edit?usp=drivesdk) (ID: `1Nj1lwFkmBaIgQUjvQ6Pg8cXTH-BVxt7CM7axShckPSc`)
 
 ---
 
@@ -26,38 +25,35 @@ A state-of-the-art **Next.js 14 (App Router) + TypeScript + Tailwind CSS** web a
 * **Styling**: Tailwind CSS with custom Black & Gold theme (`#0a0a0a`, `#111111`, `#D4AF37`, `#F5D76E`)
 * **Icons**: Lucide React
 * **Typography**: Bebas Neue, Oswald, Inter, Poppins
-* **Server Routes**: `/api/leads` (Google Apps Script webhook proxy) and `/api/packages` (Sanity CMS & package catalog provider)
-* **CMS Studio**: Embedded Sanity Studio route at `/studio` for live package add, edit, and tier pricing management
+* **Server Routes**:
+  * `/api/leads`: Google Apps Script webhook proxy
+  * `/api/packages`: Dynamic package and pricing provider from Sanity CMS
+  * `/api/settings`: Dynamic gym contact, address, timings, and location provider from Sanity CMS
+* **CMS Studio**: Embedded Sanity Studio route at `/studio` with custom structured desk management
 * **Lead Storage**: Dual-layer architecture (Live Google Spreadsheet webhook + local browser vault failsafe)
 
 ---
 
-## 📋 Sections Included
+## 🛠️ Sanity CMS Dynamic Content Management
 
-1. **Sticky Glassmorphism Navigation (`Navbar`)**: Transparent-to-dark on scroll, official 3D embossed gold logo, separate **Reviews** menu, desktop CTA, and smooth responsive drawer optimized for all resolutions (mobile, tablet, desktop, ultra-wide).
-2. **Hero Section (`Hero`)**: Full-screen cinematic gym background, gold crown badge, dynamic typing text animation, and dual action buttons.
-3. **Live Stats Counter (`Stats`)**: Animated count-up numbers triggered via `IntersectionObserver` (1,500+ Members, 25+ Master Trainers, 150+ Modern Machines, 12+ Years).
-4. **About Us (`About`)**: Split layout with luxury training floor photography, floating experience badge, and 3 key pillars.
-5. **Gym Equipment Grid (`Equipment`)**: 12 commercial pieces (Treadmills, Dumbbells & Barbells, Power Racks, Smith Machine, Cable Crossover, 45° Leg Press, Chest Press, Lat Pulldown, Kettlebells, Battle Ropes, Cycling Bikes, and Functional Training Zone).
-6. **Why Choose Us (`Features`)**: 9 core advantages with custom icon badges.
-7. **Specialized Programs (`Programs`)**: 7 disciplines (Weight Training, Cardio, CrossFit & HIIT, Yoga, Zumba, Weight Loss, Muscle Gain). Clicking "Enroll" auto-selects the plan in the contact form.
-8. **Master Trainers (`Trainers`)**: 4 elite coaches with specialties and Instagram links.
-9. **Membership Pricing (`Pricing`)**: Dynamic Sanity-managed tiered pricing packages (Starter Monthly, Quarterly Pro Athlete highlighted as **Most Popular**, Yearly VIP Elite) with direct `/studio` management link.
-10. **Transformations & Gallery (`Gallery` + `LightboxModal`)**: Category filter tabs ("All", "Facility", "Workouts", "Transformations") with full-screen Lightbox Modal (Keyboard navigation, next/prev, close).
-11. **Member Reviews (`Testimonials`)**: Dedicated `#reviews` section with 4.9-star verification, auto-sliding carousel, and member transformation reviews.
-12. **Contact & Lead Capture (`Contact`)**: Official address, direct phone/WhatsApp links, interactive Google Map embed, and real-time validated form with dynamic Sanity package dropdown connected to `/api/leads`.
-13. **Staff Lead Vault (`LeadsVaultModal`)**: View captured leads in real time, export to CSV/Excel, and manage Google Sheet Webhooks.
-14. **Footer (`Footer`)**: Emblem, address, phone, quick links (including Reviews), operating hours table, newsletter form, and copyright.
-15. **Floating Actions (`FloatingActions`)**: Direct WhatsApp chat button (connected to `07550155331`) and Back-to-Top smooth scroll button.
+Both the **Pricing** and **Contact** sections (plus all site-wide contact touchpoints) are fully controlled by Sanity CMS:
 
----
+### 1. Membership Packages & Pricing (`/studio` -> Membership Packages & Pricing)
+* **Create New Plans**: Add unlimited membership packages with customized names, slugs, billing periods (`/ month`, `/ quarter`, `/ year`), prices, and CTA buttons.
+* **Add & Edit Features**: Add dynamic feature checklists per plan. Set each feature as included (✓ green check) or excluded (✗ strikethrough). Reorder features via drag-and-drop.
+* **Popular / Custom Badges**: Highlight tiers with "Most Popular", "Best Value", or custom badge ribbons.
+* **Dynamic Site Sync**: Changes instantly reflect in:
+  * The main **Pricing Section** cards and feature checklists.
+  * The **Contact Section Form** membership package selector.
+  * The **Dynamic Plan Features preview** displayed directly inside the Contact form when a user selects a plan!
 
-## 🛠️ Sanity Studio (Packages CMS)
-
-To add or edit membership packages:
-1. Open `http://localhost:3000/studio` in your browser (or click **Studio** in the website header/pricing section).
-2. Configure your Sanity project ID in `.env.local` (`NEXT_PUBLIC_SANITY_PROJECT_ID` and `NEXT_PUBLIC_SANITY_DATASET`).
-3. Easily create, edit prices, update features, reorder, or toggle active packages. All changes sync dynamically to the website's Pricing section and the Contact form's Package dropdown!
+### 2. Gym & Contact Settings (`/studio` -> Gym & Contact Information)
+* **Physical Address**: Edit gym address, updating the Contact card and Footer automatically.
+* **Phone Numbers**: Primary display phone, secondary phone, and raw `tel:` dialer link.
+* **WhatsApp Integration**: WhatsApp number and default customer message for floating chat and quick links.
+* **Email Address**: Official contact email across the site.
+* **Sanctuary Timings**: Dynamic Weekday (Mon–Sat), Saturday, Sunday, VIP member access, and Spa/Sauna timings synced across both the Contact info block and the Footer timings table.
+* **Google Maps & Socials**: Interactive embed iframe URL and direct Google Maps navigation link.
 
 ---
 
@@ -70,12 +66,20 @@ npm install
 # 2. Run the Next.js development server
 npm run dev
 
-# 3. Build for production
-npm run build
-
-# 4. Start production server
-npm start
+# 3. Open the website
+# Main site:   http://localhost:3000
+# Sanity CMS:  http://localhost:3000/studio
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser to view the website.
+---
 
+## 🔑 Sanity CMS Setup
+
+To connect your own Sanity project:
+1. Create a free project at [Sanity.io](https://www.sanity.io).
+2. Copy `.env.example` to `.env.local`:
+   ```bash
+   cp .env.example .env.local
+   ```
+3. Set your `NEXT_PUBLIC_SANITY_PROJECT_ID` in `.env.local`.
+4. Open `http://localhost:3000/studio` and publish your content!
