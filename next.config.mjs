@@ -3,13 +3,14 @@
 // Content Security Policy directive string
 const cspHeader = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.sanity.io https://*.sanity.cdn.io;
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.sanity.io https://*.api.sanity.io https://*.sanity-cdn.com https://core.sanity-cdn.com;
   style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;
-  img-src 'self' data: blob: https://images.unsplash.com https://*.sanity.io https://*.sanity.cdn.io https://cdn.sanity.io;
+  img-src 'self' data: blob: https://images.unsplash.com https://*.sanity.io https://*.api.sanity.io https://cdn.sanity.io https://*.sanity-cdn.com https://*.googleusercontent.com;
   font-src 'self' https://fonts.gstatic.com data:;
-  connect-src 'self' https://*.sanity.io https://*.sanity.cdn.io https://script.google.com https://script.googleusercontent.com;
-  frame-src 'self' https://www.google.com https://maps.google.com;
+  connect-src 'self' https://*.sanity.io https://*.api.sanity.io https://*.sanity-cdn.com https://*.sanity.work wss://*.sanity.io wss://*.api.sanity.io https://script.google.com https://script.googleusercontent.com;
+  frame-src 'self' https://*.sanity.io https://*.sanity-cdn.com https://www.google.com https://maps.google.com;
   worker-src 'self' blob:;
+  child-src 'self' blob:;
   object-src 'none';
   base-uri 'self';
   form-action 'self';
@@ -45,7 +46,7 @@ const securityHeaders = [
   },
   {
     key: 'Permissions-Policy',
-    value: 'camera=(), microphone=(), geolocation=(self), browsing-topics=()',
+    value: 'camera=(), microphone=(), geolocation=(self)',
   },
   {
     key: 'Content-Security-Policy',
