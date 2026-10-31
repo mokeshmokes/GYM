@@ -58,11 +58,6 @@ export const ABOUT_PILLARS = [
     desc: 'Personalized physique assessments, goal-driven training regimens, and tailored macronutrient periodization designed by master coaches.',
     icon: 'Activity',
   },
-  {
-    title: 'Private Luxury Recovery & Spa',
-    desc: 'Infrared cedarwood saunas, 8°C chilled ice plunge pools, and percussion therapy lounges to cut recovery downtime in half.',
-    icon: 'Flame',
-  },
 ];
 
 export const EQUIPMENT_ITEMS: EquipmentItem[] = [
@@ -270,28 +265,10 @@ export const FEATURES_LIST: FeatureItem[] = [
     desc: 'Clinical macro-nutrient blueprints, circadian feeding windows, and supplement timing customized to your metabolic rate.',
   },
   {
-    id: 'locker-shower',
-    iconName: 'Shield',
-    title: 'Locker & Shower Suites',
-    desc: 'Luxury private changing rooms with secure digital lockers, rainfall hot-water showers, hairdryers, and plush towel service.',
-  },
-  {
-    id: 'group-classes',
-    iconName: 'Users',
-    title: 'High-Energy Group Classes',
-    desc: 'From calorie-shredding Zumba and HIIT to restorative Yoga and athletic bootcamps led by high-octane certified instructors.',
-  },
-  {
     id: 'flexible-timings',
     iconName: 'Clock',
     title: 'Flexible Timings',
     desc: 'Open from 5:00 AM to 11:30 PM with dedicated priority check-in for VIP members to fit demanding executive schedules.',
-  },
-  {
-    id: 'parking',
-    iconName: 'Car',
-    title: 'Valet & Dedicated Parking',
-    desc: 'Complimentary on-site valet parking and spacious private bays located right at our Varadharajapuram Main Road facility.',
   },
 ];
 
@@ -319,17 +296,6 @@ export const PROGRAMS_LIST: ProgramItem[] = [
     alt: 'High-Performance Cardio Conditioning',
   },
   {
-    id: 'crossfit',
-    title: 'CrossFit & HIIT',
-    enrollValue: 'CrossFit',
-    intensity: 'Elite Explosive',
-    desc: 'Olympic lifting movements, gymnastics, and high-intensity metabolic conditioning designed to prepare you for any physical test.',
-    duration: '50 Mins',
-    calories: '650+ Kcal',
-    image: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=800&q=80',
-    alt: 'CrossFit and Functional Fitness Program',
-  },
-  {
     id: 'yoga',
     title: 'Yoga & Mobility',
     enrollValue: 'Yoga',
@@ -339,17 +305,6 @@ export const PROGRAMS_LIST: ProgramItem[] = [
     calories: '300+ Kcal',
     image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80',
     alt: 'Yoga and Mobility Program',
-  },
-  {
-    id: 'zumba',
-    title: 'Zumba & Dance',
-    enrollValue: 'Zumba',
-    intensity: 'High Energy',
-    desc: 'Fast-paced Latin rhythmic choreography that turns grueling cardio into an exhilarating endorphin celebration.',
-    duration: '55 Mins',
-    calories: '500+ Kcal',
-    image: 'https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=800&q=80',
-    alt: 'High-Energy Zumba and Dance Cardio',
   },
   {
     id: 'weight-loss',
