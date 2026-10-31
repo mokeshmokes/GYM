@@ -6,6 +6,7 @@ import Link from 'next/link';
 import {
   MapPin,
   Phone,
+  MessageCircle,
   Instagram,
   Facebook,
   Youtube,
@@ -61,11 +62,18 @@ export default function Footer({ onOpenLeadsModal }: FooterProps) {
               <div className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-gold-400 flex-shrink-0" />
                 <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                  {GYM_INFO.phoneDisplay}
+                  Call: {GYM_INFO.phoneInternational}
                 </a>
-                <span>/</span>
-                <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                  {GYM_INFO.phoneInternational}
+              </div>
+              <div className="flex items-center gap-2.5">
+                <MessageCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                <a
+                  href={GYM_INFO.whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-emerald-400 transition-colors"
+                >
+                  WhatsApp: {GYM_INFO.phoneInternational}
                 </a>
               </div>
             </div>
@@ -150,12 +158,8 @@ export default function Footer({ onOpenLeadsModal }: FooterProps) {
             </h4>
             <ul className="space-y-3 text-xs text-neutral-400 divide-y divide-neutral-900">
               <li className="flex justify-between pt-1">
-                <span>Monday – Friday:</span>
-                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.weekdays}</span>
-              </li>
-              <li className="flex justify-between pt-2">
-                <span>Saturday:</span>
-                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.saturday}</span>
+                <span>Monday – Saturday:</span>
+                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.monSat}</span>
               </li>
               <li className="flex justify-between pt-2">
                 <span>Sunday:</span>

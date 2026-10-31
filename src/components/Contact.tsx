@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import {
   MapPin,
   Phone,
+  MessageCircle,
   Mail,
   Clock,
   Instagram,
@@ -285,22 +286,40 @@ export default function Contact({
                   </div>
                 </div>
 
-                {/* Phone & WhatsApp */}
+                {/* Phone */}
                 <div className="flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center flex-shrink-0 text-gold-400 mt-1">
                     <Phone className="w-5 h-5" />
                   </div>
                   <div>
                     <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">
-                      Phone & WhatsApp
+                      Phone Number
                     </h4>
                     <p className="text-sm text-neutral-200">
                       <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                        {GYM_INFO.phoneDisplay}
-                      </a>{' '}
-                      /{' '}
-                      <a href={`tel:${GYM_INFO.phoneRaw}`} className="hover:text-gold-400 transition-colors">
                         {GYM_INFO.phoneInternational}
+                      </a>
+                    </p>
+                  </div>
+                </div>
+
+                {/* WhatsApp */}
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center flex-shrink-0 text-emerald-400 mt-1">
+                    <MessageCircle className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">
+                      WhatsApp
+                    </h4>
+                    <p className="text-sm text-neutral-200">
+                      <a
+                        href={GYM_INFO.whatsappUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-emerald-400 transition-colors"
+                      >
+                        {GYM_INFO.whatsappDisplay}
                       </a>
                     </p>
                   </div>
@@ -333,7 +352,7 @@ export default function Contact({
                       Sanctuary Timings
                     </h4>
                     <p className="text-sm text-neutral-200 leading-snug">
-                      Mon – Sat: {GYM_INFO.hours.weekdays} <br />
+                      Monday – Saturday: {GYM_INFO.hours.monSat} <br />
                       Sunday: {GYM_INFO.hours.sunday}
                     </p>
                   </div>

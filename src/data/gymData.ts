@@ -16,7 +16,9 @@ export const GYM_INFO = {
   phoneInternational: '+91 75501 55331',
   phoneRaw: '07550155331',
   whatsappRaw: '917550155331',
-  whatsappMessage: 'Hello VST Fitness World, I am interested in a VIP Gym Membership!',
+  whatsappDisplay: '+91 75501 55331',
+  whatsappUrl: 'https://wa.me/917550155331?text=Hi%20VST%20Fitness%20World%2C%20I%20would%20like%20to%20enquire%20about%20gym%20memberships.',
+  whatsappMessage: 'Hello VST Fitness World, I am interested in a Gym Membership!',
   email: 'memberships@vstfitnessworld.com',
   instagram: 'https://www.instagram.com/vst_fitnesss?utm_source=qr&srtk=amE1YXM2OHFpNWV5',
   googleMapsLink: 'https://maps.app.goo.gl/Q5ZSLnqBKGmiz6nC9',
@@ -25,9 +27,10 @@ export const GYM_INFO = {
   googleSpreadsheetUrl: 'https://docs.google.com/spreadsheets/d/1Nj1lwFkmBaIgQUjvQ6Pg8cXTH-BVxt7CM7axShckPSc/edit?usp=drivesdk',
   defaultWebhookUrl: 'https://script.google.com/macros/s/AKfycbzIRGNoa3i0jG2cyRonkaRgXlIsMatiIhtf0cWLsYr3SH9s9Y7Je8I18DPyH-eDR5KH/exec',
   hours: {
-    weekdays: '5:00 AM – 11:30 PM',
-    saturday: '5:00 AM – 11:00 PM',
-    sunday: '6:00 AM – 9:00 PM',
+    weekdays: '5:00 AM – 10:00 PM',
+    saturday: '5:00 AM – 10:00 PM',
+    monSat: '5:00 AM – 10:00 PM',
+    sunday: '5:00 AM – 10:00 AM',
   },
 };
 
