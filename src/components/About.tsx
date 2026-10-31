@@ -28,7 +28,7 @@ export default function About() {
                 fill
                 sizes="(max-width: 1024px) 100vw, 42vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
-                priority
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 

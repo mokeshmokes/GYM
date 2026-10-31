@@ -41,6 +41,7 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
                   fill
                   sizes="48px"
                   className="object-contain"
+                  loading="lazy"
                 />
               </div>
               <div className="flex flex-col">

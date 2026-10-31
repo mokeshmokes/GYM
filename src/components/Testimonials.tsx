@@ -97,6 +97,7 @@ export default function Testimonials() {
                     fill
                     sizes="48px"
                     className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
                   />
                 </div>
                 <div className="text-left min-w-0">

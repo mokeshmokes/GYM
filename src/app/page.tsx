@@ -1,26 +1,30 @@
 'use client';
 
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import AnnouncementSection from '@/components/AnnouncementSection';
-import AnnouncementModal from '@/components/AnnouncementModal';
-import Stats from '@/components/Stats';
-import About from '@/components/About';
-import Equipment from '@/components/Equipment';
-import Features from '@/components/Features';
-import Programs from '@/components/Programs';
-import Trainers from '@/components/Trainers';
-import Pricing from '@/components/Pricing';
-import Gallery from '@/components/Gallery';
-import Testimonials from '@/components/Testimonials';
-import Contact from '@/components/Contact';
-import Footer from '@/components/Footer';
-import FloatingActions from '@/components/FloatingActions';
-import LeadsVaultModal from '@/components/LeadsVaultModal';
+import LazySection from '@/components/LazySection';
 import { usePackages } from '@/hooks/usePackages';
 import { useGymSettings } from '@/hooks/useGymSettings';
 import { useAnnouncement } from '@/hooks/useAnnouncement';
+
+// Dynamically import all below-the-fold sections for maximum performance
+const AnnouncementSection = dynamic(() => import('@/components/AnnouncementSection'), { ssr: false });
+const Stats = dynamic(() => import('@/components/Stats'));
+const About = dynamic(() => import('@/components/About'));
+const Gallery = dynamic(() => import('@/components/Gallery'));
+const Equipment = dynamic(() => import('@/components/Equipment'));
+const Features = dynamic(() => import('@/components/Features'));
+const Programs = dynamic(() => import('@/components/Programs'));
+const Trainers = dynamic(() => import('@/components/Trainers'));
+const Testimonials = dynamic(() => import('@/components/Testimonials'));
+const Pricing = dynamic(() => import('@/components/Pricing'));
+const Contact = dynamic(() => import('@/components/Contact'));
+const Footer = dynamic(() => import('@/components/Footer'));
+const FloatingActions = dynamic(() => import('@/components/FloatingActions'), { ssr: false });
+const LeadsVaultModal = dynamic(() => import('@/components/LeadsVaultModal'), { ssr: false });
+const AnnouncementModal = dynamic(() => import('@/components/AnnouncementModal'), { ssr: false });
 
 export default function Home() {
   const [selectedPlan, setSelectedPlan] = useState<string>('Quarterly Pro');
@@ -40,27 +44,67 @@ export default function Home() {
 
       {/* Main Content Sections */}
       <main className="flex-1 w-full">
+        {/* Immediate Above-the-fold Hero */}
         <Hero />
-        <AnnouncementSection announcement={announcement} />
-        <Stats />
-        <About />
-        <Gallery />
-        <Equipment />
-        <Features />
-        <Programs onSelectProgram={handleSelectProgramOrPlan} />
-        <Trainers />
-        <Testimonials />
-        <Pricing packages={packages} onSelectPlan={handleSelectProgramOrPlan} />
-        <Contact
-          settings={settings}
-          packages={packages}
-          selectedPlan={selectedPlan}
-          onOpenLeadsModal={() => setLeadsModalOpen(true)}
-        />
+
+        {/* Announcement Banner (Client-side when active) */}
+        {announcement?.showBanner && (
+          <LazySection minHeight="80px">
+            <AnnouncementSection announcement={announcement} />
+          </LazySection>
+        )}
+
+        {/* Dynamic Viewport Lazy Loaded Sections */}
+        <LazySection minHeight="140px">
+          <Stats />
+        </LazySection>
+
+        <LazySection id="about" minHeight="560px">
+          <About />
+        </LazySection>
+
+        <LazySection id="gallery" minHeight="560px">
+          <Gallery />
+        </LazySection>
+
+        <LazySection id="equipment" minHeight="560px">
+          <Equipment />
+        </LazySection>
+
+        <LazySection id="features" minHeight="560px">
+          <Features />
+        </LazySection>
+
+        <LazySection id="programs" minHeight="560px">
+          <Programs onSelectProgram={handleSelectProgramOrPlan} />
+        </LazySection>
+
+        <LazySection id="trainers" minHeight="560px">
+          <Trainers />
+        </LazySection>
+
+        <LazySection id="reviews" minHeight="460px">
+          <Testimonials />
+        </LazySection>
+
+        <LazySection id="pricing" minHeight="640px">
+          <Pricing packages={packages} onSelectPlan={handleSelectProgramOrPlan} />
+        </LazySection>
+
+        <LazySection id="contact" minHeight="640px">
+          <Contact
+            settings={settings}
+            packages={packages}
+            selectedPlan={selectedPlan}
+            onOpenLeadsModal={() => setLeadsModalOpen(true)}
+          />
+        </LazySection>
       </main>
 
-      {/* Footer */}
-      <Footer settings={settings} onOpenLeadsModal={() => setLeadsModalOpen(true)} />
+      {/* Footer Lazy Loaded on Viewport Arrival */}
+      <LazySection minHeight="320px">
+        <Footer settings={settings} onOpenLeadsModal={() => setLeadsModalOpen(true)} />
+      </LazySection>
 
       {/* Floating Action Buttons (WhatsApp & Back-to-Top) */}
       <FloatingActions settings={settings} />
