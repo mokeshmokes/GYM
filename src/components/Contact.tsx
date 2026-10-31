@@ -299,12 +299,11 @@ export default function Contact({
                       Phone Number
                     </h4>
                     <p className="text-sm text-neutral-200">
-<a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                        {currentSettings.phoneDisplay}
-                      </a>{' '}
-                      /{' '}
-                      <a href={`tel:${currentSettings.phoneRaw}`} className="hover:text-gold-400 transition-colors">
-                        {currentSettings.phoneInternational}
+                      <a
+                        href={`tel:${currentSettings.phoneRaw || GYM_INFO.phoneRaw}`}
+                        className="hover:text-gold-400 transition-colors"
+                      >
+                        {currentSettings.phoneInternational || currentSettings.phoneDisplay || GYM_INFO.phoneInternational}
                       </a>
                     </p>
                   </div>
