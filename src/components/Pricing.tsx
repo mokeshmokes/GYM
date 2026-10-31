@@ -78,22 +78,26 @@ export default function Pricing({ onSelectPlan, packages = PRICING_PLANS }: Pric
                 )}
 
                 <div className="flex-1 flex flex-col">
-                  {/* Tier Title - Consistent height keeps Price on the exact same line */}
-                  <h3
-                    className={`font-bebas text-2xl sm:text-3xl tracking-wide min-h-[3.25rem] sm:min-h-[4rem] flex items-start leading-tight mb-2 ${
-                      isPopular ? 'gold-gradient-text' : 'text-white'
-                    }`}
-                  >
-                    {plan.tier}
-                  </h3>
+                  {/* Tier Title - Fixed height container guarantees 100% equal vertical alignment */}
+                  <div className="h-14 sm:h-16 lg:h-[68px] flex items-center mb-2">
+                    <h3
+                      className={`font-bebas text-2xl sm:text-3xl tracking-wide leading-tight ${
+                        isPopular ? 'gold-gradient-text' : 'text-white'
+                      }`}
+                    >
+                      {plan.tier}
+                    </h3>
+                  </div>
 
-                  {/* Description - Consistent height across cards */}
-                  <p className="text-xs text-neutral-400 leading-relaxed mb-6 min-h-[3.75rem] sm:min-h-[4.25rem] flex items-start">
-                    {plan.desc}
-                  </p>
+                  {/* Description - Fixed height container guarantees Price starts at the exact same line */}
+                  <div className="h-20 sm:h-22 lg:h-[84px] mb-6 flex items-start overflow-hidden">
+                    <p className="text-xs text-neutral-400 leading-relaxed line-clamp-4">
+                      {plan.desc}
+                    </p>
+                  </div>
 
-                  {/* Price Box - Guaranteed on the exact same horizontal baseline */}
-                  <div className="flex items-baseline gap-1 mb-6 sm:mb-8 pb-5 border-b border-neutral-800">
+                  {/* Price Box - Guaranteed on the exact same horizontal baseline line across all cards */}
+                  <div className="flex items-baseline gap-1 mb-6 sm:mb-8 pb-5 border-b border-neutral-800 h-16 sm:h-20">
                     <span className="text-xl sm:text-2xl font-bold text-gold-400">{plan.currency || '₹'}</span>
                     <span className="font-bebas text-4xl sm:text-5xl lg:text-6xl text-white font-bold tracking-tight">
                       {plan.amount}
