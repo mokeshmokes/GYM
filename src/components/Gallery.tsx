@@ -7,7 +7,7 @@ import { GALLERY_ITEMS } from '@/data/gymData';
 import LightboxModal from './LightboxModal';
 
 export default function Gallery() {
-  const [activeFilter, setActiveFilter] = useState<'all' | 'facility' | 'training' | 'results'>('all');
+  const [activeFilter, setActiveFilter] = useState<'all' | 'facility' | 'training' | 'equipment'>('all');
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
 
@@ -33,7 +33,7 @@ export default function Gallery() {
     { key: 'all', label: 'All Photos' },
     { key: 'facility', label: 'Facility' },
     { key: 'training', label: 'Training' },
-    { key: 'results', label: 'Transformations' },
+    { key: 'equipment', label: 'Equipment' },
   ] as const;
 
   return (
@@ -51,11 +51,11 @@ export default function Gallery() {
           </div>
 
           <h2 className="font-bebas text-4xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight leading-none mb-4">
-            Transformations & <span className="gold-gradient-text">Gallery</span>
+            Sanctuary <span className="gold-gradient-text">Gallery</span>
           </h2>
 
           <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
-            Glimpse into Chennai’s most exclusive strength floor, authentic member body transformations, and daily championship routines.
+            Glimpse into Chennai’s most exclusive strength floor, premium calibrated equipment, and championship training atmosphere.
           </p>
           <div className="w-20 h-1 bg-gradient-to-r from-transparent via-gold-400 to-transparent mx-auto mt-6" />
         </div>

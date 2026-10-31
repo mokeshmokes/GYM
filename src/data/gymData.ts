@@ -440,10 +440,10 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 'gal-2',
-    category: 'results',
-    categoryLabel: 'Results',
+    category: 'equipment',
+    categoryLabel: 'Equipment',
     image: 'https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=1400&q=85',
-    caption: 'Member Physique Transformation (-14kg Fat Loss, +6kg Muscle)',
+    caption: 'Heavy Dumbbells & Free Weights Arsenal',
   },
   {
     id: 'gal-3',
@@ -468,10 +468,10 @@ export const GALLERY_ITEMS: GalleryItem[] = [
   },
   {
     id: 'gal-6',
-    category: 'results',
-    categoryLabel: 'Results',
+    category: 'equipment',
+    categoryLabel: 'Equipment',
     image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1400&q=85',
-    caption: 'Athletic Power & Core Shred Transformation',
+    caption: 'Premium Olympic Barbells & Power Racks',
   },
 ];
 
