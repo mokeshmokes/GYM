@@ -462,6 +462,13 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     image: '/Gallery/IMG_3828.jpg',
     caption: 'Championship Training Floor with Premium Biomechanical Stations',
   },
+  {
+    id: 'gal-7',
+    category: 'training',
+    categoryLabel: 'Training',
+    image: '/Gallery/IMG_3829.jpg',
+    caption: 'Functional Turf & Heavy Leg Press Zone with Overhead Monkey Bars',
+  },
 ];
 
 export const TESTIMONIALS_LIST: TestimonialItem[] = [
