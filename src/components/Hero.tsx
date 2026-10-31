@@ -96,7 +96,15 @@ export default function Hero() {
             {/* Dual CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4 w-full sm:w-auto">
               <Link
-                href="#contact"
+                href="/contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (typeof window !== 'undefined') {
+                    window.history.pushState(null, '', '/contact');
+                    window.dispatchEvent(new Event('popstate'));
+                  }
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="btn-gold px-7 py-3.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 group shadow-xl shadow-gold-500/25 transition-all hover:scale-[1.02]"
               >
                 <CalendarCheck className="w-4 h-4 text-neutral-950" />
@@ -105,7 +113,15 @@ export default function Hero() {
               </Link>
 
               <Link
-                href="#equipment"
+                href="/equipment"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (typeof window !== 'undefined') {
+                    window.history.pushState(null, '', '/equipment');
+                    window.dispatchEvent(new Event('popstate'));
+                  }
+                  document.getElementById('equipment')?.scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="btn-outline-gold px-7 py-3.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all hover:scale-[1.02]"
               >
                 <Compass className="w-4 h-4" />

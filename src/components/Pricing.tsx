@@ -15,6 +15,10 @@ export default function Pricing({ onSelectPlan, packages = PRICING_PLANS }: Pric
 
   const handleSelectPlan = (e: React.MouseEvent<HTMLAnchorElement>, planName: string) => {
     e.preventDefault();
+    if (typeof window !== 'undefined') {
+      window.history.pushState(null, '', '/contact');
+      window.dispatchEvent(new Event('popstate'));
+    }
     onSelectPlan(planName);
     const contactSection = document.getElementById('contact');
     if (contactSection) {
@@ -134,7 +138,7 @@ export default function Pricing({ onSelectPlan, packages = PRICING_PLANS }: Pric
 
                 {/* Card CTA Button - Slightly reduced content size to prevent awkward wrapping */}
                 <a
-                  href="#contact"
+                  href="/contact"
                   onClick={(e) => handleSelectPlan(e, plan.enrollValue || plan.tier)}
                   className={`w-full py-3 px-3 sm:px-4 rounded-full text-[11px] sm:text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 transition-all duration-300 group whitespace-nowrap overflow-hidden text-ellipsis ${
                     isPopular

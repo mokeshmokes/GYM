@@ -33,7 +33,18 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
           
           {/* Brand Info (col-span-5) */}
           <div className="lg:col-span-5 space-y-5">
-            <Link href="#home" className="flex items-center gap-3">
+            <Link
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                if (typeof window !== 'undefined') {
+                  window.history.pushState(null, '', '/');
+                  window.dispatchEvent(new Event('popstate'));
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="flex items-center gap-3"
+            >
               <div className="relative w-12 h-12 flex-shrink-0">
                 <Image
                   src="/VST_Fitness_World_Logo_Transparent.png"
@@ -179,10 +190,10 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
           </div>
 
           <div className="flex items-center gap-6">
-            <Link href="#home" className="hover:text-neutral-300 transition-colors">
+            <Link href="/" className="hover:text-neutral-300 transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#home" className="hover:text-neutral-300 transition-colors">
+            <Link href="/" className="hover:text-neutral-300 transition-colors">
               Terms of Service
             </Link>
           </div>

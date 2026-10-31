@@ -59,6 +59,8 @@ export default function Contact({
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionPhase, setSubmissionPhase] = useState<'idle' | 'sending' | 'slow_connection' | 'success' | 'error'>('idle');
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [syncStatus, setSyncStatus] = useState<string>('');
   const [activeCategory, setActiveCategory] = useState<'memberships' | 'disciplines'>('memberships');
@@ -169,6 +171,15 @@ export default function Contact({
 
     setIsSubmitting(true);
     setSubmitSuccess(false);
+    setSubmitError(null);
+    setSubmissionPhase('sending');
+
+    const slowTimer = setTimeout(() => {
+      setSubmissionPhase('slow_connection');
+    }, 1800);
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 12000);
 
     const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
     const customWebhook = typeof window !== 'undefined' ? localStorage.getItem('vst_sheet_webhook') : null;
@@ -177,12 +188,16 @@ export default function Contact({
       const response = await fetch('/api/leads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           ...formData,
           phone: cleanPhone,
           webhookUrl: customWebhook || currentSettings.defaultWebhookUrl || undefined,
         }),
       });
+
+      clearTimeout(slowTimer);
+      clearTimeout(timeoutId);
 
       const resData = await response.json();
 
@@ -211,7 +226,9 @@ export default function Contact({
       });
       setErrors({});
     } catch (err) {
-      console.error('Submission error:', err);
+      clearTimeout(slowTimer);
+      clearTimeout(timeoutId);
+      console.warn('Submission slow or network interrupted, secured in local vault:', err);
       // Failsafe local save
       const fallbackLead: LeadRecord = {
         id: 'lead_' + Date.now(),
@@ -751,7 +768,11 @@ export default function Contact({
                   {isSubmitting ? (
                     <>
                       <Loader2 className="w-4 h-4 animate-spin text-neutral-950" />
-                      <span>Submitting Enquiry...</span>
+                      <span>
+                        {submissionPhase === 'slow_connection'
+                          ? 'Securing Priority Slot...'
+                          : 'Submitting Enquiry...'}
+                      </span>
                     </>
                   ) : (
                     <>

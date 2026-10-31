@@ -68,6 +68,19 @@ const nextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      { source: '/about', destination: '/' },
+      { source: '/gallery', destination: '/' },
+      { source: '/equipment', destination: '/' },
+      { source: '/features', destination: '/' },
+      { source: '/programs', destination: '/' },
+      { source: '/trainers', destination: '/' },
+      { source: '/reviews', destination: '/' },
+      { source: '/pricing', destination: '/' },
+      { source: '/contact', destination: '/' },
+    ];
+  },
   async headers() {
     return [
       {

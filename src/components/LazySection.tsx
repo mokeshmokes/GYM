@@ -21,10 +21,13 @@ export default function LazySection({
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // If user arrived with a hash linking directly to this section, render immediately
-    if (typeof window !== 'undefined' && id && window.location.hash === `#${id}`) {
-      setIsVisible(true);
-      return;
+    // If user arrived at /contact or /pricing or with a hash, render immediately
+    if (typeof window !== 'undefined' && id) {
+      const currentPath = window.location.pathname.replace(/^\//, '');
+      if (currentPath === id || window.location.hash === `#${id}`) {
+        setIsVisible(true);
+        return;
+      }
     }
 
     if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
@@ -50,17 +53,23 @@ export default function LazySection({
       observer.observe(elem);
     }
 
-    // Also listen to hashchange in case the user clicks a navbar anchor link
-    const handleHashChange = () => {
-      if (id && window.location.hash === `#${id}`) {
-        setIsVisible(true);
+    // Listen for client navigation / hash change
+    const handleUrlChange = () => {
+      if (typeof window !== 'undefined' && id) {
+        const currentPath = window.location.pathname.replace(/^\//, '');
+        if (currentPath === id || window.location.hash === `#${id}`) {
+          setIsVisible(true);
+        }
       }
     };
-    window.addEventListener('hashchange', handleHashChange);
+
+    window.addEventListener('popstate', handleUrlChange);
+    window.addEventListener('hashchange', handleUrlChange);
 
     return () => {
       observer.disconnect();
-      window.removeEventListener('hashchange', handleHashChange);
+      window.removeEventListener('popstate', handleUrlChange);
+      window.removeEventListener('hashchange', handleUrlChange);
     };
   }, [id, rootMargin]);
 
@@ -75,10 +84,15 @@ export default function LazySection({
         <div className="animate-fadeIn">{children}</div>
       ) : (
         <div
-          className="w-full flex items-center justify-center opacity-0 transition-opacity"
+          className="w-full flex flex-col items-center justify-center p-8 transition-opacity duration-300"
           style={{ minHeight }}
           aria-hidden="true"
-        />
+        >
+          <div className="w-8 h-8 rounded-full border-2 border-gold-500/20 border-t-gold-500 animate-spin mb-3" />
+          <span className="text-[11px] font-bold uppercase tracking-widest text-neutral-500">
+            Loading {id ? id.toUpperCase() : 'SECTION'}...
+          </span>
+        </div>
       )}
     </div>
   );

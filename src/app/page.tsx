@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
@@ -36,6 +36,20 @@ export default function Home() {
   const handleSelectProgramOrPlan = (planOrProgramName: string) => {
     setSelectedPlan(planOrProgramName);
   };
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const path = window.location.pathname.replace(/^\//, '');
+    if (path) {
+      const target = document.getElementById(path);
+      if (target) {
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }, 150);
+      }
+    }
+  }, []);
 
   return (
     <div className="relative min-h-screen bg-[#0a0a0a] text-neutral-100 flex flex-col justify-between overflow-x-hidden">

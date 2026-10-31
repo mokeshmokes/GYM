@@ -97,7 +97,15 @@ export default function About() {
             {/* CTA */}
             <div>
               <Link
-                href="#contact"
+                href="/contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (typeof window !== 'undefined') {
+                    window.history.pushState(null, '', '/contact');
+                    window.dispatchEvent(new Event('popstate'));
+                  }
+                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                }}
                 className="btn-gold inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider group"
               >
                 <span>Schedule Your Facility Tour</span>

@@ -1,32 +1,28 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { Crown, Phone, ChevronRight } from 'lucide-react';
-import { GYM_INFO } from '@/data/gymData';
+import Image from 'next/image';
+import { Phone, Crown, ChevronRight } from 'lucide-react';
 import { GymInfo } from '@/types';
+import { GYM_INFO } from '@/data/gymData';
 
 interface NavbarProps {
-  onOpenLeadsModal?: () => void;
   settings?: GymInfo;
+  onOpenLeadsModal?: () => void;
 }
 
-export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: NavbarProps) {
+export default function Navbar({ settings }: NavbarProps) {
   const currentSettings = settings || GYM_INFO;
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [activeSection, setActiveSection] = useState<string>('home');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 30) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 30);
 
-      // Track active section
+      // Track active section and update clean URL without hash
       const sections = [
         'home',
         'about',
@@ -45,6 +41,10 @@ export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: Navbar
           const rect = el.getBoundingClientRect();
           if (rect.top <= 160 && rect.bottom >= 160) {
             setActiveSection(sectionId);
+            const targetPath = sectionId === 'home' ? '/' : `/${sectionId}`;
+            if (typeof window !== 'undefined' && window.location.pathname !== targetPath && !window.location.hash) {
+              window.history.replaceState(null, '', targetPath);
+            }
             break;
           }
         }
@@ -56,17 +56,36 @@ export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: Navbar
   }, []);
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Gallery', href: '#gallery' },
-    { name: 'Equipment', href: '#equipment' },
-    { name: 'Features', href: '#features' },
-    { name: 'Programs', href: '#programs' },
-    { name: 'Trainers', href: '#trainers' },
-    { name: 'Reviews', href: '#reviews' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'Contact', href: '#contact' },
+    { name: 'Home', href: '/', sectionId: 'home' },
+    { name: 'About', href: '/about', sectionId: 'about' },
+    { name: 'Gallery', href: '/gallery', sectionId: 'gallery' },
+    { name: 'Equipment', href: '/equipment', sectionId: 'equipment' },
+    { name: 'Features', href: '/features', sectionId: 'features' },
+    { name: 'Programs', href: '/programs', sectionId: 'programs' },
+    { name: 'Trainers', href: '/trainers', sectionId: 'trainers' },
+    { name: 'Reviews', href: '/reviews', sectionId: 'reviews' },
+    { name: 'Pricing', href: '/pricing', sectionId: 'pricing' },
+    { name: 'Contact', href: '/contact', sectionId: 'contact' },
   ];
+
+  const handleNavClick = (e: React.MouseEvent, href: string, sectionId: string) => {
+    e.preventDefault();
+    if (typeof window !== 'undefined') {
+      window.history.pushState(null, '', href);
+      window.dispatchEvent(new Event('popstate'));
+    }
+    setActiveSection(sectionId);
+    setMobileMenuOpen(false);
+
+    if (sectionId === 'home') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      const target = document.getElementById(sectionId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
 
   return (
     <>
@@ -79,8 +98,12 @@ export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: Navbar
       >
         <div className="w-full max-w-[1680px] mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-2 sm:gap-4">
           
-          {/* Left Column: Brand Logo (Guaranteed non-shrinking, clean spacing) */}
-          <Link href="#home" className="flex items-center gap-2 sm:gap-2.5 group flex-shrink-0 z-10">
+          {/* Left Column: Brand Logo */}
+          <Link
+            href="/"
+            onClick={(e) => handleNavClick(e, '/', 'home')}
+            className="flex items-center gap-2 sm:gap-2.5 group flex-shrink-0 z-10"
+          >
             <div className="relative w-9 h-9 sm:w-11 sm:h-11 md:w-12 md:h-12 flex-shrink-0 transition-transform duration-300 group-hover:scale-105">
               <Image
                 src="/VST_Fitness_World_Logo_Transparent.png"
@@ -101,14 +124,15 @@ export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: Navbar
             </div>
           </Link>
 
-          {/* Middle Column: Desktop Nav Links (Centered, fully visible, zero clipping on HOME or CONTACT) */}
+          {/* Middle Column: Desktop Nav Links (Clean URLs: /about, /pricing, /contact) */}
           <nav className="hidden xl:flex items-center justify-center flex-1 mx-2 2xl:mx-6 gap-0.5 xl:gap-1.5 2xl:gap-3.5">
             {navLinks.map((link) => {
-              const isActive = activeSection === link.href.replace('#', '');
+              const isActive = activeSection === link.sectionId;
               return (
                 <Link
                   key={link.name}
                   href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href, link.sectionId)}
                   className={`group relative text-[10.5px] xl:text-[11.5px] 2xl:text-[13px] font-semibold tracking-wider uppercase transition-all duration-200 py-1.5 px-1.5 xl:px-2 2xl:px-3 rounded-full whitespace-nowrap flex-shrink-0 ${
                     isActive
                       ? 'text-gold-300 font-bold bg-gold-500/10'
@@ -119,7 +143,6 @@ export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: Navbar
                     {link.name}
                   </span>
 
-                  {/* Animated Transforming Gold Underline Indicator */}
                   <span
                     className={`absolute bottom-0 left-2 right-2 h-[2px] bg-gradient-to-r from-transparent via-gold-400 to-transparent transition-all duration-200 origin-center ${
                       isActive
@@ -132,9 +155,9 @@ export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: Navbar
             })}
           </nav>
 
-          {/* Right Column: Actions (Guaranteed non-shrinking, clean spacing) */}
+          {/* Right Column: Actions */}
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0 z-10">
-            {/* Phone link (shown on extra-wide 2xl screens to give maximum room for nav) */}
+            {/* Phone link */}
             <a
               href={`tel:${currentSettings.phoneRaw}`}
               className="hidden 2xl:flex items-center gap-1.5 text-xs font-semibold tracking-wider text-neutral-300 hover:text-gold-400 transition-colors px-3 py-2 rounded-full border border-neutral-800 hover:border-gold-500/40 whitespace-nowrap"
@@ -144,9 +167,10 @@ export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: Navbar
               <span>{currentSettings.phoneDisplay}</span>
             </a>
 
-            {/* Book an Enquiry CTA button */}
+            {/* Book an Enquiry CTA button -> /contact */}
             <Link
-              href="#contact"
+              href="/contact"
+              onClick={(e) => handleNavClick(e, '/contact', 'contact')}
               className="btn-gold px-3.5 sm:px-5 2xl:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center gap-1.5 sm:gap-2 shadow-lg shadow-gold-500/25 transition-all hover:scale-[1.02] whitespace-nowrap"
             >
               <Crown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-neutral-950 flex-shrink-0" />
@@ -160,28 +184,19 @@ export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: Navbar
               aria-label="Toggle navigation menu"
             >
               <div className="w-5 h-4 flex flex-col justify-between items-center relative">
-                {/* Top line */}
                 <span
                   className={`w-5 h-[2px] bg-gold-400 rounded-full transition-all duration-300 origin-center ${
-                    mobileMenuOpen
-                      ? 'rotate-45 translate-y-[7px]'
-                      : ''
+                    mobileMenuOpen ? 'rotate-45 translate-y-[7px]' : ''
                   }`}
                 />
-                {/* Middle line */}
                 <span
                   className={`w-5 h-[2px] bg-gold-400 rounded-full transition-all duration-200 ${
-                    mobileMenuOpen
-                      ? 'opacity-0 scale-x-0'
-                      : 'opacity-100 scale-x-100'
+                    mobileMenuOpen ? 'opacity-0 scale-x-0' : 'opacity-100 scale-x-100'
                   }`}
                 />
-                {/* Bottom line */}
                 <span
                   className={`w-5 h-[2px] bg-gold-400 rounded-full transition-all duration-300 origin-center ${
-                    mobileMenuOpen
-                      ? '-rotate-45 -translate-y-[7px]'
-                      : ''
+                    mobileMenuOpen ? '-rotate-45 -translate-y-[7px]' : ''
                   }`}
                 />
               </div>
@@ -191,7 +206,7 @@ export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: Navbar
         </div>
       </header>
 
-      {/* Mobile / Tablet Drawer Backdrop */}
+      {/* Mobile Drawer Backdrop */}
       {mobileMenuOpen && (
         <div
           className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 transition-opacity duration-300"
@@ -199,7 +214,7 @@ export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: Navbar
         />
       )}
 
-      {/* Mobile / Tablet Drawer with Slide-in Transformation */}
+      {/* Mobile Drawer */}
       <div
         className={`fixed top-0 right-0 bottom-0 w-[290px] sm:w-[350px] bg-[#0c0c0c] border-l border-gold-500/30 z-50 flex flex-col justify-between p-6 shadow-2xl transition-all duration-400 cubic-bezier(0.16,1,0.3,1) ${
           mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
@@ -228,7 +243,6 @@ export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: Navbar
               </div>
             </div>
 
-            {/* Close morph button */}
             <button
               onClick={() => setMobileMenuOpen(false)}
               className="text-neutral-400 hover:text-white p-2 rounded-md hover:bg-neutral-900 transition-colors"
@@ -238,15 +252,15 @@ export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: Navbar
             </button>
           </div>
 
-          {/* Navigation Links with Transformation Hover */}
+          {/* Navigation Links */}
           <nav className="flex flex-col gap-2 mt-5">
             {navLinks.map((link, idx) => {
-              const isActive = activeSection === link.href.replace('#', '');
+              const isActive = activeSection === link.sectionId;
               return (
                 <Link
                   key={link.name}
                   href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
+                  onClick={(e) => handleNavClick(e, link.href, link.sectionId)}
                   style={{ transitionDelay: `${idx * 25}ms` }}
                   className={`group text-sm sm:text-base font-medium tracking-wide py-2.5 px-3.5 rounded-xl transition-all duration-300 flex items-center justify-between ${
                     isActive
@@ -273,8 +287,8 @@ export default function Navbar({ onOpenLeadsModal, settings = GYM_INFO }: Navbar
         {/* Drawer Footer Actions */}
         <div className="pt-5 border-t border-neutral-800 flex flex-col gap-3">
           <Link
-            href="#contact"
-            onClick={() => setMobileMenuOpen(false)}
+            href="/contact"
+            onClick={(e) => handleNavClick(e, '/contact', 'contact')}
             className="btn-gold w-full py-3 rounded-full text-center text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-gold-500/20 transition-transform hover:scale-[1.02]"
           >
             <Crown className="w-4 h-4 text-neutral-950" />

@@ -12,6 +12,10 @@ interface ProgramsProps {
 export default function Programs({ onSelectProgram }: ProgramsProps) {
   const handleEnrollClick = (e: React.MouseEvent<HTMLAnchorElement>, progName: string) => {
     e.preventDefault();
+    if (typeof window !== 'undefined') {
+      window.history.pushState(null, '', '/contact');
+      window.dispatchEvent(new Event('popstate'));
+    }
     onSelectProgram(progName);
     const contactSection = document.getElementById('contact');
     if (contactSection) {
@@ -96,7 +100,7 @@ export default function Programs({ onSelectProgram }: ProgramsProps) {
               {/* Action Button */}
               <div className="px-5 pb-5 pt-0">
                 <a
-                  href="#contact"
+                  href="/contact"
                   onClick={(e) => handleEnrollClick(e, prog.enrollValue)}
                   className="btn-outline-gold w-full py-2.5 rounded-full text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-1.5 group-hover:bg-gold-500/20"
                 >
