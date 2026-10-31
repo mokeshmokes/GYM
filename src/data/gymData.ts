@@ -466,7 +466,7 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     id: 'gal-7',
     category: 'training',
     categoryLabel: 'Training',
-    image: '/Gallery/IMG_3829.jpg',
+    image: '/Gallery/IMG_3849.jpg',
     caption: 'Functional Turf & Heavy Leg Press Zone with Overhead Monkey Bars',
   },
 ];
