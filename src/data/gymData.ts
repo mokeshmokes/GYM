@@ -28,8 +28,6 @@ export const GYM_INFO = {
     weekdays: '5:00 AM – 11:30 PM',
     saturday: '5:00 AM – 11:00 PM',
     sunday: '6:00 AM – 9:00 PM',
-    vip: 'All-Day Priority Member Access',
-    spa: '6:00 AM – 10:00 PM',
   },
 };
 
@@ -37,7 +35,7 @@ export const HERO_TYPING_PHRASES = [
   'Olympic-grade calibrated machinery',
   'custom science-based nutrition blueprints',
   'world-class certified personal coaches',
-  'private VIP recovery & sauna suites',
+  'personalized workout & nutrition plans',
 ];
 
 export const STATS = [
@@ -381,7 +379,7 @@ export const PRICING_PLANS: PricingPlan[] = [
       { text: 'Initial Fitness & Body Composition Assessment', included: true },
       { text: 'Standard Group Fitness Classes', included: true },
       { text: 'Dedicated 1-on-1 Personal Trainer', included: false },
-      { text: 'Private Finnish Sauna & Ice Plunge', included: false },
+      { text: 'Complimentary Workout & Diet Consultation', included: true },
     ],
     buttonText: 'Select Starter Plan',
   },
@@ -395,19 +393,19 @@ export const PRICING_PLANS: PricingPlan[] = [
     amount: '7,499',
     period: '/ quarter',
     features: [
-      { text: 'Full 24/7 Unlimited Priority Access', included: true },
+      { text: 'Full Unlimited Access to Gym Floor', included: true },
       { text: '6 Dedicated 1-on-1 Personal Training Sessions', included: true },
       { text: 'Customized Nutrition & Macro Blueprint', included: true },
       { text: 'Unlimited Access to All Group Classes', included: true },
-      { text: 'Sauna & Cold Plunge Recovery Access', included: true },
-      { text: 'VIP Private Valet Service', included: false },
+      { text: 'Bi-Weekly Body Composition & Goal Tracking', included: true },
+      { text: 'Dedicated Parking Space', included: true },
     ],
     buttonText: 'Claim Pro Membership',
   },
   {
     id: 'yearly-vip',
-    tier: 'Yearly VIP Elite',
-    enrollValue: 'Yearly VIP',
+    tier: 'Yearly Pro Elite',
+    enrollValue: 'Yearly Elite',
     desc: 'The ultimate all-inclusive tier for those demanding elite bespoke wellness.',
     currency: '₹',
     amount: '24,999',
@@ -415,12 +413,12 @@ export const PRICING_PLANS: PricingPlan[] = [
     features: [
       { text: '365-Day Unlimited All-Access Membership', included: true },
       { text: '24 One-on-One Master Coaching Sessions', included: true },
-      { text: 'Quarterly Medical-Grade InBody Scans', included: true },
-      { text: 'Unlimited Infrared Sauna & Ice Plunge', included: true },
-      { text: 'Dedicated Parking Bay & Complimentary Valet', included: true },
-      { text: 'Free VST Exclusive Apparel & Supplement Kit', included: true },
+      { text: 'Quarterly Medical-Grade Body Scans', included: true },
+      { text: 'Continuous Form Analysis & Program Periodization', included: true },
+      { text: 'Dedicated Parking Bay on Main Road', included: true },
+      { text: 'Free VST Exclusive Apparel & Workout Kit', included: true },
     ],
-    buttonText: 'Select VIP Elite',
+    buttonText: 'Select Pro Elite',
   },
 ];
 
@@ -498,7 +496,7 @@ export const TESTIMONIALS_LIST: TestimonialItem[] = [
   {
     id: 'test-3',
     quote:
-      'I have trained in premier health clubs in London, Dubai, and New York. VST FITNESS WORLD beats them all. The cold plunge and sauna suites after a brutal 90-minute hypertrophy session make recovery twice as fast. Unbeatable value.',
+      'I have trained in premier health clubs in London, Dubai, and New York. VST FITNESS WORLD matches global standards. The motivating atmosphere and calibrated VIVA Fitness machines make every training session count. Unbeatable value.',
     name: 'Arjun Mehta',
     role: 'Venture Partner & Lifter',
     image: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=200&q=80',

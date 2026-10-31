@@ -161,14 +161,6 @@ export default function Footer({ onOpenLeadsModal }: FooterProps) {
                 <span>Sunday:</span>
                 <span className="font-semibold text-neutral-200">{GYM_INFO.hours.sunday}</span>
               </li>
-              <li className="flex justify-between pt-2">
-                <span>VIP Cardholders:</span>
-                <span className="font-semibold text-gold-400">{GYM_INFO.hours.vip}</span>
-              </li>
-              <li className="flex justify-between pt-2">
-                <span>Spa & Ice Plunge:</span>
-                <span className="font-semibold text-neutral-200">{GYM_INFO.hours.spa}</span>
-              </li>
             </ul>
           </div>
 
