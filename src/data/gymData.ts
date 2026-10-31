@@ -41,10 +41,10 @@ export const HERO_TYPING_PHRASES = [
 ];
 
 export const STATS = [
-  { target: 1500, suffix: '+', label: 'Active Members' },
+  { target: 100, suffix: '+', label: 'Active Members' },
   { target: 3, suffix: '', label: 'Master Coaches' },
-  { target: 150, suffix: '+', label: 'Modern Machines' },
-  { target: 12, suffix: '+', label: 'Years of Legacy' },
+  { target: 20, suffix: '+', label: 'Modern Machines' },
+  { target: 7, suffix: '+', label: 'Years of Legacy' },
 ];
 
 export const ABOUT_PILLARS = [
@@ -244,7 +244,7 @@ export const FEATURES_LIST: FeatureItem[] = [
     id: 'modern-equipment',
     iconName: 'Gauge',
     title: 'Modern World-Class Equipment',
-    desc: 'Over 150+ biomechanical stations from VIVA Fitness calibrated for pure joint safety.',
+    desc: 'Over 20+ biomechanical stations from VIVA Fitness calibrated for pure joint safety.',
   },
   {
     id: 'clean-ac',

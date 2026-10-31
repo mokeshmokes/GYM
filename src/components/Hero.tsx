@@ -130,7 +130,7 @@ export default function Hero() {
                   <Flame className="w-3.5 h-3.5 text-gold-400" />
                 </div>
                 <div>
-                  <div className="text-[11px] sm:text-xs font-bold text-white tracking-wide">150+ Imported</div>
+                  <div className="text-[11px] sm:text-xs font-bold text-white tracking-wide">20+ Modern</div>
                   <div className="text-[10px] text-neutral-400">Calibrated Stations</div>
                 </div>
               </div>
@@ -150,7 +150,7 @@ export default function Hero() {
                   <Award className="w-3.5 h-3.5 text-gold-400" />
                 </div>
                 <div>
-                  <div className="text-[11px] sm:text-xs font-bold text-white tracking-wide">12+ Years</div>
+                  <div className="text-[11px] sm:text-xs font-bold text-white tracking-wide">7+ Years</div>
                   <div className="text-[10px] text-neutral-400">Legacy Sanctuary</div>
                 </div>
               </div>

@@ -424,7 +424,7 @@ export default function Contact({
                 Book Your Gym Enquiry
               </h3>
               <p className="text-xs sm:text-sm text-neutral-400 leading-relaxed mb-6">
-                Step into Chennai’s premier luxury fitness sanctuary. Fill in your details below to tour our 150+ imported equipment stations, consult our certified master trainers, and explore our membership options.
+                Step into Chennai’s premier luxury fitness sanctuary. Fill in your details below to tour our 20+ modern equipment stations, consult our certified master trainers, and explore our membership options.
               </p>
 
               {/* Gym Benefits Checklist */}

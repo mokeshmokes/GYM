@@ -40,7 +40,7 @@ export default function About() {
                   </div>
                   <div>
                     <div className="font-bebas text-2xl text-white tracking-wider">
-                      12+ Years Of Championship Legacy
+                      7+ Years Of Championship Legacy
                     </div>
                     <div className="text-xs text-gold-300 font-medium">
                       Pallikaranai’s benchmark for uncompromising physique transformation
