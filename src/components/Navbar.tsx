@@ -161,10 +161,12 @@ export default function Navbar({ settings }: NavbarProps) {
             <Link
               href="/contact"
               onClick={(e) => handleNavClick(e, '/contact', 'contact')}
-              className="btn-gold px-3.5 sm:px-5 2xl:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider flex items-center gap-1.5 sm:gap-2 shadow-lg shadow-gold-500/25 transition-all hover:scale-[1.02] whitespace-nowrap"
+              className="btn-gold px-2.5 min-[380px]:px-3.5 sm:px-5 2xl:px-6 py-1.5 sm:py-2.5 rounded-full text-[11px] sm:text-sm font-bold uppercase tracking-wider flex items-center gap-1 sm:gap-2 shadow-lg shadow-gold-500/25 transition-all hover:scale-[1.02] whitespace-nowrap"
             >
               <Crown className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-neutral-950 flex-shrink-0" />
-              <span>Book an Enquiry</span>
+              <span>
+                <span className="hidden min-[420px]:inline">Book an </span>Enquiry
+              </span>
             </Link>
 
             {/* Mobile / Tablet Menu Transformation Button */}
@@ -207,7 +209,7 @@ export default function Navbar({ settings }: NavbarProps) {
       {/* Mobile Drawer */}
       <div
         className={`fixed top-0 right-0 bottom-0 w-[290px] sm:w-[350px] bg-[#0c0c0c] border-l border-gold-500/30 z-50 flex flex-col justify-between p-6 shadow-2xl transition-all duration-400 cubic-bezier(0.16,1,0.3,1) ${
-          mobileMenuOpen ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'
+          mobileMenuOpen ? 'translate-x-0 opacity-100 pointer-events-auto' : 'translate-x-full opacity-0 pointer-events-none'
         }`}
       >
         <div className="overflow-y-auto">

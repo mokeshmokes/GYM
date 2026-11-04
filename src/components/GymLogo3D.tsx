@@ -25,18 +25,18 @@ export default function GymLogo3D() {
 
   return (
     <div
-      className="relative w-full max-w-[340px] sm:max-w-[400px] lg:max-w-[440px] xl:max-w-[480px] aspect-square mx-auto flex items-center justify-center select-none"
+      className="relative w-full max-w-[270px] min-[380px]:max-w-[320px] sm:max-w-[380px] lg:max-w-[440px] xl:max-w-[480px] aspect-square mx-auto flex items-center justify-center select-none"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ perspective: '1100px' }}
     >
       {/* Golden Aura Glow (Highlighted softly in the air) */}
       <div className="absolute inset-2 sm:inset-4 rounded-full bg-gradient-to-tr from-gold-500/30 via-gold-400/20 to-transparent blur-3xl pointer-events-none animate-pulse-slow" />
-      <div className="absolute w-72 h-72 sm:w-88 sm:h-88 rounded-full bg-gold-500/20 blur-2xl pointer-events-none" />
+      <div className="absolute w-56 h-56 sm:w-80 sm:h-80 rounded-full bg-gold-500/20 blur-2xl pointer-events-none" />
 
       {/* Floating 3D Emblem Container (Smoothly flying in the air) */}
       <div
-        className="relative w-[300px] h-[300px] sm:w-[360px] sm:h-[360px] md:w-[410px] md:h-[410px] animate-float-air transition-transform duration-500 ease-out flex items-center justify-center"
+        className="relative w-[240px] h-[240px] min-[380px]:w-[290px] min-[380px]:h-[290px] sm:w-[350px] sm:h-[350px] md:w-[410px] md:h-[410px] animate-float-air transition-transform duration-500 ease-out flex items-center justify-center"
         style={{
           transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
           transformStyle: 'preserve-3d',

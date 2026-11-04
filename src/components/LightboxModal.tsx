@@ -81,7 +81,7 @@ export default function LightboxModal({
               e.stopPropagation();
               onPrev();
             }}
-            className="absolute -left-3.5 sm:-left-5 md:-left-6 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-neutral-950/95 border border-gold-500/70 text-gold-400 hover:text-white hover:border-gold-300 hover:scale-110 flex items-center justify-center transition-all z-50 shadow-xl shadow-black cursor-pointer"
+            className="absolute left-1 sm:-left-5 md:-left-6 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-neutral-950/95 border border-gold-500/70 text-gold-400 hover:text-white hover:border-gold-300 hover:scale-110 flex items-center justify-center transition-all z-50 shadow-xl shadow-black cursor-pointer"
             aria-label="Previous Image"
             title="Previous (←)"
           >
@@ -96,7 +96,7 @@ export default function LightboxModal({
               e.stopPropagation();
               onNext();
             }}
-            className="absolute -right-3.5 sm:-right-5 md:-right-6 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-neutral-950/95 border border-gold-500/70 text-gold-400 hover:text-white hover:border-gold-300 hover:scale-110 flex items-center justify-center transition-all z-50 shadow-xl shadow-black cursor-pointer"
+            className="absolute right-1 sm:-right-5 md:-right-6 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-neutral-950/95 border border-gold-500/70 text-gold-400 hover:text-white hover:border-gold-300 hover:scale-110 flex items-center justify-center transition-all z-50 shadow-xl shadow-black cursor-pointer"
             aria-label="Next Image"
             title="Next (→)"
           >

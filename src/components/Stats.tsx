@@ -62,7 +62,7 @@ export default function Stats() {
           {STATS.map((stat, idx) => (
             <div
               key={stat.label}
-              className="glass-card p-6 rounded-2xl flex flex-col items-center text-center group hover:border-gold-500/50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-black/40"
+              className="glass-card p-4 sm:p-6 rounded-2xl flex flex-col items-center text-center group hover:border-gold-500/50 transition-all duration-300 transform hover:-translate-y-1 shadow-lg shadow-black/40"
             >
               <div className="w-12 h-12 rounded-xl bg-gold-500/10 border border-gold-500/30 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                 {icons[idx]}

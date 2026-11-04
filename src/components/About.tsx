@@ -33,7 +33,7 @@ export default function About() {
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
               {/* Floating Experience Badge */}
-              <div className="absolute bottom-6 left-6 right-6 p-5 rounded-2xl glass-card border border-gold-500/40 backdrop-blur-xl">
+              <div className="absolute bottom-3 sm:bottom-6 left-3 sm:left-6 right-3 sm:right-6 p-3.5 sm:p-5 rounded-2xl glass-card border border-gold-500/40 backdrop-blur-xl">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-gold-gradient flex items-center justify-center text-neutral-950 font-bold shadow-lg shadow-gold-500/30">
                     <Award className="w-6 h-6" />

@@ -35,19 +35,19 @@ export default function FloatingActions({ settings = GYM_INFO }: FloatingActions
   )}`;
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-3 pointer-events-none">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2.5 sm:gap-3 pointer-events-none">
       {/* WhatsApp Button */}
       <a
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="pointer-events-auto relative group w-14 h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300 shadow-emerald-950/80"
+        className="pointer-events-auto relative group w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all duration-300 shadow-emerald-950/80"
         aria-label="Chat on WhatsApp"
       >
-        <MessageCircle className="w-7 h-7 fill-white" />
+        <MessageCircle className="w-6 h-6 sm:w-7 sm:h-7 fill-white" />
 
         {/* Hover Tooltip */}
-        <span className="absolute right-16 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-xl bg-black/90 text-white text-xs font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none border border-emerald-500/30 shadow-lg">
+        <span className="hidden sm:block absolute right-16 top-1/2 -translate-y-1/2 px-3 py-1.5 rounded-xl bg-black/90 text-white text-xs font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none border border-emerald-500/30 shadow-lg">
           Chat on WhatsApp ({currentSettings.phoneDisplay})
         </span>
 
@@ -59,10 +59,10 @@ export default function FloatingActions({ settings = GYM_INFO }: FloatingActions
       {showBackToTop && (
         <button
           onClick={scrollToTop}
-          className="pointer-events-auto w-12 h-12 rounded-full bg-neutral-900 border border-gold-500/40 text-gold-400 hover:bg-gold-500 hover:text-black hover:border-gold-400 flex items-center justify-center transition-all duration-300 shadow-xl shadow-black/80"
+          className="pointer-events-auto w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-neutral-900 border border-gold-500/40 text-gold-400 hover:bg-gold-500 hover:text-black hover:border-gold-400 active:scale-95 flex items-center justify-center transition-all duration-300 shadow-xl shadow-black/80"
           aria-label="Scroll to top"
         >
-          <ArrowUp className="w-5 h-5" />
+          <ArrowUp className="w-4 h-4 sm:w-5 sm:h-5" />
         </button>
       )}
     </div>
