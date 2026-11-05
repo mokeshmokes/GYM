@@ -49,6 +49,10 @@ export const DEFAULT_ANNOUNCEMENT: AnnouncementData = {
   popupFrequency: 'session',
 };
 
+export const ESTABLISHED_YEAR = 2014;
+export const CURRENT_YEAR = new Date().getFullYear();
+export const LEGACY_YEARS = Math.max(1, CURRENT_YEAR - ESTABLISHED_YEAR);
+
 export const HERO_TYPING_PHRASES = [
   'Olympic-grade calibrated machinery',
   'custom science-based nutrition blueprints',
@@ -60,7 +64,7 @@ export const STATS = [
   { target: 100, suffix: '+', label: 'Active Members' },
   { target: 3, suffix: '', label: 'Master Coaches' },
   { target: 20, suffix: '+', label: 'Modern Machines' },
-  { target: 7, suffix: '+', label: 'Years of Legacy' },
+  { target: LEGACY_YEARS, suffix: '+', label: 'Years of Legacy' },
 ];
 
 export const ABOUT_PILLARS = [

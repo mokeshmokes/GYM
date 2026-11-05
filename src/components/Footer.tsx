@@ -13,7 +13,7 @@ import {
   ChevronRight,
   Clock,
 } from 'lucide-react';
-import { GYM_INFO } from '@/data/gymData';
+import { GYM_INFO, ESTABLISHED_YEAR } from '@/data/gymData';
 import { GymInfo } from '@/types';
 
 interface FooterProps {
@@ -186,7 +186,7 @@ export default function Footer({ onOpenLeadsModal, settings = GYM_INFO }: Footer
         {/* Footer Bottom (Clean Customer Facing) */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-neutral-500">
           <div>
-            &copy; {new Date().getFullYear()} <strong className="text-neutral-300">{currentSettings.brandName || 'VST FITNESS WORLD'}</strong>. All Rights Reserved. Built for champions.
+            &copy; {ESTABLISHED_YEAR} &ndash; {new Date().getFullYear()} <strong className="text-neutral-300">{currentSettings.brandName || 'VST FITNESS WORLD'}</strong>. All Rights Reserved. Built for champions.
           </div>
 
           <div className="flex items-center gap-6">
