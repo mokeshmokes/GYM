@@ -9,7 +9,7 @@ export default defineConfig({
   basePath: '/studio',
   name: 'vst-fitness-world-studio',
   title: 'VST Fitness World Management Studio',
-  projectId: projectId || '3j25esiw',
+  projectId: projectId || '5cgwgqi3',
   dataset: dataset || 'production',
   plugins: [
     structureTool({
