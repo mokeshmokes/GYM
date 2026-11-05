@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Crown, Sparkles, ArrowRight, ShieldCheck, Flame, Compass, Award, CalendarCheck } from 'lucide-react';
-import { HERO_TYPING_PHRASES } from '@/data/gymData';
+import { HERO_TYPING_PHRASES, LEGACY_YEARS } from '@/data/gymData';
 import GymLogo3D from './GymLogo3D';
 
 export default function Hero() {
@@ -166,7 +166,7 @@ export default function Hero() {
                   <Award className="w-3.5 h-3.5 text-gold-400" />
                 </div>
                 <div>
-                  <div className="text-[11px] sm:text-xs font-bold text-white tracking-wide">7+ Years</div>
+                  <div className="text-[11px] sm:text-xs font-bold text-white tracking-wide">{LEGACY_YEARS}+ Years</div>
                   <div className="text-[10px] text-neutral-400">Legacy Sanctuary</div>
                 </div>
               </div>

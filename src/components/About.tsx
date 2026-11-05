@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Dumbbell, Activity, Flame, Shield, ArrowRight, Award } from 'lucide-react';
-import { ABOUT_PILLARS } from '@/data/gymData';
+import { ABOUT_PILLARS, LEGACY_YEARS } from '@/data/gymData';
 
 export default function About() {
   const pillarIcons = [
@@ -40,7 +40,7 @@ export default function About() {
                   </div>
                   <div>
                     <div className="font-bebas text-2xl text-white tracking-wider">
-                      7+ Years Of Championship Legacy
+                      {LEGACY_YEARS}+ Years Of Championship Legacy
                     </div>
                     <div className="text-xs text-gold-300 font-medium">
                       Pallikaranai’s benchmark for uncompromising physique transformation
